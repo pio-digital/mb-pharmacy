@@ -1,167 +1,260 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
+import random
+import string
 
-from django.db import models
+from bson import objectid
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
+from home.consts import (
+    CASHIER,
+    CURRENCY_CHOICES,
+    CURRENCY_IDR,
+    PENDING,
+    ROLE_CHOICES,
+    STATUS_CHOICES,
+)
+from home.utils import format_currency
 
-class UserProfile(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+def create_object_id():
+    return str(objectid.ObjectId())
 
-    #__PROFILE_FIELDS__
 
-    #__PROFILE_FIELDS__END
+def generate_sku(length=12):
+    characters = string.ascii_uppercase + string.digits
+    return "".join(random.choices(characters, k=length))
 
-    def __str__(self):
-        return self.user.username
-    
+
+class BaseModel(models.Model):
+    uid = models.CharField(default=create_object_id, db_index=True, max_length=32)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
     class Meta:
-        verbose_name        = _("UserProfile")
+        abstract = True
+        ordering = ["-uid"]
+
+
+class UserProfile(BaseModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(
+        max_length=15,
+        choices=ROLE_CHOICES,
+        default=CASHIER,
+    )
+
+    class Meta:
+        verbose_name = _("UserProfile")
         verbose_name_plural = _("UserProfile")
 
-#__MODELS__
-class Unit(models.Model):
+    def __str__(self):
+        return f"{self.user} - {self.role}"
 
-    #__Unit_FIELDS__
-    nama = models.CharField(max_length=255, null=True, blank=True)
 
-    #__Unit_FIELDS__END
+# __MODELS__
+class Unit(BaseModel):
+
+    # __Unit_FIELDS__
+    nama = models.CharField(max_length=30)
+
+    # __Unit_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Unit")
+        verbose_name = _("Unit")
         verbose_name_plural = _("Unit")
 
+    def __str__(self):
+        return self.nama
 
-class Supplier(models.Model):
 
-    #__Supplier_FIELDS__
-    nama = models.CharField(max_length=255, null=True, blank=True)
-    nomor_kontak = models.CharField(max_length=255, null=True, blank=True)
+class Supplier(BaseModel):
 
-    #__Supplier_FIELDS__END
+    # __Supplier_FIELDS__
+    nama = models.CharField(max_length=50)
+    nomor_kontak = models.CharField(max_length=15, null=True, blank=True)
+
+    # __Supplier_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Supplier")
+        verbose_name = _("Supplier")
         verbose_name_plural = _("Supplier")
 
+    def __str__(self):
+        return self.nama
 
-class Produk(models.Model):
 
-    #__Produk_FIELDS__
-    supplier = models.CharField(max_length=255, null=True, blank=True)
-    nama = models.CharField(max_length=255, null=True, blank=True)
-    brand = models.CharField(max_length=255, null=True, blank=True)
-    kemasan = models.CharField(max_length=255, null=True, blank=True)
-    deskripsi = models.CharField(max_length=255, null=True, blank=True)
+class Produk(BaseModel):
 
-    #__Produk_FIELDS__END
+    # __Produk_FIELDS__
+    supplier = models.ForeignKey(
+        Supplier,
+        on_delete=models.CASCADE,
+    )
+    nama = models.CharField(max_length=50, null=True, blank=True)
+    brand = models.CharField(max_length=50, null=True, blank=True)
+    kemasan = models.CharField(max_length=32, null=True, blank=True)
+    unit_per_kemasan = models.PositiveIntegerField()
+    deskripsi = models.TextField(blank=True, null=True)
+
+    # __Produk_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Produk")
+        verbose_name = _("Produk")
         verbose_name_plural = _("Produk")
 
+    def __str__(self):
+        return self.nama
 
-class Akun(models.Model):
 
-    #__Akun_FIELDS__
-    role = models.CharField(max_length=255, null=True, blank=True)
-    user = models.CharField(max_length=255, null=True, blank=True)
+class VarianProduk(BaseModel):
 
-    #__Akun_FIELDS__END
+    # __Varianproduk_FIELDS__
+    produk = models.ForeignKey(Produk, on_delete=models.CASCADE)
+    barcode = models.CharField(max_length=32, null=True, blank=True)
+    sku = models.CharField(
+        max_length=32,
+        default=generate_sku,
+    )
+    tanggal_kedaluwarsa = models.DateField()
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+    kuantitas = models.PositiveIntegerField()
+    harga_beli = models.PositiveIntegerField()
+    kurs_harga_beli = models.CharField(
+        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
+    )
+    harga_jual = models.PositiveIntegerField()
+    kurs_harga_jual = models.CharField(
+        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
+    )
+    margin = models.CharField(max_length=255, null=True, blank=True)
+    nama_rak = models.CharField(max_length=30, null=True, blank=True)
+
+    # __Varianproduk_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Akun")
-        verbose_name_plural = _("Akun")
+        verbose_name = _("VarianProduk")
+        verbose_name_plural = _("VarianProduk")
+
+    def __str__(self) -> str:
+        return f"{self.sku} {self.product}: {self.unit}"
 
 
-class Lokasi(models.Model):
+class Lokasi(BaseModel):
 
-    #__Lokasi_FIELDS__
+    # __Lokasi_FIELDS__
     nama_toko = models.CharField(max_length=255, null=True, blank=True)
     alamat_lengkap = models.CharField(max_length=255, null=True, blank=True)
     nomor_telepon = models.CharField(max_length=255, null=True, blank=True)
 
-    #__Lokasi_FIELDS__END
+    # __Lokasi_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Lokasi")
+        verbose_name = _("Lokasi")
         verbose_name_plural = _("Lokasi")
 
+    def __str__(self):
+        return self.nama_toko
 
-class Metodepembayaran(models.Model):
 
-    #__Metodepembayaran_FIELDS__
+class MetodePembayaran(BaseModel):
+
+    # __Metodepembayaran_FIELDS__
     nama = models.CharField(max_length=255, null=True, blank=True)
 
-    #__Metodepembayaran_FIELDS__END
+    # __Metodepembayaran_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Metodepembayaran")
-        verbose_name_plural = _("Metodepembayaran")
+        verbose_name = _("Metode Pembayaran")
+        verbose_name_plural = _("Metode Pembayaran")
+
+    def __str__(self):
+        return self.nama
 
 
-class Transaksi(models.Model):
+class Transaksi(BaseModel):
+    class StatusChoices(models.TextChoices):
+        SUCCESS = "success", _("Sukses")
+        PENDING = "pending", _("Tertunda")
+        CANCELLED = "cancelled", _("Dibatalkan")
+        VOID = "void", _("Void")
 
-    #__Transaksi_FIELDS__
-    akun = models.CharField(max_length=255, null=True, blank=True)
-    lokasi = models.CharField(max_length=255, null=True, blank=True)
-    metode_pembayaran = models.CharField(max_length=255, null=True, blank=True)
-    status = models.CharField(max_length=255, null=True, blank=True)
+    # __Transaksi_FIELDS__
+    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    lokasi = models.ForeignKey(
+        Lokasi,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    kurs = models.CharField(
+        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
+    )
+    total_biaya = models.IntegerField()
+    metode_pembayaran = models.ForeignKey(
+        MetodePembayaran,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default=PENDING,
+    )
 
-    #__Transaksi_FIELDS__END
+    # __Transaksi_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Transaksi")
+        verbose_name = _("Transaksi")
         verbose_name_plural = _("Transaksi")
 
+    def __str__(self):
+        return f"{self.profile} – {self.lokasi} {format_currency(self.kurs, self.total_biaya)}"
 
-class Itemtransaksi(models.Model):
 
-    #__Itemtransaksi_FIELDS__
-    transaksi = models.CharField(max_length=255, null=True, blank=True)
-    item = models.CharField(max_length=255, null=True, blank=True)
+class ItemTransaksi(BaseModel):
+    class TypeChoices(models.TextChoices):
+        PRESCRIPTION = "resep", _("Resep")
+        NON_PRESCRIPTION = "non-resep", _("Tanpa Resep")
+
+    # __ItemTransaksi_FIELDS__
+    transaksi = models.ForeignKey(Transaksi, on_delete=models.CASCADE)
+    item = models.ForeignKey(
+        VarianProduk,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    kuantitas = models.PositiveIntegerField()
+    kurs = models.CharField(
+        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
+    )
+    harga = models.IntegerField()
     tipe_transaksi = models.CharField(max_length=255, null=True, blank=True)
 
-    #__Itemtransaksi_FIELDS__END
+    # __ItemTransaksi_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Itemtransaksi")
-        verbose_name_plural = _("Itemtransaksi")
+        verbose_name = _("ItemTransaksi")
+        verbose_name_plural = _("ItemTransaksi")
+
+    def __str__(self):
+        return (
+            f"{self.item} @ {self.kuantitas} {format_currency(self.kurs, self.harga)}"
+        )
 
 
-class Sumberdana(models.Model):
+class SumberDana(BaseModel):
 
-    #__Sumberdana_FIELDS__
+    # __SumberDana_FIELDS__
     nama = models.CharField(max_length=255, null=True, blank=True)
 
-    #__Sumberdana_FIELDS__END
+    # __SumberDana_FIELDS__END
 
     class Meta:
-        verbose_name        = _("Sumberdana")
-        verbose_name_plural = _("Sumberdana")
+        verbose_name = _("SumberDana")
+        verbose_name_plural = _("SumberDana")
 
 
-class Varianproduk(models.Model):
-
-    #__Varianproduk_FIELDS__
-    barcode = models.CharField(max_length=255, null=True, blank=True)
-    sku = models.CharField(max_length=255, null=True, blank=True)
-    tanggal_kedaluwarsa = models.CharField(max_length=255, null=True, blank=True)
-    unit = models.CharField(max_length=255, null=True, blank=True)
-    margin = models.CharField(max_length=255, null=True, blank=True)
-    nama_rak = models.CharField(max_length=255, null=True, blank=True)
-
-    #__Varianproduk_FIELDS__END
-
-    class Meta:
-        verbose_name        = _("Varianproduk")
-        verbose_name_plural = _("Varianproduk")
-
-
-
-#__MODELS__END
+# __MODELS__END

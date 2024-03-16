@@ -1,10 +1,15 @@
+# flake8: noqa
+
 # -*- encoding: utf-8 -*-
 """
 Copyright (c) 2019 - present AppSeed.us
 """
 
-import os, random, string
+import os
+import random
+import string
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 from helpers import *
@@ -173,25 +178,24 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # __API_GENERATOR__
 API_GENERATOR = {
-    #__RULES__
-    'unit' : 'home.models.Unit',
-    'supplier' : 'home.models.Supplier',
-    'produk' : 'home.models.Produk',
-    'akun' : 'home.models.Akun',
-    'lokasi' : 'home.models.Lokasi',
-    'metodepembayaran' : 'home.models.MetodePembayaran',
-    'transaksi' : 'home.models.Transaksi',
-    'itemtransaksi' : 'home.models.ItemTransaksi',
-    'sumberdana' : 'home.models.SumberDana',
-    'varianproduk' : 'home.models.VarianProduk',
-
-    #__RULES__END
+    # __RULES__
+    "unit": "home.models.Unit",
+    "supplier": "home.models.Supplier",
+    "produk": "home.models.Produk",
+    "akun": "home.models.Akun",
+    "lokasi": "home.models.Lokasi",
+    "metodepembayaran": "home.models.MetodePembayaran",
+    "transaksi": "home.models.Transaksi",
+    "itemtransaksi": "home.models.ItemTransaksi",
+    "sumberdana": "home.models.SumberDana",
+    "varianproduk": "home.models.VarianProduk",
+    # __RULES__END
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ],
 }
 # __API_GENERATOR__END
