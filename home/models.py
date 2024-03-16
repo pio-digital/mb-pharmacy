@@ -45,8 +45,8 @@ class UserProfile(BaseModel):
     )
 
     class Meta:
-        verbose_name = _("UserProfile")
-        verbose_name_plural = _("UserProfile")
+        verbose_name = _("User Profile")
+        verbose_name_plural = _("User Profile")
 
     def __str__(self):
         return f"{self.user} - {self.role}"
@@ -133,8 +133,8 @@ class VarianProduk(BaseModel):
     # __Varianproduk_FIELDS__END
 
     class Meta:
-        verbose_name = _("VarianProduk")
-        verbose_name_plural = _("VarianProduk")
+        verbose_name = _("Varian Produk")
+        verbose_name_plural = _("Varian Produk")
 
     def __str__(self) -> str:
         return f"{self.sku} {self.product}: {self.unit}"
@@ -236,8 +236,8 @@ class ItemTransaksi(BaseModel):
     # __ItemTransaksi_FIELDS__END
 
     class Meta:
-        verbose_name = _("ItemTransaksi")
-        verbose_name_plural = _("ItemTransaksi")
+        verbose_name = _("Item Transaksi")
+        verbose_name_plural = _("Item Transaksi")
 
     def __str__(self):
         return (
@@ -253,8 +253,8 @@ class SumberDana(BaseModel):
     # __SumberDana_FIELDS__END
 
     class Meta:
-        verbose_name = _("SumberDana")
-        verbose_name_plural = _("SumberDana")
+        verbose_name = _("Sumber Dana")
+        verbose_name_plural = _("Sumber Dana")
 
 
 # __MODELS__END
