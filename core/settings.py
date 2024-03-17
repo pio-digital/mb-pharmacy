@@ -182,7 +182,6 @@ API_GENERATOR = {
     "unit": "home.models.Unit",
     "supplier": "home.models.Supplier",
     "produk": "home.models.Produk",
-    "akun": "home.models.Akun",
     "lokasi": "home.models.Lokasi",
     "metodepembayaran": "home.models.MetodePembayaran",
     "transaksi": "home.models.Transaksi",
