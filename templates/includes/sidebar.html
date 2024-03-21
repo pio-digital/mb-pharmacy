@@ -69,7 +69,7 @@
         {% endif %}
 
         {% if request.user.is_authenticated %}
-        <li data-username="POS Page" class="nav-item {% if 'pos_page' in segment %}active{% endif %}"><a href="{% url 'sample_page' %}" class="nav-link"><span
+        <li data-username="POS Page" class="nav-item {% if 'pos_page' in segment %}active{% endif %}"><a href="{% url 'pos_page' %}" class="nav-link"><span
               class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">POS</span></a>
         </li>
         {% endif %}

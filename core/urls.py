@@ -9,6 +9,7 @@ except Exception:
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("admin_datta.urls")),
+    path("", include("home.urls")),
     path("login/jwt/", view=obtain_auth_token),
 ]
 
