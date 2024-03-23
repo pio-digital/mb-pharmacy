@@ -42,3 +42,10 @@ ROLE_CHOICES = (
     (ADMIN, _("Admin")),
     (CASHIER, _("Kasir")),
 )
+
+PRESCRIPTION = "resep"
+NON_PRESCRIPTION = "non-resep"
+TRANSACTION_TYPE_CHOICES = (
+    (PRESCRIPTION, _("Resep")),
+    (NON_PRESCRIPTION, _("Tanpa Resep")),
+)

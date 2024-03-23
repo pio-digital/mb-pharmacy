@@ -11,9 +11,11 @@ from home.consts import (
     CASHIER,
     CURRENCY_CHOICES,
     CURRENCY_IDR,
+    NON_PRESCRIPTION,
     PENDING,
     ROLE_CHOICES,
     STATUS_CHOICES,
+    TRANSACTION_TYPE_CHOICES,
 )
 
 
@@ -137,7 +139,7 @@ class VarianProduk(BaseModel):
         verbose_name_plural = _("Varian Produk")
 
     def __str__(self) -> str:
-        return f"{self.sku} {self.product}: {self.unit}"
+        return f"{self.sku} {self.produk}: {self.unit}"
 
 
 class Lokasi(BaseModel):
@@ -210,14 +212,10 @@ class Transaksi(BaseModel):
         verbose_name_plural = _("Transaksi")
 
     def __str__(self):
-        return f"{self.profile} – {self.lokasi} {format_currency(self.kurs, self.total_biaya)}"
+        return f"{self.profile} – {self.lokasi} {format_currency(self.total_biaya, self.kurs)}"
 
 
 class ItemTransaksi(BaseModel):
-    class TypeChoices(models.TextChoices):
-        PRESCRIPTION = "resep", _("Resep")
-        NON_PRESCRIPTION = "non-resep", _("Tanpa Resep")
-
     # __ItemTransaksi_FIELDS__
     transaksi = models.ForeignKey(Transaksi, on_delete=models.CASCADE)
     item = models.ForeignKey(
@@ -231,7 +229,11 @@ class ItemTransaksi(BaseModel):
         max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
     )
     harga = models.IntegerField()
-    tipe_transaksi = models.CharField(max_length=255, null=True, blank=True)
+    tipe_transaksi = models.CharField(
+        max_length=15,
+        choices=TRANSACTION_TYPE_CHOICES,
+        default=NON_PRESCRIPTION,
+    )
 
     # __ItemTransaksi_FIELDS__END
 
@@ -241,7 +243,7 @@ class ItemTransaksi(BaseModel):
 
     def __str__(self):
         return (
-            f"{self.item} @ {self.kuantitas} {format_currency(self.kurs, self.harga)}"
+            f"{self.item} @ {self.kuantitas} {format_currency(self.harga, self.kurs)}"
         )
 
 
