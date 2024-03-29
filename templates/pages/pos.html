@@ -24,23 +24,36 @@
     {% endfor %}
   {% endif %}
 
+  <!-- POPUP Result HERE? -->
+  {% if results.exists %}
+    {% for result in results %}
+      {{ result }}
+    {% endfor %}
+
+  {% else %}
+    <p>Nope</p>
+  {% endif %}
+  <!-- End of POPUP -->
+
   <div class="row mt-4">
     <div class="col-lg-12 mb-2 fixed">
       <div class="card m-0 p-4 bg-primary shadow-none">
         <div class="row">
           <div class="col-xs-12 col-lg-9">
-            <div class="input-group form-rounded">
-              <input class="form-control py-2 border-right-0 border form-rounded"
-                     type="search"
-                     placeholder="Tulis nama, kode, atau zat aktif"
-                     autofocus="autofocus"
-                     id="inputCode">
-              <span class="input-group-append">
-                <div class="input-group-text bg-transparent form-rounded">
-                  <i class="fa fa-search"></i>
+              <form action="{% url 'search' %}" method="GET">
+                <div class="input-group form-rounded">
+                  <input class="form-control py-2 border-right-0 border form-rounded"
+                        type="search"
+                        placeholder="Tulis nama, kode, atau zat aktif"
+                        autofocus="autofocus"
+                        id="inputCode">
+                    <span class="input-group-append">
+                      <div class="input-group-text bg-transparent form-rounded">
+                        <i class="fa fa-search"></i>
+                      </div>
+                    </span>
                 </div>
-              </span>
-            </div>
+            </form>
           </div>
           <div class="col-xs-12 col-lg-3 d-inline-flex text-white">
             <span>Rp.</span>

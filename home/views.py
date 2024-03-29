@@ -1,28 +1,22 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views import View
+from django.views.generic import CreateView, TemplateView
 
 from home.forms import ItemTransaksiFormSet, TransaksiCreateForm
-from home.models import Transaksi
+from home.models import Transaksi, VarianProduk
 
 
-@login_required(login_url="/accounts/login/")
-def index(request):
+class HomeView(LoginRequiredMixin, View):
+    login_url = "login"
+    redirect_field_name = "home"
 
-    # Page from the theme
-    return render(request, "pages/index.html")
-
-
-@login_required(login_url="/accounts/login/")
-def pos_page(request):
-    context = {
-        "segment": "pos_page",
-    }
-    return render(request, "pages/pos.html", context)
+    def get(self, request, *args, **kwargs):
+        return render(request, "pages/index.html")
 
 
 class POSView(LoginRequiredMixin, CreateView):
@@ -35,6 +29,8 @@ class POSView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["segment"] = "pos_page"
+
         if self.request.POST:
             context["formset"] = ItemTransaksiFormSet(
                 self.request.POST, instance=self.object
@@ -61,3 +57,19 @@ class POSView(LoginRequiredMixin, CreateView):
                 formset.instance = self.object
                 formset.save()
         return super().form_valid(form)
+
+
+class SearchView(TemplateView):
+    model = VarianProduk
+    template_name = "pages/pos.html"
+
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get("q", "")
+        self.results = VarianProduk.objects.filter(
+            Q(barcode__icontains=q) | Q(produk__nama=q)
+        )
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """Add context to the template"""
+        return super().get_context_data(results=self.results, **kwargs)
