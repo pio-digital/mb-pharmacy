@@ -57,36 +57,48 @@
           </div>
           <div class="col-xs-12 col-lg-3 d-inline-flex text-white">
             <span>Rp.</span>
-            <span class="font-weight-bold" style="font-size: 1.5rem;">Price</span>
+            <span class="font-weight-bold" style="font-size: 1.5rem;">
+              {{ form.total_biaya }}
+            </span>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-8">
       <div class="card m-0 p-4 shadow-none">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">Product</th>
-              <th scope="col">Kuantitas</th>
-              <th scope="col">Satuan</th>
-              <th scope="col">Opsi Harga</th>
-              <th scope="col">Harga Jual</th>
-              <th scope="col">Sub Total</th>
+        <table class="table w-full">
+          <form method="post">
+            {% csrf_token %}
+      
+            <!-- Form Item Transaksi -->
+            {{ formset.management_form }}
+          
+            {% for form in formset.forms %}
+            {% if forloop.first %}
+            <thead>
+              <tr>
+                {% for field in form.visible_fields %}
+                <th>{{ field.label|capfirst }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            {% endif %}
+            <tr class="{% cycle row1 row2 %} formset_row">
+              {% for field in form.visible_fields %}
+              <td>
+                {# Include the hidden fields in the form #}
+                {% if forloop.first %}
+                  {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                  {% endfor %}
+                {% endif %}
+                  {{ field.errors.as_ul }}
+                  {{ field }}
+              </td>
+              {% endfor %}
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Value</td>
-              <td>Input Kuantitas</td>
-              <td>Dropdown</td>
-              <td>Dropdown</td>
-              <td>Input Price</td>
-              <td>value</td>
-            </tr>
-          </tbody>
+            {% endfor %}
+          </form>
         </table>
       </div>
     </div>
@@ -94,11 +106,9 @@
       <div class="card m-0 p-4 shadow-none">
         <form>
           <div class="form-group row">
-            <label for="subTotal" class="col-xs-12 col-lg-3 col-form-label">Sub Total</label>
+            <label for="subTotal" class="col-xs-12 col-lg-3 col-form-label">{{ form.lokasi.label }}</label>
             <div class="col-xs-12 col-lg-9">
-              <input type="text"
-                     class="form-control form-control-lg text-right"
-                     id="subTotal">
+              {{ form.lokasi }}
             </div>
           </div>
           <div class="form-group row">
@@ -118,102 +128,26 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="paymentChange" class="col-xs-12 col-lg-3 col-form-label">Metode Pembayaran</label>
+            <label for="paymentChange" class="col-xs-12 col-lg-3 col-form-label">{{ form.metode_pembayaran.label }}</label>
             <div class="col-xs-12 col-lg-9">
-              <input type="text" class="form-control form-control-lg" id="paymentChange">
+              {{ form.metode_pembayaran }}
             </div>
           </div>
           <div class="form-group row">
-            <label for="paymentChange" class="col-xs-12 col-lg-3 col-form-label">Diskon Tambahan</label>
+            <label for="paymentChange" class="col-xs-12 col-lg-3 col-form-label">{{ form.status.label }}</label>
             <div class="col-xs-12 col-lg-9">
-              <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active"
-                     data-toggle="tab"
-                     href="#discountPercentage"
-                     role="tab"
-                     aria-controls="discountPercentage"
-                     aria-selected="true">%</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link"
-                     data-toggle="tab"
-                     href="#discountMoney"
-                     role="tab"
-                     aria-controls="discountMoney"
-                     aria-selected="false">Rp</a>
-                </li>
-              </ul>
-              <div class="tab-content p-0 mt-2">
-                <div class="tab-pane active" id="discountPercentage" role="tabpanel">
-                  <input type="text"
-                         class="form-control form-control-lg text-right"
-                         id="discountInputPercentage">
-                </div>
-                <div class="tab-pane" id="discountMoney" role="tabpanel">
-                  <input type="text"
-                         class="form-control form-control-lg text-right"
-                         id="discountInputMoney">
-                </div>
-              </div>
+              {{ form.status }}
             </div>
           </div>
           <div class="form-group row mt-4">
             <div class="col-xs-12 col-lg-6">
-              <button type="submit" class="btn btn-primary btn-block btn-lg">
-                Bayar <kbd>F2</kbd>
-              </button>
-            </div>
-            <div class="col-xs-12 col-lg-6">
-              <button type="button" class="btn btn-info btn-block btn-lg">
-                Tunda <kbd>F4</kbd>
-              </button>
+              <input type="submit" class="btn btn-primary btn-block btn-lg" value="Submit">
             </div>
           </div>
         </form>
       </div>
     </div>
   </div>
-
-  <!-- GENERATED DJANGO FORM -->
-  <table class="table w-full">
-    <form method="post">
-      {% csrf_token %}
-
-      <!-- Form Transaksi -->
-      {{ form.as_p }}
-
-      <!-- Form Item Transaksi -->
-      {{ formset.management_form }}
-    
-      {% for form in formset.forms %}
-      {% if forloop.first %}
-      <thead>
-        <tr>
-          {% for field in form.visible_fields %}
-          <th>{{ field.label|capfirst }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      {% endif %}
-      <tr class="{% cycle row1 row2 %} formset_row">
-        {% for field in form.visible_fields %}
-        <td>
-          {# Include the hidden fields in the form #}
-          {% if forloop.first %}
-            {% for hidden in form.hidden_fields %}
-              {{ hidden }}
-            {% endfor %}
-          {% endif %}
-            {{ field.errors.as_ul }}
-            {{ field }}
-        </td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-      <input type="submit" value="Save">
-    </form>
-  </table>
   <!-- [ Main Content ] end -->
 {% endblock content %}
 

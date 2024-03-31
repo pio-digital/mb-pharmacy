@@ -72,4 +72,5 @@ class SearchView(TemplateView):
 
     def get_context_data(self, **kwargs):
         """Add context to the template"""
+        kwargs["segment"] = "pos_page"
         return super().get_context_data(results=self.results, **kwargs)
