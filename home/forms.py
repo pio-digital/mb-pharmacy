@@ -26,7 +26,6 @@ class TransaksiCreateForm(forms.ModelForm):
     lokasi = forms.ModelChoiceField(
         queryset=Lokasi.objects.all(),
         widget=forms.Select(attrs={"class": "form-control form-control-md"}),
-        initial=Lokasi.objects.first(),
     )
 
     class Meta:
