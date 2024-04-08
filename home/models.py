@@ -258,5 +258,8 @@ class SumberDana(BaseModel):
         verbose_name = _("Sumber Dana")
         verbose_name_plural = _("Sumber Dana")
 
+    def __str__(self):
+        return self.nama
+
 
 # __MODELS__END

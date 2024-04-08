@@ -25,6 +25,7 @@
           <input type="checkbox" id="theme-switch" class="d-none">
         </label>
       </li>
+      {% if request.user.is_authenticated %}
       <li>
         <div class="dropdown drp-user">
           <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">
@@ -34,7 +35,7 @@
             <div class="pro-head">
               <img src="{% static 'assets/images/user/avatar-1.jpg' %}" class="img-radius" alt="User-Profile-Image">
               <span>{{ request.user.username }}</span>
-              {% if request.user.is_authenticated %}
+              
                 {% if request.user.is_superuser %}
                 <a href="{% url 'admin:logout' %}" class="dud-logout" title="Logout">
                 {% else %}
@@ -42,10 +43,8 @@
                 {% endif %}
                   <i class="feather icon-log-out"></i>
                 </a>
-              {% endif %}
             </div>
             <ul class="pro-body">
-              {% if request.user.is_authenticated %}
               <li>
                 {% if request.user.is_superuser %}
                 <a href="{% url 'admin:password_change' %}" class="dropdown-item">
@@ -55,11 +54,15 @@
                   <i class="feather icon-edit"></i>Change Password
                 </a>
               </li>
-              {% endif %}
             </ul>
           </div>
         </div>
       </li>
+      {% else %}
+      <li>
+        <a href="{% url 'login' %}" class="" title="Login"><i class="feather icon-log-in"></i> Login</a>
+      </li>
+      {% endif %}
     </ul>
   </div>
 </header>
