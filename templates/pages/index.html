@@ -1,0 +1,178 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+  <!-- [ Main Content ] start -->
+  <div class="row">
+    <!--[ daily sales section ] start-->
+    <div class="col-md-6 col-xl-4">
+      <div class="card daily-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Kas Harian</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                <i class="fa fa-wallet text-c-green f-30 m-r-10"></i>
+                {{ cash }}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--[ daily sales section ] end-->
+    <!--[ Monthly  sales section ] starts-->
+    <div class="col-md-6 col-xl-4">
+      <div class="card Monthly-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Total Obat</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center  m-b-0">
+                <i class="fa fa-pills text-c-blue f-30 m-r-10"></i>
+                {{ total_products }}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--[ Monthly  sales section ] end-->
+    <!--[ year  sales section ] starts-->
+    <div class="col-md-12 col-xl-4">
+      <div class="card yearly-sales">
+        <div class="card-block">
+          <h6 class="mb-4">Total Pemasok</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center  m-b-0">
+                <i class="fa fa-user f-30 m-r-10"></i>
+                {{ total_suppliers }}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--[ year  sales section ] end-->
+
+    <!-- [ rating list ] starts-->
+    <div class="col-xl-4 col-md-6">
+      <div class="card user-list">
+        <div class="card-header">
+          <h5>Obat Paling Laku</h5>
+        </div>
+        <div class="card-block">
+          <div class="row align-items-center justify-content-center m-b-20">
+            <div class="col-10">
+              <h4 class="f-w-300 d-flex align-items-center float-left m-0">
+                <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i> {{ best_selling.0.item__produk__nama }} 
+              </h4>
+            </div>
+            <div class="col-2">
+              <h4 class="d-flex  align-items-center float-right m-0">{{ best_selling.0.sold }}</h4>
+            </div>
+          </div>
+          <div class="row">
+            {% for p in best_selling %}
+              {% if forloop.counter0 != 0  %}
+                <div class="col-xl-12">
+                  <h6 class="align-items-center float-left">
+                    <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i> {{ p.item__produk__nama }}
+                  </h6>
+                  <h6 class="align-items-center float-right">{{ p.sold }} </h6>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ rating list ] end-->
+
+    <div class="col-xl-8 col-md-12">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty"
+            aria-selected="true">Obat Habis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active show" id="expired-tab" data-toggle="tab" href="#expired" role="tab"
+            aria-controls="expired" aria-selected="false">Obat Kedaluwarsa</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade active show" id="expired" role="tabpanel" aria-labelledby="expired-tab">
+          {% if not expireds %}
+          <tr>
+            <td>Obat-obatan masih layak jual.</td>
+          </tr>
+          {% else %}
+          <h6 style="color: gray;">Obat yang akan kedaluwarsa dalam kurun waktu 2 (dua) bulan ke depan.</h6><br>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Nama Obat</th>
+                <th>Tanggal Kedaluwarsa</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% for e in expireds %}
+                <tr>
+                  <td>
+                    <h6 class="m-0">{{ e.produk }}</h6>
+                  </td>
+                  <td>
+                    <h6 class="m-0">{{ e.tanggal_kedaluwarsa }}</h6>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+        </div>
+        <div class="tab-pane fade" id="empty" role="tabpanel" aria-labelledby="empty-tab">
+          {% if not empties %}
+          <h6 style="color: gray;">Stok obat masih memadai.</h6>
+          {% else %}
+          <h6 style="color: gray;">Obat-obat dengan stok <= 10</h6><br>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Nama Obat</th>
+                <th>Stok</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for e in empties %}
+                <tr>
+                  <td>
+                    <h6 class="m-0">{{ e.produk }}</h6>
+                  </td>
+                  <td>
+                    <h6 class="m-0">{{ e.kuantitas }}</h6>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+
+{% else %}
+
+Welcome!
+
+{% endif %}
+
+{% endblock content %}

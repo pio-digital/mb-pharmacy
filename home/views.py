@@ -1,14 +1,19 @@
+from datetime import date, timedelta
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Q, Sum
+from django.db.models.functions import Coalesce
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, TemplateView
 
+from helpers.util import format_currency
+from home.consts import CURRENCY_IDR, SUCCESS
 from home.forms import ItemTransaksiFormSet, TransaksiCreateForm
-from home.models import Transaksi, VarianProduk
+from home.models import ItemTransaksi, Produk, Supplier, Transaksi, VarianProduk
 
 
 class HomeView(LoginRequiredMixin, View):
@@ -16,7 +21,32 @@ class HomeView(LoginRequiredMixin, View):
     redirect_field_name = "home"
 
     def get(self, request, *args, **kwargs):
-        return render(request, "pages/index.html")
+        today = date.today()
+        two_month = today + timedelta(days=60)
+        context = {
+            "cash": format_currency(
+                Transaksi.objects.filter(
+                    metode_pembayaran_id=1,
+                    status=SUCCESS,
+                    created_on__date=date.today(),
+                )
+                .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+                .get("total", 0),
+                CURRENCY_IDR,
+            ),
+            "total_products": Produk.objects.count(),
+            "total_suppliers": Supplier.objects.count(),
+            "best_selling": ItemTransaksi.objects.values("item__produk__nama")
+            .annotate(sold=Sum("item"))
+            .order_by("-sold")[:5],
+            "empties": VarianProduk.objects.filter(kuantitas__lte=10).order_by(
+                "-kuantitas"
+            ),
+            "expireds": VarianProduk.objects.filter(
+                tanggal_kedaluwarsa__range=(today, two_month)
+            ).order_by("-tanggal_kedaluwarsa"),
+        }
+        return render(request, "pages/index.html", context)
 
 
 class POSView(LoginRequiredMixin, CreateView):
