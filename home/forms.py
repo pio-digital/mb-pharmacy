@@ -42,6 +42,7 @@ class ItemTransaksiForm(forms.ModelForm):
         exclude = (
             "uid",
             "transaksi",
+            "kurs",
         )
 
 
