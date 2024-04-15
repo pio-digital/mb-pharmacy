@@ -60,47 +60,55 @@ class POSView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["segment"] = "pos_page"
+        context["variant"] = VarianProduk.objects.all()
 
-        if self.request.POST:
-            context["formset"] = ItemTransaksiFormSet(
-                self.request.POST, instance=self.object
-            )
-        else:
-            context["formset"] = ItemTransaksiFormSet(instance=self.object)
+        # if self.request.POST:
+        #     context["formset"] = ItemTransaksiFormSet(
+        #         self.request.POST, instance=self.object
+        #     )
+        # else:
+        #     context["formset"] = ItemTransaksiFormSet(instance=self.object)
         return context
 
-    def get_success_url(self) -> str:
-        messages.add_message(
-            self.request,
-            messages.SUCCESS,
-            f"Transaksi {self.object} berhasil!",
-        )
-        return super().get_success_url()
+    # def get_success_url(self) -> str:
+    #     messages.add_message(
+    #         self.request,
+    #         messages.SUCCESS,
+    #         f"Transaksi {self.object} berhasil!",
+    #     )
+    #     return super().get_success_url()
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        formset = context["formset"]
-        with transaction.atomic():
-            form.instance.profile = self.request.user.userprofile
-            self.object = form.save()
-            if formset.is_valid():
-                formset.instance = self.object
-                formset.save()
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     context = self.get_context_data()
+    #     formset = context["formset"]
+    #     with transaction.atomic():
+    #         form.instance.profile = self.request.user.userprofile
+    #         self.object = form.save()
+    #         if formset.is_valid():
+    #             formset.instance = self.object
+    #             formset.save()
+    #     return super().form_valid(form)
 
 
 class SearchView(TemplateView):
     model = VarianProduk
     template_name = "pages/pos.html"
+    login_url = "login"
+    redirect_field_name = "home"
+    form_class = TransaksiCreateForm
+    success_url = reverse_lazy("pos_page")
 
     def get(self, request, *args, **kwargs):
         q = request.GET.get("q", "")
         self.results = VarianProduk.objects.filter(
             Q(barcode__icontains=q) | Q(produk__nama=q)
         )
+        # return render(request, "pages/pos.html", context=self.get_context_data())
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        """Add context to the template"""
-        kwargs["segment"] = "pos_page"
-        return super().get_context_data(results=self.results, **kwargs)
+        context = super().get_context_data(results=self.results, **kwargs)
+        context["segment"] = "pos_page"
+
+        context["formset"] = ItemTransaksiFormSet(instance=None)
+        return context
