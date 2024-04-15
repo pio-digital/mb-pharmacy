@@ -207,10 +207,10 @@
             productPerst: Alpine.$persist([]).as('product-perst'),
 
             init() {
+              // Every asec set focus to search Input
               setInterval(() => {
-                // Every asec set focus to search Input
                 this.$refs.searchInput.focus();
-              }, a000);
+              }, 1000);
             },
             
             handleResultClick(data) {
