@@ -9,5 +9,5 @@ from . import views
 
 urlpatterns = [
     path("pos-page/", views.POSView.as_view(), name="pos_page"),
-    path("search/", views.SearchView.as_view(), name="search"),
+    path("sales-report-page/", views.ReportView.as_view(), name="sales_report_page"),
 ]

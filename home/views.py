@@ -1,9 +1,7 @@
 from datetime import date, timedelta
 
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import transaction
-from django.db.models import Q, Sum
+from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -12,7 +10,7 @@ from django.views.generic import CreateView, TemplateView
 
 from helpers.util import format_currency
 from home.consts import CURRENCY_IDR, SUCCESS
-from home.forms import ItemTransaksiFormSet, TransaksiCreateForm
+from home.forms import TransaksiCreateForm
 from home.models import ItemTransaksi, Produk, Supplier, Transaksi, VarianProduk
 
 
@@ -90,25 +88,15 @@ class POSView(LoginRequiredMixin, CreateView):
     #     return super().form_valid(form)
 
 
-class SearchView(TemplateView):
-    model = VarianProduk
-    template_name = "pages/pos.html"
+class ReportView(LoginRequiredMixin, TemplateView):
     login_url = "login"
     redirect_field_name = "home"
-    form_class = TransaksiCreateForm
-    success_url = reverse_lazy("pos_page")
-
-    def get(self, request, *args, **kwargs):
-        q = request.GET.get("q", "")
-        self.results = VarianProduk.objects.filter(
-            Q(barcode__icontains=q) | Q(produk__nama=q)
-        )
-        # return render(request, "pages/pos.html", context=self.get_context_data())
-        return super().get(request, *args, **kwargs)
+    template_name = "pages/report.html"
+    model = VarianProduk
+    fields = ""
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(results=self.results, **kwargs)
-        context["segment"] = "pos_page"
+        context = super().get_context_data(**kwargs)
+        context["segment"] = "sales_report_page"
 
-        context["formset"] = ItemTransaksiFormSet(instance=None)
         return context

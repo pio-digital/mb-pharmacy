@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card user-list">
+      <div class="card-header">
+        <h5>Penjualan Produk Hari Ini</h5>
+      </div>
+      <div class="card-block">
+        <canvas id="myChart" aria-label="Hello ARIA World" role="img">
+          <p>Hello Fallback World</p>
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', "Lillac", "White"],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3, 16, 18],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+    },
+  });
+</script>
+{% endblock %}
