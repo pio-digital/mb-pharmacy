@@ -125,6 +125,7 @@
                   <td class="align-middle">
                     <input x-model="item.kuantitas_input"
                            x-on:keydown.debounce="calculatePrice($event, item, index)"
+                           x-on:change.debounce="calculatePrice($event, item, index)"
                            min="1"
                            :max="item.kuantitas"
                            type="number"
@@ -208,9 +209,7 @@
 
             init() {
               // Every asec set focus to search Input
-              setInterval(() => {
-                this.$refs.searchInput.focus();
-              }, 1000);
+              
             },
             
             handleResultClick(data) {
