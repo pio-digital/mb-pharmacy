@@ -634,14 +634,14 @@ class VarianProdukView(APIView):
         if not pk:
             params = request.query_params
             q = params.get("search")
+            qs = VarianProduk.objects.all()
+
+            if q:
+                qs = qs.filter(Q(barcode=q) | Q(produk__nama__icontains=q))
+
             return Response(
                 {
-                    "data": [
-                        VarianProdukSerializer(instance=obj).data
-                        for obj in VarianProduk.objects.filter(
-                            Q(barcode=q) | Q(produk__nama__icontains=q)
-                        )
-                    ],
+                    "data": [VarianProdukSerializer(instance=obj).data for obj in qs],
                     "success": True,
                 },
                 status=HTTPStatus.OK,
