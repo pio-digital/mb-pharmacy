@@ -177,6 +177,10 @@
                 <input type="text"
                        class="form-control form-control-lg text-right"
                        name="paymentTotal"
+                       x-on:change.debounce="calculatePaymentChange()"
+                       x-on:keydown.debounce="calculatePaymentChange()"
+                       x-ref="paymentTotal"
+                       x-model="paymentTotal"
                        id="paymentTotal">
               </div>
             </div>
@@ -186,6 +190,9 @@
                 <input type="text"
                        class="form-control form-control-lg text-right"
                        name="paymentChange"
+                       x-model="paymentChange"
+                       x-ref="paymentChange"
+                       disabled
                        id="paymentChange">
               </div>
             </div>
@@ -216,6 +223,8 @@
             isSearchResult: false,
             searchResult: null,
             totalPrice: 0,
+            paymentChange: 0,
+            paymentTotal: 0,
 
             tipeTransaksi: [
               {
@@ -232,10 +241,16 @@
 
             init() {
               this.totalPrice = this.productPerst.reduce((accumulator, currentValue) => accumulator + currentValue.harga_akhir, 0)
+              this.paymentChange = this.totalPrice - this.paymentTotal
             },
 
             calculateSum() {
               this.totalPrice = this.productPerst.reduce((accumulator, currentValue) => accumulator + currentValue.harga_akhir, 0)
+              this.paymentChange = this.totalPrice - this.paymentTotal
+            },
+
+            calculatePaymentChange() {
+              this.paymentChange = this.totalPrice - this.paymentTotal
             },
             
             handleResultClick(data) {
@@ -256,6 +271,7 @@
               
               if (!existProducts.length) {
                 this.totalPrice = this.productPerst.reduce((accumulator, currentValue) => accumulator + currentValue.harga_akhir, 0)
+                this.paymentChange = this.totalPrice - this.paymentTotal
                 return this.productPerst.push(dataPopulate)
               }
 
@@ -263,6 +279,7 @@
 
               if (!findExistProduct) {
                 this.totalPrice = this.productPerst.reduce((accumulator, currentValue) => accumulator + currentValue.harga_akhir, 0)
+                this.paymentChange = this.totalPrice - this.paymentTotal
                 return this.productPerst.push(dataPopulate)
               }
 
@@ -276,6 +293,7 @@
 
               this.productPerst[findExistProductIndex] = dataUpdatePopulate
               this.totalPrice = this.productPerst.reduce((accumulator, currentValue) => accumulator + currentValue.harga_akhir, 0)
+              this.paymentChange = this.totalPrice - this.paymentTotal
 
               return;
             },
@@ -317,11 +335,13 @@
               this.productPerst[position] = dataMutation
 
               this.totalPrice = this.productPerst.reduce((accumulator, currentValue) => accumulator + currentValue.harga_akhir, 0)
+              this.paymentChange = this.totalPrice - this.paymentTotal
             },
 
             handleRemoveItem(item, position) {
               this.productPerst.splice(position, 1);
               this.totalPrice = this.productPerst.reduce((accumulator, currentValue) => accumulator + currentValue.harga_akhir, 0)
+              this.paymentChange = this.totalPrice - this.paymentTotal
             },
 
             handleTipeTransaksi(item, tipe, position) {
@@ -398,7 +418,7 @@
         formData.append('lokasi', data.lokasi);
         formData.append('metode_pembayaran', data.metode_pembayaran);
         formData.append('status', data.status);
-        formData.append('total_biaya', data.paymentTotal);
+        formData.append('total_biaya', this.totalPrice);
         formData.append('products', JSON.stringify(products));
 
         const response = await fetch('/pos-page/', {
@@ -413,9 +433,11 @@
           throw new Eroor(response.message)
         }
 
-        console.log(response)
+        this.productPerst = []
 
-        window.location = response
+        
+
+        console.log(response)
       } catch (error) {
         console.log(error)
       }
