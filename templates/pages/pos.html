@@ -293,7 +293,12 @@
           {}
         );
 
-        const response = await fetch('/api/varian/', { 
+        let url = '/api/varian/';
+        if (data) {
+          url += `?search=${data.search}`
+        }
+
+        const response = await fetch(url, { 
           method: "GET",
           headers: {
             'X-CSRFToken': '{{ csrf_token }}',
