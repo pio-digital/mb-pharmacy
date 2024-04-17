@@ -187,7 +187,7 @@
               <div class="col-xs-12 col-lg-12">{{ form.status }}</div>
             </div>
             <div class="form-group row mt-4">
-              <div class="col-xs-12 col-lg-6">
+              <div class="col-12 col-md-6">
                 <input type="submit" class="btn btn-primary btn-block btn-lg" value="Submit">
               </div>
             </div>
@@ -214,7 +214,7 @@
             
             handleResultClick(data) {
               const itemResult = JSON.parse(JSON.stringify(data))
-
+              
               const existProducts = this.productPerst
 
               const dataPopulate = {
@@ -226,17 +226,18 @@
               this.isSearchResult = false
               this.$refs.searchInput.value = '';
               this.$refs.searchInput.focus();
-
+              
               if (!existProducts.length) {
                 return this.productPerst.push(dataPopulate)
               }
 
               const findExistProduct = existProducts.find(item => item.id === itemResult.id)
-              const findExistProductIndex = existProducts.findIndex(item => item.id === itemResult.id)
 
-              if (!findExistProduct && !findExistProductIndex) {
+              if (!findExistProduct) {
                 return this.productPerst.push(dataPopulate)
               }
+
+              const findExistProductIndex = existProducts.findIndex(item => item.id === itemResult.id)
 
               const dataUpdatePopulate = {
                 ...findExistProduct,
@@ -245,8 +246,6 @@
               } 
 
               this.productPerst[findExistProductIndex] = dataUpdatePopulate
-
-              return true
             },
 
             handleFormatPrice(item) {
