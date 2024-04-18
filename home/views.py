@@ -126,4 +126,23 @@ class ReportView(LoginRequiredMixin, FilterView):
         context["labels"] = ", ".join([x["nama"] for x in transaksi])
         context["data"] = [x["amount"] for x in transaksi]
 
+        context["cash"] = format_currency(
+            Transaksi.objects.filter(
+                metode_pembayaran_id=1,
+                status=SUCCESS,
+            )
+            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+            .get("total", 0),
+            CURRENCY_IDR,
+        )
+        context["rekening"] = format_currency(
+            Transaksi.objects.filter(
+                metode_pembayaran_id=2,
+                status=SUCCESS,
+            )
+            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+            .get("total", 0),
+            CURRENCY_IDR,
+        )
+
         return context

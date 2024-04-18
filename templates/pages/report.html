@@ -9,6 +9,39 @@
 {% endblock extrastyle %}
 {% block content %}
   <div class="row">
+  <!-- Sumber Dana -->
+  <div class="col-md-6 col-xl-6">
+    <div class="card daily-sales">
+      <div class="card-block">
+        <h6 class="mb-4">Uang Kas</h6>
+        <div class="row d-flex align-items-center">
+          <div class="col-9">
+            <h3 class="f-w-300 d-flex align-items-center m-b-0">
+              <i class="fa fa-wallet text-c-green f-30 m-r-10"></i>
+              {{ cash }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xl-6">
+    <div class="card daily-sales">
+      <div class="card-block">
+        <h6 class="mb-4">Dana Rekening</h6>
+        <div class="row d-flex align-items-center">
+          <div class="col-9">
+            <h3 class="f-w-300 d-flex align-items-center m-b-0">
+              <i class="fa fa-money-check text-c-blue f-30 m-r-10"></i>
+              {{ rekening }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="col-md-12">
       <div class="card user-list">
         <div class="card-header">
