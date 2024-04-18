@@ -1,6 +1,8 @@
+import json
 from datetime import date, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.db.models import CharField, F, Sum, Value
 from django.db.models.functions import Coalesce, Concat
 from django.shortcuts import render
@@ -12,7 +14,7 @@ from django_filters.views import FilterView
 from helpers.util import format_currency
 from home.consts import CURRENCY_IDR, SUCCESS
 from home.filters import ItemTransaksiFilter
-from home.forms import TransaksiCreateForm
+from home.forms import ItemTransaksiFormSet, TransaksiCreateForm
 from home.models import ItemTransaksi, Produk, Supplier, Transaksi, VarianProduk
 
 
@@ -62,32 +64,39 @@ class POSView(LoginRequiredMixin, CreateView):
         context["segment"] = "pos_page"
         context["variant"] = VarianProduk.objects.all()
 
-        # if self.request.POST:
-        #     context["formset"] = ItemTransaksiFormSet(
-        #         self.request.POST, instance=self.object
-        #     )
-        # else:
-        #     context["formset"] = ItemTransaksiFormSet(instance=self.object)
+        if self.request.POST:
+            context["formset"] = ItemTransaksiFormSet(
+                self.request.POST, instance=self.object
+            )
+        else:
+            context["formset"] = ItemTransaksiFormSet(instance=self.object)
         return context
 
-    # def get_success_url(self) -> str:
-    #     messages.add_message(
-    #         self.request,
-    #         messages.SUCCESS,
-    #         f"Transaksi {self.object} berhasil!",
-    #     )
-    #     return super().get_success_url()
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context["formset"]
+        with transaction.atomic():
+            form.instance.profile = self.request.user.userprofile
+            form.instance.lokasi_id = 1
+            self.object = form.save()
 
-    # def form_valid(self, form):
-    #     context = self.get_context_data()
-    #     formset = context["formset"]
-    #     with transaction.atomic():
-    #         form.instance.profile = self.request.user.userprofile
-    #         self.object = form.save()
-    #         if formset.is_valid():
-    #             formset.instance = self.object
-    #             formset.save()
-    #     return super().form_valid(form)
+            # Set ItemTransaksi
+            products = json.loads(formset.data.get("products"))
+
+            item_trx = []
+            for product in products:
+                item_trx.append(
+                    ItemTransaksi(
+                        transaksi=self.object,
+                        item_id=product.get("item"),
+                        kuantitas=product.get("kuantitas"),
+                        harga=product.get("harga"),
+                        tipe_transaksi=product.get("tipe_transaksi"),
+                    )
+                )
+
+            ItemTransaksi.objects.bulk_create(item_trx)
+        return super().form_valid(form)
 
 
 class ReportView(LoginRequiredMixin, FilterView):

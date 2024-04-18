@@ -1,7 +1,7 @@
 from django import forms
 
 from home.consts import STATUS_CHOICES
-from home.models import ItemTransaksi, Lokasi, MetodePembayaran, Transaksi
+from home.models import ItemTransaksi, MetodePembayaran, Transaksi
 
 
 class TransaksiCreateForm(forms.ModelForm):
@@ -23,16 +23,14 @@ class TransaksiCreateForm(forms.ModelForm):
         choices=STATUS_CHOICES,
         widget=forms.Select(attrs={"class": "form-control form-control-md"}),
     )
-    lokasi = forms.ModelChoiceField(
-        queryset=Lokasi.objects.all(),
-        widget=forms.Select(attrs={"class": "form-control form-control-md"}),
-    )
 
     class Meta:
         model = Transaksi
         exclude = (
             "uid",
             "profile",
+            "kurs",
+            "lokasi",
         )
 
 
