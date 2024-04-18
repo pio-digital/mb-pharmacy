@@ -17,11 +17,7 @@
           <label>Navigation</label>
         </li>
         <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item {% if 'index' in segment %}active{% endif %}">
-          {% if request.user.is_superuser %}
-          <a href="{% url 'admin:index' %}" class="nav-link ">
-          {% else %}
           <a href="{% url 'index' %}" class="nav-link ">
-          {% endif %}
             <span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span>
           </a>
         </li>
@@ -61,6 +57,10 @@
               class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">POS</span></a>
         </li>
         {% endif %}
+
+        <li data-username="reporting" class="nav-item {% if 'sales_report_page' in segment %}active{% endif %}"><a href="{% url 'sales_report_page' %}" class="nav-link"><span
+          class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Laporan Penjualan</span></a>
+        </li>
       </ul>
     </div>
   </div>

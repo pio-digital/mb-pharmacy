@@ -1,17 +1,19 @@
+import json
 from datetime import date, timedelta
 
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
-from django.db.models import Q, Sum
-from django.db.models.functions import Coalesce
+from django.db.models import CharField, F, Sum, Value
+from django.db.models.functions import Coalesce, Concat
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView
+from django_filters.views import FilterView
 
 from helpers.util import format_currency
 from home.consts import CURRENCY_IDR, SUCCESS
+from home.filters import ItemTransaksiFilter
 from home.forms import ItemTransaksiFormSet, TransaksiCreateForm
 from home.models import ItemTransaksi, Produk, Supplier, Transaksi, VarianProduk
 
@@ -60,6 +62,7 @@ class POSView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["segment"] = "pos_page"
+        context["variant"] = VarianProduk.objects.all()
 
         if self.request.POST:
             context["formset"] = ItemTransaksiFormSet(
@@ -69,38 +72,77 @@ class POSView(LoginRequiredMixin, CreateView):
             context["formset"] = ItemTransaksiFormSet(instance=self.object)
         return context
 
-    def get_success_url(self) -> str:
-        messages.add_message(
-            self.request,
-            messages.SUCCESS,
-            f"Transaksi {self.object} berhasil!",
-        )
-        return super().get_success_url()
-
     def form_valid(self, form):
         context = self.get_context_data()
         formset = context["formset"]
         with transaction.atomic():
             form.instance.profile = self.request.user.userprofile
+            form.instance.lokasi_id = 1
             self.object = form.save()
-            if formset.is_valid():
-                formset.instance = self.object
-                formset.save()
+
+            # Set ItemTransaksi
+            products = json.loads(formset.data.get("products"))
+
+            item_trx = []
+            for product in products:
+                item_trx.append(
+                    ItemTransaksi(
+                        transaksi=self.object,
+                        item_id=product.get("item"),
+                        kuantitas=product.get("kuantitas"),
+                        harga=product.get("harga"),
+                        tipe_transaksi=product.get("tipe_transaksi"),
+                    )
+                )
+
+            ItemTransaksi.objects.bulk_create(item_trx)
         return super().form_valid(form)
 
 
-class SearchView(TemplateView):
-    model = VarianProduk
-    template_name = "pages/pos.html"
-
-    def get(self, request, *args, **kwargs):
-        q = request.GET.get("q", "")
-        self.results = VarianProduk.objects.filter(
-            Q(barcode__icontains=q) | Q(produk__nama=q)
-        )
-        return super().get(request, *args, **kwargs)
+class ReportView(LoginRequiredMixin, FilterView):
+    login_url = "login"
+    redirect_field_name = "home"
+    model = ItemTransaksi
+    filterset_class = ItemTransaksiFilter
+    template_name = "pages/report.html"
+    context_object_name = "transaksi"
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
-        """Add context to the template"""
-        kwargs["segment"] = "pos_page"
-        return super().get_context_data(results=self.results, **kwargs)
+        context = super().get_context_data(**kwargs)
+        context["segment"] = "sales_report_page"
+        transaksi = context["transaksi"]
+
+        transaksi = transaksi.values("item").annotate(
+            nama=Concat(
+                F("item__produk__nama"),
+                Value(": "),
+                F("item__unit__nama"),
+                output_field=CharField(),
+            ),
+            amount=Sum(F("harga")),
+        )
+
+        context["labels"] = ", ".join([x["nama"] for x in transaksi])
+        context["data"] = [x["amount"] for x in transaksi]
+
+        context["cash"] = format_currency(
+            Transaksi.objects.filter(
+                metode_pembayaran_id=1,
+                status=SUCCESS,
+            )
+            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+            .get("total", 0),
+            CURRENCY_IDR,
+        )
+        context["rekening"] = format_currency(
+            Transaksi.objects.filter(
+                metode_pembayaran_id=2,
+                status=SUCCESS,
+            )
+            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+            .get("total", 0),
+            CURRENCY_IDR,
+        )
+
+        return context

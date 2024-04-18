@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "django_api_gen",
     "rest_framework",
     "rest_framework.authtoken",
+    "django_filters",
 ]
 
 
