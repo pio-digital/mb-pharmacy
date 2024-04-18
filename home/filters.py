@@ -7,12 +7,12 @@ from home.models import ItemTransaksi, MetodePembayaran, Transaksi
 
 class CustomDateRangeWidget(SuffixedMultiWidget):
     template_name = "django_filters/widgets/multiwidget.html"
-    suffixes = ["after", "before"]
+    suffixes = ["before", "after"]
 
     def __init__(self, attrs=None):
         widgets = (
-            forms.DateInput(attrs={"type": "date"}),
-            forms.DateInput(attrs={"type": "date"}),
+            forms.DateInput(attrs={"type": "date", "class": "form-control form-control-md"}),
+            forms.DateInput(attrs={"type": "date", "class": "form-control form-control-md"}),
         )
         super().__init__(widgets, attrs)
 
@@ -32,11 +32,13 @@ class ItemTransaksiFilter(filters.FilterSet):
         queryset=MetodePembayaran.objects.all(),
         field_name="transaksi__metode_pembayaran",
         label="Metode Pembayaran",
+        widget=forms.Select(attrs={"class": "form-control form-control-md"}),
     )
     status = filters.ChoiceFilter(
         choices=Transaksi.StatusChoices.choices,
         field_name="transaksi__status",
         label="Status",
+        widget=forms.Select(attrs={"class": "form-control form-control-md"}),
     )
 
     class Meta:

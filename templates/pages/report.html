@@ -1,32 +1,59 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-
+{% block extrastyle %}
+  <style>
+    .gap {
+      gap: 10px;
+    }
+  </style>
+{% endblock extrastyle %}
 {% block content %}
-<div class="row">
-  <div class="col-md-12">
-    <div class="card user-list">
-      <div class="card-header">
-        <h5>Kurva Penjualan</h5>
-      </div>
-      <div class="card-block">
-        <form>
-          <div> 
-            {{ filter.form.as_p }}
-          </div>
-          <button type="submit">Search</button>
-       </form>
-        <canvas id="myChart" aria-label="Hello ARIA World" role="img">
-          <p>Hello Fallback World</p>
-        </canvas>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card user-list">
+        <div class="card-header">
+          <h5>Kurva Penjualan</h5>
+        </div>
+        <div class="card-block">
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="transaksi__metode_pembayaran">Metode Pembayaran</label>
+                {{ filter.form.metode_pembayaran }}
+              </div>
+              <div class="form-group col-md-3">
+                <label for="transaksi__status">Status</label>
+                {{ filter.form.status }}
+              </div>
+              <div class="form-group col-md-3">
+                <label for="created_on">Rentang Tanggal</label>
+                <div class="d-inline-flex gap align-items-center">
+                  {{ filter.form.date }}
+                </div>
+              </div>
+            </div>
+                {{ filter.form.date_after }}
+
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+          <canvas id="myChart" aria-label="Hello ARIA World" role="img">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}
-
 {% block extra_js %}
-<script>
+  <script>
   const ctx = document.getElementById('myChart');
+
+  const parseLabels = '{{labels}}'.split(', ')
+  const parseChart = '{{data}}'
+
+  console.log({
+    parseLabels,
+    parseChart
+  })
 
   new Chart(ctx, {
     type: 'bar',
@@ -47,5 +74,5 @@
       },
     },
   });
-</script>
+  </script>
 {% endblock %}
