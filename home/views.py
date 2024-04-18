@@ -1,15 +1,17 @@
 from datetime import date, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Sum
-from django.db.models.functions import Coalesce
+from django.db.models import CharField, F, Sum, Value
+from django.db.models.functions import Coalesce, Concat
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView
+from django_filters.views import FilterView
 
 from helpers.util import format_currency
 from home.consts import CURRENCY_IDR, SUCCESS
+from home.filters import ItemTransaksiFilter
 from home.forms import TransaksiCreateForm
 from home.models import ItemTransaksi, Produk, Supplier, Transaksi, VarianProduk
 
@@ -88,15 +90,31 @@ class POSView(LoginRequiredMixin, CreateView):
     #     return super().form_valid(form)
 
 
-class ReportView(LoginRequiredMixin, TemplateView):
+class ReportView(LoginRequiredMixin, FilterView):
     login_url = "login"
     redirect_field_name = "home"
+    model = ItemTransaksi
+    filterset_class = ItemTransaksiFilter
     template_name = "pages/report.html"
-    model = VarianProduk
-    fields = ""
+    context_object_name = "transaksi"
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["segment"] = "sales_report_page"
+        transaksi = context["transaksi"]
+
+        transaksi = transaksi.values("item").annotate(
+            nama=Concat(
+                F("item__produk__nama"),
+                Value(": "),
+                F("item__unit__nama"),
+                output_field=CharField(),
+            ),
+            amount=Sum(F("harga")),
+        )
+
+        context["labels"] = ", ".join([x["nama"] for x in transaksi])
+        context["data"] = [x["amount"] for x in transaksi]
 
         return context

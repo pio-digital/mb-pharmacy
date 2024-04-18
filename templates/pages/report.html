@@ -6,9 +6,15 @@
   <div class="col-md-12">
     <div class="card user-list">
       <div class="card-header">
-        <h5>Penjualan Produk Hari Ini</h5>
+        <h5>Kurva Penjualan</h5>
       </div>
       <div class="card-block">
+        <form>
+          <div> 
+            {{ filter.form.as_p }}
+          </div>
+          <button type="submit">Search</button>
+       </form>
         <canvas id="myChart" aria-label="Hello ARIA World" role="img">
           <p>Hello Fallback World</p>
         </canvas>
@@ -25,10 +31,11 @@
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', "Lillac", "White"],
+      labels: `{{ labels }}`.split(", "),
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3, 16, 18],
+        label: 'Total Pembelian',
+        data: JSON.parse(`{{ data }}`),
+        // data: [52000, 17500],
         borderWidth: 1
       }]
     },
