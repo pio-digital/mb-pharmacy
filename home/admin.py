@@ -1,7 +1,26 @@
 from django.apps import apps
 from django.contrib import admin
 
+from home.models import Pembelian, PembelianObat
+
 # Register your models here.
+
+
+class PembelianObatInline(admin.TabularInline):
+    model = PembelianObat
+    extra = 1
+    exclude = ("uid",)
+
+
+@admin.register(Pembelian)
+class PembelianAdmin(admin.ModelAdmin):
+    search_fields = [
+        "nomor_pre_order",
+        "nomor_faktur",
+        "supplier",
+    ]
+    inlines = [PembelianObatInline]
+
 
 app_models = apps.get_app_config("home").get_models()
 for model in app_models:
@@ -18,7 +37,8 @@ for model in app_models:
 
         # Register to Admin
         else:
-            admin.site.register(model)
+            if model.__name__ not in ["Pembelian", "PembelianObat"]:
+                admin.site.register(model)
 
     except Exception:
         pass
