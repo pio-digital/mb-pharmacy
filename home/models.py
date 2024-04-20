@@ -151,8 +151,8 @@ class VarianProduk(BaseModel):
     # __Varianproduk_FIELDS__END
 
     class Meta:
-        verbose_name = _("Varian Produk")
-        verbose_name_plural = _("Varian Produk")
+        verbose_name = _("Varian")
+        verbose_name_plural = _("Varian")
 
     def __str__(self) -> str:
         return f"{self.sku} {self.produk}: {self.unit}"
@@ -254,8 +254,8 @@ class ItemTransaksi(BaseModel):
     # __ItemTransaksi_FIELDS__END
 
     class Meta:
-        verbose_name = _("Item Transaksi")
-        verbose_name_plural = _("Item Transaksi")
+        verbose_name = _("Item")
+        verbose_name_plural = _("Item")
 
     def __str__(self):
         return (
@@ -329,6 +329,24 @@ class PembelianObat(BaseModel):
         if self.obat:
             return f"{self.obat}: {self.jumlah}"
         return f"{self.nama_obat}: {self.jumlah}"
+
+
+class Pembayaran(BaseModel):
+    tanggal = models.DateField()
+    nama_pembayaran = models.CharField(max_length=50)
+    nomor_transaksi = models.CharField(max_length=255, blank=True, null=True)
+    total_biaya = models.IntegerField()
+    sumber_dana = models.ForeignKey(
+        SumberDana, on_delete=models.SET_NULL, blank=True, null=True
+    )
+    catatan = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = _("Pembayaran")
+        verbose_name_plural = _("Pembayaran")
+
+    def __str__(self):
+        return self.nama_pembayaran
 
 
 # __MODELS__END
