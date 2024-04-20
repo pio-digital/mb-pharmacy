@@ -52,6 +52,8 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
+    "dal",
+    "dal_select2",
     "admin_datta.apps.AdminDattaConfig",
     "django.contrib.admin",
     "django.contrib.auth",

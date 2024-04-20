@@ -56,11 +56,12 @@
         <li data-username="POS Page" class="nav-item {% if 'pos_page' in segment %}active{% endif %}"><a href="{% url 'pos_page' %}" class="nav-link"><span
               class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">POS</span></a>
         </li>
-        {% endif %}
-
+        {% if request.user.is_superuser %}
         <li data-username="reporting" class="nav-item {% if 'sales_report_page' in segment %}active{% endif %}"><a href="{% url 'sales_report_page' %}" class="nav-link"><span
           class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Laporan Penjualan</span></a>
         </li>
+        {% endif %}
+        {% endif %}
       </ul>
     </div>
   </div>

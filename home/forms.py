@@ -1,7 +1,14 @@
+from dal import autocomplete
 from django import forms
 
 from home.consts import STATUS_CHOICES
-from home.models import ItemTransaksi, MetodePembayaran, Transaksi
+from home.models import (
+    ItemTransaksi,
+    MetodePembayaran,
+    Pembelian,
+    PembelianObat,
+    Transaksi,
+)
 
 
 class TransaksiCreateForm(forms.ModelForm):
@@ -42,6 +49,7 @@ class ItemTransaksiForm(forms.ModelForm):
             "transaksi",
             "kurs",
         )
+        widgets = {"obat": autocomplete.ModelSelect2(url="produk-autocomplete")}
 
 
 ItemTransaksiFormSet = forms.inlineformset_factory(
@@ -50,3 +58,17 @@ ItemTransaksiFormSet = forms.inlineformset_factory(
     form=ItemTransaksiForm,
     extra=2,
 )
+
+
+class PembelianObatForm(forms.ModelForm):
+    class Meta:
+        model = PembelianObat
+        fields = "__all__"
+        widgets = {"obat": autocomplete.ModelSelect2(url="produk-autocomplete")}
+
+
+class PembelianForm(forms.ModelForm):
+    class Meta:
+        model = Pembelian
+        fields = "__all__"
+        widgets = {"nomor_pre_order": forms.TextInput}

@@ -83,19 +83,15 @@ class POSView(LoginRequiredMixin, CreateView):
             # Set ItemTransaksi
             products = json.loads(formset.data.get("products"))
 
-            item_trx = []
             for product in products:
-                item_trx.append(
-                    ItemTransaksi(
-                        transaksi=self.object,
-                        item_id=product.get("item"),
-                        kuantitas=product.get("kuantitas"),
-                        harga=product.get("harga"),
-                        tipe_transaksi=product.get("tipe_transaksi"),
-                    )
+                ItemTransaksi.objects.create(
+                    transaksi=self.object,
+                    item_id=product.get("item"),
+                    kuantitas=product.get("kuantitas"),
+                    harga=product.get("harga"),
+                    tipe_transaksi=product.get("tipe_transaksi"),
                 )
 
-            ItemTransaksi.objects.bulk_create(item_trx)
         return super().form_valid(form)
 
 
