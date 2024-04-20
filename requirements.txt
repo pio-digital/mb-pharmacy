@@ -6,5 +6,6 @@ whitenoise==6.6.0
 python-dotenv==1.0.1
 django-admin-datta
 django-api-generator
+django-autocomplete-light
 psycopg
 psycopg-binary
