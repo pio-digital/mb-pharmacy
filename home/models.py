@@ -12,7 +12,6 @@ from django.utils.translation import gettext_lazy as _
 from helpers.util import format_currency
 from home.consts import (
     CASHIER,
-    CURRENCY_CHOICES,
     CURRENCY_IDR,
     NON_PRESCRIPTION,
     PENDING,
@@ -31,11 +30,6 @@ def create_object_id():
 def generate_sku(length=12):
     characters = string.ascii_uppercase + string.digits
     return "".join(random.choices(characters, k=length))
-
-
-def generate_faktur(length=9):
-    digits = string.digits
-    return "".join(random.choices(digits, k=length))
 
 
 def generate_nomor_pre_order(id: int = 0):
@@ -90,6 +84,7 @@ class Supplier(BaseModel):
 
     # __Supplier_FIELDS__
     nama = models.CharField(max_length=50)
+    nama_perusahaan = models.CharField(max_length=255, blank=True, null=True)
     nomor_kontak = models.CharField(max_length=15, null=True, blank=True)
 
     # __Supplier_FIELDS__END
@@ -138,15 +133,12 @@ class VarianProduk(BaseModel):
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
     kuantitas = models.PositiveIntegerField()
     harga_beli = models.PositiveIntegerField()
-    kurs_harga_beli = models.CharField(
-        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
-    )
     harga_jual = models.PositiveIntegerField()
-    kurs_harga_jual = models.CharField(
-        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
+    persentase_margin = models.FloatField(default=0)
+    nominal_margin = models.IntegerField(default=0)
+    storage = models.ForeignKey(
+        "home.Storage", on_delete=models.SET_NULL, blank=True, null=True
     )
-    margin = models.CharField(max_length=255, null=True, blank=True)
-    nama_rak = models.CharField(max_length=30, null=True, blank=True)
 
     # __Varianproduk_FIELDS__END
 
@@ -205,9 +197,6 @@ class Transaksi(BaseModel):
         blank=True,
         null=True,
     )
-    kurs = models.CharField(
-        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
-    )
     total_biaya = models.IntegerField()
     metode_pembayaran = models.ForeignKey(
         MetodePembayaran,
@@ -228,7 +217,7 @@ class Transaksi(BaseModel):
         verbose_name_plural = _("Transaksi")
 
     def __str__(self):
-        return f"{self.profile} – {self.lokasi} {format_currency(self.total_biaya, self.kurs)}"
+        return f"{self.profile} – {self.lokasi} {format_currency(self.total_biaya, CURRENCY_IDR)}"
 
 
 class ItemTransaksi(BaseModel):
@@ -241,9 +230,6 @@ class ItemTransaksi(BaseModel):
         null=True,
     )
     kuantitas = models.PositiveIntegerField()
-    kurs = models.CharField(
-        max_length=3, default=CURRENCY_IDR, choices=CURRENCY_CHOICES
-    )
     harga = models.IntegerField()
     tipe_transaksi = models.CharField(
         max_length=15,
@@ -258,9 +244,7 @@ class ItemTransaksi(BaseModel):
         verbose_name_plural = _("Item")
 
     def __str__(self):
-        return (
-            f"{self.item} @ {self.kuantitas} {format_currency(self.harga, self.kurs)}"
-        )
+        return f"{self.item} @ {self.kuantitas} {format_currency(self.harga, CURRENCY_IDR)}"
 
 
 class SumberDana(BaseModel):
@@ -280,7 +264,7 @@ class SumberDana(BaseModel):
 
 class Pembelian(BaseModel):
     nomor_pre_order = models.TextField(blank=True, null=True)
-    nomor_faktur = models.CharField(max_length=12, default=generate_faktur)
+    nomor_faktur = models.CharField(max_length=255, blank=True, null=True)
     tanggal_faktur = models.DateField()
     supplier = models.ForeignKey(
         Supplier, on_delete=models.SET_NULL, blank=True, null=True
@@ -322,8 +306,8 @@ class PembelianObat(BaseModel):
     tanggal_kedaluwarsa = models.DateField(blank=True, null=True)
 
     class Meta:
-        verbose_name = _("Obat")
-        verbose_name_plural = _("Obat")
+        verbose_name = _("Produk")
+        verbose_name_plural = _("Produk")
 
     def __str__(self):
         if self.obat:
@@ -347,6 +331,17 @@ class Pembayaran(BaseModel):
 
     def __str__(self):
         return self.nama_pembayaran
+
+
+class Storage(BaseModel):
+    nama = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name = _("Tempat Penyimpanan")
+        verbose_name_plural = _("Tempat Penyimpanan")
+
+    def __str__(self):
+        return self.nama
 
 
 # __MODELS__END

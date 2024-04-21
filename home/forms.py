@@ -7,6 +7,7 @@ from home.models import (
     MetodePembayaran,
     Pembelian,
     PembelianObat,
+    Produk,
     Transaksi,
 )
 
@@ -36,7 +37,6 @@ class TransaksiCreateForm(forms.ModelForm):
         exclude = (
             "uid",
             "profile",
-            "kurs",
             "lokasi",
         )
 
@@ -47,7 +47,6 @@ class ItemTransaksiForm(forms.ModelForm):
         exclude = (
             "uid",
             "transaksi",
-            "kurs",
         )
         widgets = {"obat": autocomplete.ModelSelect2(url="produk-autocomplete")}
 
@@ -61,6 +60,9 @@ ItemTransaksiFormSet = forms.inlineformset_factory(
 
 
 class PembelianObatForm(forms.ModelForm):
+    obat = forms.ModelChoiceField(queryset=Produk.objects.all(), label="Produk")
+    obat = forms.CharField(label="Nama Produk")
+
     class Meta:
         model = PembelianObat
         fields = "__all__"
