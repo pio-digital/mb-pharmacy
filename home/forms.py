@@ -61,7 +61,7 @@ ItemTransaksiFormSet = forms.inlineformset_factory(
 
 class PembelianObatForm(forms.ModelForm):
     obat = forms.ModelChoiceField(queryset=Produk.objects.all(), label="Produk")
-    obat = forms.CharField(label="Nama Produk")
+    nama_obat = forms.CharField(label="Nama Produk")
 
     class Meta:
         model = PembelianObat

@@ -24,7 +24,7 @@ from home.models import (
 class PembelianObatInline(admin.TabularInline):
     model = PembelianObat
     form = PembelianObatForm
-    extra = 1
+    extra = 0
     exclude = ("uid",)
 
     template = "admin/pembelian/edit_inline/tabular.html"
@@ -57,7 +57,51 @@ class PembelianAdmin(admin.ModelAdmin):
     exclude = ["uid"]
     inlines = [PembelianObatInline]
 
+    list_display = [
+        "tanggal_faktur",
+        "nomor_faktur",
+        "nomor_pre_order",
+        "supplier",
+        "pajak",
+        "diskon",
+        "total",
+        "sumber_dana",
+        "get_total_produk",
+    ]
+
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": [("tanggal_faktur", "nomor_faktur", "nomor_pre_order")],
+            },
+        ),
+        (
+            None,
+            {
+                "fields": [("supplier", "sumber_dana", "total")],
+            },
+        ),
+        (
+            None,
+            {
+                "fields": [("pajak", "nominal_pajak")],
+            },
+        ),
+        (
+            None,
+            {
+                "fields": [("diskon", "nominal_diskon")],
+            },
+        ),
+    ]
+
     change_form_template = "admin/pembelian/change_form.html"
+
+    def get_total_produk(self, obj):
+        return obj.pembelianobat_set.count()
+
+    get_total_produk.short_description = "Total Produk"
 
 
 @admin.register(Pembayaran)
@@ -123,7 +167,24 @@ class ProdukAdmin(admin.ModelAdmin):
         ),
     ]
 
+    list_display = [
+        "id",
+        "nama",
+        "brand",
+        "kemasan",
+        "unit_per_kemasan",
+        "supplier",
+        "get_total_varian",
+    ]
+
+    list_filter = ["supplier"]
+
     change_form_template = "admin/produk/change_form.html"
+
+    def get_total_varian(self, obj):
+        return obj.varianproduk_set.count()
+
+    get_total_varian.short_description = "Total Varian"
 
 
 @admin.register(Transaksi)
