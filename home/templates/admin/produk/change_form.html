@@ -104,3 +104,29 @@
         </div>
     </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    function updateHargaJual(selected) {
+        const rowId = selected.id.match(/\d+/)[0];
+        const hargaJualElement = document.getElementById(`id_varianproduk_set-${rowId}-harga_jual`);
+        const hargaBeliElement = document.getElementById(`id_varianproduk_set-${rowId}-harga_beli`);
+        const nominalMarginElement = document.getElementById(`id_varianproduk_set-${rowId}-nominal_margin`);
+        const persentaseMarginElement = document.getElementById(`id_varianproduk_set-${rowId}-persentase_margin`);
+
+        nominalMarginElement.value = Number(hargaBeliElement.value) * Number(selected.value) / 100;
+        hargaJualElement.value = Number(hargaBeliElement.value) + Number(nominalMarginElement.value);
+    }
+
+    function updateMargin(selected) {
+        const rowId = selected.id.match(/\d+/)[0];
+        const hargaJualElement = document.getElementById(`id_varianproduk_set-${rowId}-harga_jual`);
+        const hargaBeliElement = document.getElementById(`id_varianproduk_set-${rowId}-harga_beli`);
+        const nominalMarginElement = document.getElementById(`id_varianproduk_set-${rowId}-nominal_margin`);
+        const persentaseMarginElement = document.getElementById(`id_varianproduk_set-${rowId}-persentase_margin`);
+
+        persentaseMarginElement.value = (Number(hargaBeliElement.value) / Number(selected.value) * 100).toFixed(2);
+        nominalMarginElement.value = Number(hargaJualElement.value) - Number(hargaBeliElement.value);
+    }
+</script>
+{% endblock %}

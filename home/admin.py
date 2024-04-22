@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from home.forms import ItemTransaksiForm, PembelianForm, PembelianObatForm
+from home.forms import (
+    ItemTransaksiForm,
+    PembelianForm,
+    PembelianObatForm,
+    VarianProdukForm,
+)
 from home.models import (
     ItemTransaksi,
     Lokasi,
@@ -32,6 +37,7 @@ class PembelianObatInline(admin.TabularInline):
 
 class VarianProdukInline(admin.TabularInline):
     model = VarianProduk
+    form = VarianProdukForm
     extra = 0
     exclude = ["uid"]
 

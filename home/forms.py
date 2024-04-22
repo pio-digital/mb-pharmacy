@@ -9,6 +9,7 @@ from home.models import (
     PembelianObat,
     Produk,
     Transaksi,
+    VarianProduk,
 )
 
 
@@ -63,13 +64,13 @@ class PembelianObatForm(forms.ModelForm):
     obat = forms.ModelChoiceField(
         queryset=Produk.objects.all(), label="Produk", required=False
     )
-    nama_obat = forms.CharField(label="Nama Produk", required=False)
 
     class Meta:
         model = PembelianObat
         fields = "__all__"
         widgets = {
             "obat": autocomplete.ModelSelect2(url="produk-autocomplete"),
+            "nama_obat": forms.HiddenInput(),
         }
 
 
@@ -79,14 +80,31 @@ class PembelianForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             "nomor_pre_order": forms.TextInput(attrs={"disabled": "true"}),
-            "diskon": forms.NumberInput(attrs={
-                "x-model": "disc",
-            }),
-            "pajak": forms.NumberInput(attrs={
-                "x-model": "pajak",
-            }),
-            "total": forms.NumberInput(attrs={
-                "x-model": "total",
-            })
+            "diskon": forms.NumberInput(
+                attrs={
+                    "x-model": "disc",
+                }
+            ),
+            "pajak": forms.NumberInput(
+                attrs={
+                    "x-model": "pajak",
+                }
+            ),
+            "total": forms.NumberInput(
+                attrs={
+                    "x-model": "total",
+                }
+            ),
         }
 
+
+class VarianProdukForm(forms.ModelForm):
+    class Meta:
+        model = VarianProduk
+        fields = "__all__"
+        widgets = {
+            "persentase_margin": forms.NumberInput(
+                attrs={"onchange": "updateHargaJual(this)"}
+            ),
+            "harga_jual": forms.NumberInput(attrs={"onchange": "updateMargin(this)"}),
+        }
