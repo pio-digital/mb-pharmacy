@@ -49,3 +49,14 @@ TRANSACTION_TYPE_CHOICES = (
     (PRESCRIPTION, _("Resep")),
     (NON_PRESCRIPTION, _("Tanpa Resep")),
 )
+
+
+CALCULATION_FIELDS = [
+    "total",
+    "pajak",
+    "nominal_pajak",
+    "diskon",
+    "nominal_diskon",
+    "persentase_margin",
+    "nominal_margin",
+]
