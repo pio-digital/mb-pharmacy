@@ -32,7 +32,7 @@ class PembelianObatInline(admin.TabularInline):
 
 class VarianProdukInline(admin.TabularInline):
     model = VarianProduk
-    extra = 1
+    extra = 0
     exclude = ["uid"]
 
     template = "admin/produk/edit_inline/tabular.html"
