@@ -68,11 +68,25 @@ class PembelianObatForm(forms.ModelForm):
     class Meta:
         model = PembelianObat
         fields = "__all__"
-        widgets = {"obat": autocomplete.ModelSelect2(url="produk-autocomplete")}
+        widgets = {
+            "obat": autocomplete.ModelSelect2(url="produk-autocomplete"),
+        }
 
 
 class PembelianForm(forms.ModelForm):
     class Meta:
         model = Pembelian
         fields = "__all__"
-        widgets = {"nomor_pre_order": forms.TextInput}
+        widgets = {
+            "nomor_pre_order": forms.TextInput(attrs={"disabled": "true"}),
+            "diskon": forms.NumberInput(attrs={
+                "x-model": "disc",
+            }),
+            "pajak": forms.NumberInput(attrs={
+                "x-model": "pajak",
+            }),
+            "total": forms.NumberInput(attrs={
+                "x-model": "total",
+            })
+        }
+
