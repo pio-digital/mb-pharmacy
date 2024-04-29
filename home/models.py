@@ -279,8 +279,8 @@ class Pembelian(BaseModel):
     total = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        verbose_name = _("Pembelian")
-        verbose_name_plural = _("Pembelian")
+        verbose_name = _("Order")
+        verbose_name_plural = _("Order")
 
     def __str__(self):
         return self.nomor_pre_order
@@ -326,8 +326,8 @@ class Pembayaran(BaseModel):
     catatan = models.TextField(blank=True, null=True)
 
     class Meta:
-        verbose_name = _("Pembayaran")
-        verbose_name_plural = _("Pembayaran")
+        verbose_name = _("Operasional")
+        verbose_name_plural = _("Operasional")
 
     def __str__(self):
         return self.nama_pembayaran
