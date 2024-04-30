@@ -70,7 +70,7 @@ class PembelianObatForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             "obat": autocomplete.ModelSelect2(url="produk-autocomplete"),
-            "nama_obat": forms.HiddenInput(),
+            "nama_obat": forms.HiddenInput()
         }
 
 
@@ -82,19 +82,36 @@ class PembelianForm(forms.ModelForm):
             "nomor_pre_order": forms.TextInput(attrs={"disabled": "true"}),
             "diskon": forms.NumberInput(
                 attrs={
-                    "x-model": "disc",
+                    "x-model": "diskon",
+                    "x-on:change.debounce": "updateDiskon($event)",
+                    "x-on:keydown.debounce": "updateDiskon($event)"
                 }
             ),
             "pajak": forms.NumberInput(
                 attrs={
                     "x-model": "pajak",
+                    "x-on:change.debounce": "updatePajak($event)",
+                    "x-on:keydown.debounce": "updatePajak($event)"
                 }
             ),
             "total": forms.NumberInput(
                 attrs={
                     "x-model": "total",
+                    "disabled": "false"
                 }
             ),
+            "nominal_pajak": forms.NumberInput(
+                attrs={
+                    "x-model": "nominal_pajak",
+                    "disabled": "true"
+                }
+            ),
+            "nominal_diskon": forms.NumberInput(
+                attrs={
+                    "x-model": "nominal_diskon",
+                    "disabled": "true"
+                }
+            )
         }
 
 

@@ -16,6 +16,7 @@
                     {{ inline_admin_formset.formset.non_form_errors }}
                 </div>
 
+
                 <div class="table-responsive">
                     <table class="table table-centered table-nowrap mb-0 rounded">
                         <thead class="thead-light">
@@ -39,7 +40,7 @@
                         </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody x-ref="tabularBody">
                         {% for inline_admin_form in inline_admin_formset %}
                             {% if inline_admin_form.form.non_field_errors %}
                                 <tr class="row-form-errors">
@@ -94,7 +95,6 @@
                                                     {% elif field.field.name|in_calculation_fields %}
                                                         {{ field.field.errors.as_ul }}
                                                         {{ field.field }}
-                                                        HAHAHAHAHAHAHAHAHAHA
                                                     {% else %}
                                                         {{ field.field.errors.as_ul }}
                                                         {{ field.field }}
@@ -105,9 +105,11 @@
                                     {% endfor %}
                                 {% endfor %}
                                 {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission %}
-                                    <td class="delete">
+                                    <td class="delete" >
                                         {% if inline_admin_form.original %}
+                                        {% comment %} <button x-on:click="alert('Hello World!')"> {% endcomment %}
                                             {{ inline_admin_form.deletion_field.field }}
+                                        {% comment %} </button> {% endcomment %}
                                         {% endif %}
                                     </td>
                                 {% endif %}
