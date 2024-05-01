@@ -160,7 +160,7 @@
                                                             <input x-model="item.nominal_diskon"
                                                                    @keydown.debounce="changeNominalDiskon($event, item.nominal_diskon, index)"
                                                                    @change.debounce="changeNominalDiskon($event, item.nominal_diskon, index)"
-                                                                   disabled
+                                                                   readonly
                                                                    type="number"
                                                                    name="nominal_diskon[]"
                                                                    class="form-control">
@@ -260,7 +260,61 @@
             init() {
                 this.obat = fetchObat()
                 this.satuan = fetchSatuan()
-                this.produk = fetchProduk()
+
+                // const produkDetail = fetchProduk()
+
+                // this.produk = fetchProduk()
+
+                const currentPath = window.location.pathname
+
+                console.log({
+                    url: currentPath,
+                    check: currentPath.includes('add')
+                })
+
+                if (!currentPath.includes('add')) {
+                    this.fetchProduk()
+                }
+            },
+
+            async fetchProduk() {
+                try {
+                    let url = '/api/obat/?pembelian_id={{original.id}}';
+
+                    const response = await fetch(url, { 
+                    method: "GET",
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    });
+
+                    if (!response.ok) {
+                    throw new Eroor(response.message)
+                    }
+
+                    const responseJSON = await response.json()
+                    const result = responseJSON.data
+
+                    const overide = result.map(item => {
+                        return {
+                            id: item.id,
+                            obat: item.obat,
+                            jumlah: item.jumlah,	
+                            satuan: item.satuan,
+                            harga: item.harga, 	
+                            diskon: item.diskon, 	
+                            nominal_diskon: item.diskon,	
+                            bonus: item.bonus,
+                            bonus_satuan: item.bonus_satuan, 	
+                            tanggal_kedaluwarsa: item.tanggal_kedaluwarsa
+                        }
+                    })
+
+                    this.produk = overide
+                    return result
+                } catch (error) {
+                    console.log(error)
+                }      
             },
 
             changeJumlah(event, data, position) {
@@ -423,7 +477,6 @@
         const responseJSON = await response.json()
         const result = responseJSON.data
 
-        console.log(result)
         return result
       } catch (error) {
         console.log(error)
@@ -448,13 +501,13 @@
         const responseJSON = await response.json()
         const result = responseJSON.data
 
-        console.log(result)
         return result
       } catch (error) {
         console.log(error)
       }      
     }
 
+    /**
     async function fetchProduk() {
       try {
         let url = '/api/obat/?pembelian_id={{original.id}}';
@@ -479,5 +532,6 @@
         console.log(error)
       }      
     }
+    **/
     </script>
 {% endblock extra_js %}
