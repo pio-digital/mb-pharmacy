@@ -113,7 +113,12 @@
                                                             <select name="obat[]" x-model="item.obat" class="form-control form-select">
                                                                 <option value="" selected>------</option>
                                                                 <template x-for="option in obat" :key="option.id">
-                                                                    <option :value="option.id" x-text="option.nama"></option>
+                                                                    <option 
+                                                                        :value="option.id" 
+                                                                        :selected="option.id === item.obat"
+                                                                        x-model="option.id"
+                                                                        x-text="option.nama">
+                                                                    </option>
                                                                 </template>
                                                             </select>
                                                         </td>
@@ -134,7 +139,7 @@
                                                                     class="form-control form-select">
                                                                 <option value="" selected>------</option>
                                                                 <template x-for="option in satuan" :key="option.id">
-                                                                    <option :value="option.id" x-text="option.nama"></option>
+                                                                    <option :value="option.id" x-text="option.nama" :selected="option.id === item.satuan"></option>
                                                                 </template>
                                                             </select>
                                                         </td>
@@ -181,7 +186,7 @@
                                                                     class="form-control form-select">
                                                                 <option value="" selected>------</option>
                                                                 <template x-for="option in satuan" :key="option.id">
-                                                                    <option :value="option.id" x-text="option.nama"></option>
+                                                                    <option :value="option.id" x-text="option.nama" :selected="option.id === item.bonus_satuan"></option>
                                                                 </template>
                                                             </select>
                                                         </td>
@@ -260,17 +265,7 @@
             init() {
                 this.obat = fetchObat()
                 this.satuan = fetchSatuan()
-
-                // const produkDetail = fetchProduk()
-
-                // this.produk = fetchProduk()
-
                 const currentPath = window.location.pathname
-
-                console.log({
-                    url: currentPath,
-                    check: currentPath.includes('add')
-                })
 
                 if (!currentPath.includes('add')) {
                     this.fetchProduk()
