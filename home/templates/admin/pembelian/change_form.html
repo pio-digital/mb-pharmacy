@@ -154,8 +154,8 @@
                                                         </td>
                                                         <td class="align-middle">
                                                             <input x-model="item.diskon"
-                                                                   @keydown.debounce="changeDiskon($event, item.diskon, index)"
-                                                                   @change.debounce="changeDiskon($event, item.diskon, index)"
+                                                                   @keydown.debounce="changeDiskon($event, item, index)"
+                                                                   @change.debounce="changeDiskon($event, item, index)"
                                                                    min="1"
                                                                    type="number"
                                                                    name="diskon[]"
@@ -326,23 +326,30 @@
 
             changeHarga(event, data, position) {
                 const value = event.target.value
+
+                const produkCurrent = this.produk[position]
                 
-                this.produk[position].harga = Number(value)
+                produkCurrent.harga = Number(value)
               
                 const findExist = this.sumTotal.find(item => item.id === data.id)
+
+                if (produkCurrent.diskon) {
+                    produkCurrent.nominal_diskon = this.handleCalculationNominal(produkCurrent.harga, produkCurrent.diskon)
+                }
 
                 if (findExist) {
                     const findIndexExist = this.sumTotal.findIndex(item => item.id === data.id)
 
-                    this.sumTotal[findIndexExist].value = Number(value)
+                    this.sumTotal[findIndexExist].value = produkCurrent.harga
+                    this.sumTotal[findIndexExist].totalProduk = produkCurrent.harga - produkCurrent.nominal_diskon
                 } else {
+                    console.log({produkCurrent, value: produkCurrent.harga})
                     this.sumTotal.push({
                         id: data.id,
-                        value: Number(value)
+                        value: produkCurrent.harga,
+                        totalProduk: produkCurrent.harga
                     })
                 }
-
-                this.total = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
 
                 if (this.diskon) {
                     this.nominal_diskon = this.handleCalculationNominal(this.total, this.diskon)
@@ -351,6 +358,14 @@
                 if (this.pajak) {
                     this.nominal_pajak = this.handleCalculationNominal(this.total, this.pajak)
                 }
+
+                this.handleCalculateTotal()
+            },
+
+            handleCalculateTotal() {
+                const totalSum = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
+
+                this.total = ((totalSum + this.nominal_pajak) - this.nominal_diskon)
             },
 
             changeDiskon(event, data, position) {
@@ -360,6 +375,16 @@
               
               const result = this.handleCalculationNominal(this.produk[position].harga, this.produk[position].diskon)
               this.produk[position].nominal_diskon = result
+
+              const findExist = this.sumTotal.find(item => item.id === data.id)
+              
+              if (findExist) {
+                const findIndexExist = this.sumTotal.findIndex(item => item.id === data.id)
+
+                this.sumTotal[findIndexExist].totalProduk = this.produk[position].harga - result
+              }
+              
+              this.handleCalculateTotal()
             },
 
             changeNominalDiskon(event, data, position) {
@@ -394,9 +419,13 @@
 
                 const value = e.target.value
 
-                this.diskon = value
+                this.diskon = Number(value)
 
-                this.nominal_diskon = this.handleCalculationNominal(this.total, this.diskon)
+                const currentTotal = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
+
+                this.nominal_diskon = this.handleCalculationNominal(currentTotal, this.diskon)
+
+                this.handleCalculateTotal()
             },
 
             updatePajak(e) {
@@ -406,8 +435,12 @@
                 const value = e.target.value
 
                 this.pajak = Number(value)
+
+                const currentTotal = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
                 
-                this.nominal_pajak = this.handleCalculationNominal(this.total, this.pajak)
+                this.nominal_pajak = this.handleCalculationNominal(currentTotal, this.pajak)
+
+                this.handleCalculateTotal()
             },
 
             handleCalculationNominal(total, value) {
@@ -438,7 +471,7 @@
                     const findExistIndex = this.sumTotal.findIndex(item => item.id === data.id)
                     this.sumTotal.splice(findExistIndex, 1);
 
-                    this.total = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.value, 0)
+                    this.handleCalculateTotal()
                 }
 
                 this.produk.splice(position, 1);
@@ -450,6 +483,8 @@
                 if (this.pajak) {
                     this.nominal_pajak = this.handleCalculationNominal(this.total, this.pajak)
                 }
+
+                this.handleCalculateTotal()
             }
         }))
     })
