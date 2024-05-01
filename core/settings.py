@@ -191,7 +191,11 @@ API_GENERATOR = {
     "transaksi": "home.models.Transaksi",
     "itemtransaksi": "home.models.ItemTransaksi",
     "sumberdana": "home.models.SumberDana",
-    "varianproduk": "home.models.VarianProduk",
+    "varian": "home.models.VarianProduk",
+    "order": "home.models.Pembelian",
+    "obat": "home.models.PembelianObat",
+    "operasional": "home.models.Pembayaran",
+    "storage": "home.models.Storage",
     # __RULES__END
 }
 

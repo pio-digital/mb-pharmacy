@@ -15,7 +15,11 @@ try:
         ItemTransaksi,
         Lokasi,
         MetodePembayaran,
+        Pembayaran,
+        Pembelian,
+        PembelianObat,
         Produk,
+        Storage,
         SumberDana,
         Supplier,
         Transaksi,
@@ -682,6 +686,304 @@ class VarianProdukView(APIView):
     def delete(self, request, pk):
         try:
             obj = get_object_or_404(VarianProduk, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        obj.delete()
+        return Response(
+            data={"message": "Record Deleted.", "success": True}, status=HTTPStatus.OK
+        )
+
+
+class PembelianView(APIView):
+
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def post(self, request):
+        serializer = PembelianSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Created.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def get(self, request, pk=None):
+        if not pk:
+            return Response(
+                {
+                    "data": [
+                        PembelianSerializer(instance=obj).data
+                        for obj in Pembelian.objects.all()
+                    ],
+                    "success": True,
+                },
+                status=HTTPStatus.OK,
+            )
+        try:
+            obj = get_object_or_404(Pembelian, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        return Response(
+            {"data": PembelianSerializer(instance=obj).data, "success": True},
+            status=HTTPStatus.OK,
+        )
+
+    def put(self, request, pk):
+        try:
+            obj = get_object_or_404(Pembelian, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        serializer = PembelianSerializer(instance=obj, data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Updated.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def delete(self, request, pk):
+        try:
+            obj = get_object_or_404(Pembelian, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        obj.delete()
+        return Response(
+            data={"message": "Record Deleted.", "success": True}, status=HTTPStatus.OK
+        )
+
+
+class PembelianObatView(APIView):
+
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def post(self, request):
+        serializer = PembelianObatSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Created.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def get(self, request, pk=None):
+        if not pk:
+            params = request.query_params
+            pembelian_id = params.get("pembelian_id")
+            qs = PembelianObat.objects.all()
+
+            if pembelian_id:
+                qs = qs.filter(pembelian_id=pembelian_id)
+
+            return Response(
+                {
+                    "data": [PembelianObatSerializer(instance=obj).data for obj in qs],
+                    "success": True,
+                },
+                status=HTTPStatus.OK,
+            )
+        try:
+            obj = get_object_or_404(PembelianObat, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        return Response(
+            {"data": PembelianObatSerializer(instance=obj).data, "success": True},
+            status=HTTPStatus.OK,
+        )
+
+    def put(self, request, pk):
+        try:
+            obj = get_object_or_404(PembelianObat, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        serializer = PembelianObatSerializer(
+            instance=obj, data=request.data, partial=True
+        )
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Updated.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def delete(self, request, pk):
+        try:
+            obj = get_object_or_404(PembelianObat, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        obj.delete()
+        return Response(
+            data={"message": "Record Deleted.", "success": True}, status=HTTPStatus.OK
+        )
+
+
+class PembayaranView(APIView):
+
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def post(self, request):
+        serializer = PembayaranSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Created.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def get(self, request, pk=None):
+        if not pk:
+            return Response(
+                {
+                    "data": [
+                        PembayaranSerializer(instance=obj).data
+                        for obj in Pembayaran.objects.all()
+                    ],
+                    "success": True,
+                },
+                status=HTTPStatus.OK,
+            )
+        try:
+            obj = get_object_or_404(Pembayaran, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        return Response(
+            {"data": PembayaranSerializer(instance=obj).data, "success": True},
+            status=HTTPStatus.OK,
+        )
+
+    def put(self, request, pk):
+        try:
+            obj = get_object_or_404(Pembayaran, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        serializer = PembayaranSerializer(instance=obj, data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Updated.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def delete(self, request, pk):
+        try:
+            obj = get_object_or_404(Pembayaran, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        obj.delete()
+        return Response(
+            data={"message": "Record Deleted.", "success": True}, status=HTTPStatus.OK
+        )
+
+
+class StorageView(APIView):
+
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def post(self, request):
+        serializer = StorageSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Created.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def get(self, request, pk=None):
+        if not pk:
+            return Response(
+                {
+                    "data": [
+                        StorageSerializer(instance=obj).data
+                        for obj in Storage.objects.all()
+                    ],
+                    "success": True,
+                },
+                status=HTTPStatus.OK,
+            )
+        try:
+            obj = get_object_or_404(Storage, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        return Response(
+            {"data": StorageSerializer(instance=obj).data, "success": True},
+            status=HTTPStatus.OK,
+        )
+
+    def put(self, request, pk):
+        try:
+            obj = get_object_or_404(Storage, pk=pk)
+        except Http404:
+            return Response(
+                data={"message": "object with given id not found.", "success": False},
+                status=HTTPStatus.NOT_FOUND,
+            )
+        serializer = StorageSerializer(instance=obj, data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response(
+                data={**serializer.errors, "success": False},
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        serializer.save()
+        return Response(
+            data={"message": "Record Updated.", "success": True}, status=HTTPStatus.OK
+        )
+
+    def delete(self, request, pk):
+        try:
+            obj = get_object_or_404(Storage, pk=pk)
         except Http404:
             return Response(
                 data={"message": "object with given id not found.", "success": False},
