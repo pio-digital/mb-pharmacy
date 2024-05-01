@@ -43,6 +43,7 @@
                         {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
                     {% else %}
                         {{ original|truncatewords:"18" }}
+                        {{ original.pajak }}
                     {% endif %}
                 </h1>
             </div>
@@ -269,7 +270,13 @@
 
                 if (!currentPath.includes('add')) {
                     this.fetchProduk()
-                }
+
+                    this.pajak = '{{original.pajak}}'
+                    this.nominal_pajak = '{{original.nominal_pajak}}'
+                    this.diskon = '{{original.diskon}}'
+                    this.nominal_diskon = '{{original.nominal_diskon}}'
+                    this.total = '{{original.total}}'
+                }                  
             },
 
             async fetchProduk() {
