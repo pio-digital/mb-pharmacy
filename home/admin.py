@@ -1,7 +1,10 @@
+from typing import Any
+
 from django.contrib import admin
 
 from home.forms import (
     ItemTransaksiForm,
+    PembayaranForm,
     PembelianForm,
     PembelianObatForm,
     VarianProdukForm,
@@ -112,10 +115,18 @@ class PembelianAdmin(admin.ModelAdmin):
 
 @admin.register(Pembayaran)
 class PembayaranAdmin(admin.ModelAdmin):
+    form = PembayaranForm
     exclude = ["uid"]
     search_fields = [
         "nomor_transaksi",
         "nama_pembayaran",
+    ]
+    list_display = [
+        "tanggal",
+        "nomor_transaksi",
+        "nama_pembayaran",
+        "total_biaya",
+        "sumber_dana",
     ]
     fieldsets = [
         (
@@ -235,6 +246,7 @@ class TransaksiAdmin(admin.ModelAdmin):
 @admin.register(Lokasi)
 class LokasiAdmin(admin.ModelAdmin):
     exclude = ["uid"]
+    list_display = ["nama_toko", "alamat_lengkap", "nomor_telepon"]
 
 
 @admin.register(MetodePembayaran)
@@ -250,6 +262,7 @@ class SumberDanaAdmin(admin.ModelAdmin):
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
     exclude = ["uid"]
+    list_display = ["nama", "nama_perusahaan", "nomor_kontak"]
 
 
 @admin.register(Storage)
@@ -265,3 +278,4 @@ class UnitAdmin(admin.ModelAdmin):
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
     exclude = ["uid"]
+    list_display = ["user", "role"]

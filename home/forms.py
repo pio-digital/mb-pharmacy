@@ -5,6 +5,7 @@ from home.consts import STATUS_CHOICES
 from home.models import (
     ItemTransaksi,
     MetodePembayaran,
+    Pembayaran,
     Pembelian,
     PembelianObat,
     Produk,
@@ -70,7 +71,8 @@ class PembelianObatForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             "obat": autocomplete.ModelSelect2(url="produk-autocomplete"),
-            "nama_obat": forms.HiddenInput()
+            "nama_obat": forms.HiddenInput(),
+            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
         }
 
 
@@ -79,39 +81,29 @@ class PembelianForm(forms.ModelForm):
         model = Pembelian
         fields = "__all__"
         widgets = {
-            "nomor_pre_order": forms.TextInput(attrs={"disabled": "true"}),
+            "nomor_pre_order": forms.TextInput(attrs={"readonly": "true"}),
             "diskon": forms.NumberInput(
                 attrs={
                     "x-model": "diskon",
                     "x-on:change.debounce": "updateDiskon($event)",
-                    "x-on:keydown.debounce": "updateDiskon($event)"
+                    "x-on:keydown.debounce": "updateDiskon($event)",
                 }
             ),
             "pajak": forms.NumberInput(
                 attrs={
                     "x-model": "pajak",
                     "x-on:change.debounce": "updatePajak($event)",
-                    "x-on:keydown.debounce": "updatePajak($event)"
+                    "x-on:keydown.debounce": "updatePajak($event)",
                 }
             ),
-            "total": forms.NumberInput(
-                attrs={
-                    "x-model": "total",
-                    "disabled": "false"
-                }
-            ),
+            "total": forms.NumberInput(attrs={"x-model": "total", "readonly": "true"}),
             "nominal_pajak": forms.NumberInput(
-                attrs={
-                    "x-model": "nominal_pajak",
-                    "disabled": "true"
-                }
+                attrs={"x-model": "nominal_pajak", "readonly": "true"}
             ),
             "nominal_diskon": forms.NumberInput(
-                attrs={
-                    "x-model": "nominal_diskon",
-                    "disabled": "true"
-                }
-            )
+                attrs={"x-model": "nominal_diskon", "readonly": "true"}
+            ),
+            "tanggal_faktur": forms.DateInput(attrs={"type": "date"}),
         }
 
 
@@ -124,4 +116,14 @@ class VarianProdukForm(forms.ModelForm):
                 attrs={"onchange": "updateHargaJual(this)"}
             ),
             "harga_jual": forms.NumberInput(attrs={"onchange": "updateMargin(this)"}),
+            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
+        }
+
+
+class PembayaranForm(forms.ModelForm):
+    class Meta:
+        model = Pembayaran
+        fields = "__all__"
+        widgets = {
+            "tanggal": forms.DateInput(attrs={"type": "date"}),
         }
