@@ -83,11 +83,11 @@
                                 {% endfor %}
                             {% endblock %}
                             {% block after_field_sets %}{% endblock %}
-                            {% comment %} {% block inline_field_sets %}
+                            {% block inline_field_sets %}
                                 {% for inline_admin_formset in inline_admin_formsets %}
                                     {% include inline_admin_formset.opts.template %}
                                 {% endfor %}
-                            {% endblock %} {% endcomment %}
+                            {% endblock %}
                             <section class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">Produk</h3>
@@ -111,7 +111,7 @@
                                                 <template x-for="(item, index) in produk">
                                                     <tr>
                                                         <td class="align-middle">
-                                                            <select name="obat[]" x-model="item.obat" class="form-control form-select">
+                                                            <select :name="'pembelianobat_set-' + index + '-obat'" :id="'id_pembelianobat_set-' + index + '-obat'" x-model="item.obat" class="form-control form-select">
                                                                 <option value="" selected>------</option>
                                                                 <template x-for="option in obat" :key="option.id">
                                                                     <option 
@@ -130,11 +130,13 @@
                                                                    @change.debounce="changeJumlah($event, item.jumlah, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="jumlah[]"
+                                                                   :name="'pembelianobat_set-' + index + '-jumlah'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-jumlah'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
-                                                            <select name="satuan[]"
+                                                            <select :name="'pembelianobat_set-' + index + '-satuan'"  
+                                                                    :id="'id_pembelianobat_set-' + index + '-satuan'"
                                                                     x-model="item.satuan"
                                                                     @change="changeSatuan($event, item.satuan, index)"
                                                                     class="form-control form-select">
@@ -150,7 +152,8 @@
                                                                    @change.debounce="changeHarga($event, item, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="harga[]"
+                                                                   :name="'pembelianobat_set-' + index + '-harga'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-harga'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
@@ -159,7 +162,8 @@
                                                                    @change.debounce="changeDiskon($event, item, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="diskon[]"
+                                                                   :name="'pembelianobat_set-' + index + '-diskon'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-diskon'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
@@ -168,7 +172,8 @@
                                                                    @change.debounce="changeNominalDiskon($event, item.nominal_diskon, index)"
                                                                    readonly
                                                                    type="number"
-                                                                   name="nominal_diskon[]"
+                                                                   :name="'pembelianobat_set-' + index + '-nominal_diskon'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-nominal_diskon'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
@@ -177,11 +182,13 @@
                                                                    @change.debounce="changeBonus($event, item.bonus, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="bonus[]"
+                                                                   :name="'pembelianobat_set-' + index + '-bonus'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-bonus'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
-                                                            <select name="satuan[]"
+                                                            <select :name="'pembelianobat_set-' + index + '-bonus_satuan'"
+                                                                    :id="'id_pembelianobat_set-' + index + '-bonus_satuan'"
                                                                     x-model="item.bonus_satuan"
                                                                     @change="changeBonusSatuan($event, item.bonus_satuan, index)"
                                                                     class="form-control form-select">
@@ -196,7 +203,8 @@
                                                                    @keydown.debounce="changeTanggalKedaluwarsa($event, item.tanggal_kedaluwarsa, index)"
                                                                    @change.debounce="changeTanggalKedaluwarsa($event, item.tanggal_kedaluwarsa, index)"
                                                                    type="date"
-                                                                   name="tanggal_kedaluwarsa[]"
+                                                                   :name="'pembelianobat_set-' + index + '-tanggal_kedaluwarsa'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-tanggal_kedaluwarsa'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">

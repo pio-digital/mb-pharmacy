@@ -106,10 +106,6 @@ class PembelianForm(forms.ModelForm):
             "tanggal_faktur": forms.DateInput(attrs={"type": "date"}),
         }
 
-    def save(self, commit: bool = True):
-        f = super().save(commit=False)
-        f.save()
-
 
 class VarianProdukForm(forms.ModelForm):
     class Meta:
