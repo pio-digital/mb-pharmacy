@@ -103,6 +103,9 @@ class SumberDanaSerializer(serializers.ModelSerializer):
 
 
 class VarianProdukSerializer(serializers.ModelSerializer):
+    produk = ProdukSerializer()
+    unit = UnitSerializer()
+
     class Meta:
 
         try:
