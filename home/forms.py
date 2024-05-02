@@ -75,6 +75,14 @@ class PembelianObatForm(forms.ModelForm):
             "tanggal_kedaluwarsa": forms.DateInput(
                 attrs={"type": "date", "class": "form-control"}
             ),
+            "harga": forms.NumberInput(
+                attrs={
+                    "@change.debounce": "changeHarga($event)",
+                }
+            ),
+            "diskon": forms.TextInput(
+                attrs={"@change.debounce": "changeDiskon($event)"}
+            ),
         }
 
 
