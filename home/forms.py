@@ -72,7 +72,9 @@ class PembelianObatForm(forms.ModelForm):
         widgets = {
             "obat": autocomplete.ModelSelect2(url="produk-autocomplete"),
             "nama_obat": forms.HiddenInput(),
-            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
+            "tanggal_kedaluwarsa": forms.DateInput(
+                attrs={"type": "date", "class": "form-control"}
+            ),
         }
 
 
@@ -103,7 +105,9 @@ class PembelianForm(forms.ModelForm):
             "nominal_diskon": forms.NumberInput(
                 attrs={"x-model": "nominal_diskon", "readonly": "true"}
             ),
-            "tanggal_faktur": forms.DateInput(attrs={"type": "date"}),
+            "tanggal_faktur": forms.DateInput(
+                attrs={"type": "date", "class": "form-control"}
+            ),
         }
 
 
@@ -116,7 +120,9 @@ class VarianProdukForm(forms.ModelForm):
                 attrs={"onchange": "updateHargaJual(this)"}
             ),
             "harga_jual": forms.NumberInput(attrs={"onchange": "updateMargin(this)"}),
-            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
+            "tanggal_kedaluwarsa": forms.DateInput(
+                attrs={"type": "date", "class": "form-control"}
+            ),
         }
 
 
@@ -125,5 +131,5 @@ class PembayaranForm(forms.ModelForm):
         model = Pembayaran
         fields = "__all__"
         widgets = {
-            "tanggal": forms.DateInput(attrs={"type": "date"}),
+            "tanggal": forms.DateInput(attrs={"type": "date", "class": "form-control"}),
         }
