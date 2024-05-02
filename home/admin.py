@@ -1,15 +1,26 @@
-from django.apps import apps
 from django.contrib import admin
 
-from home.forms import ItemTransaksiForm, PembelianForm, PembelianObatForm
+from home.forms import (
+    ItemTransaksiForm,
+    PembayaranForm,
+    PembelianForm,
+    PembelianObatForm,
+    VarianProdukForm,
+)
 from home.models import (
     ItemTransaksi,
     Lokasi,
+    MetodePembayaran,
     Pembayaran,
     Pembelian,
     PembelianObat,
     Produk,
+    Storage,
+    SumberDana,
+    Supplier,
     Transaksi,
+    Unit,
+    UserProfile,
     VarianProduk,
 )
 
@@ -19,14 +30,19 @@ from home.models import (
 class PembelianObatInline(admin.TabularInline):
     model = PembelianObat
     form = PembelianObatForm
-    extra = 1
+    extra = 0
     exclude = ("uid",)
+
+    template = "admin/pembelian/edit_inline/tabular.html"
 
 
 class VarianProdukInline(admin.TabularInline):
     model = VarianProduk
-    extra = 1
-    exclude = ["uid", "kurs_harga_beli", "kurs_harga_jual"]
+    form = VarianProdukForm
+    extra = 0
+    exclude = ["uid"]
+
+    template = "admin/produk/edit_inline/tabular.html"
 
 
 class ItemTransaksiInline(admin.TabularInline):
@@ -48,13 +64,67 @@ class PembelianAdmin(admin.ModelAdmin):
     exclude = ["uid"]
     inlines = [PembelianObatInline]
 
+    list_display = [
+        "tanggal_faktur",
+        "nomor_faktur",
+        "nomor_pre_order",
+        "supplier",
+        "pajak",
+        "diskon",
+        "total",
+        "sumber_dana",
+        "get_total_produk",
+    ]
+
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": [("tanggal_faktur", "nomor_faktur", "nomor_pre_order")],
+            },
+        ),
+        (
+            None,
+            {
+                "fields": [("supplier", "sumber_dana", "total")],
+            },
+        ),
+        (
+            None,
+            {
+                "fields": [("pajak", "nominal_pajak")],
+            },
+        ),
+        (
+            None,
+            {
+                "fields": [("diskon", "nominal_diskon")],
+            },
+        ),
+    ]
+
+    change_form_template = "admin/pembelian/change_form.html"
+
+    def get_total_produk(self, obj):
+        return obj.pembelianobat_set.count()
+
+    get_total_produk.short_description = "Total Produk"
+
 
 @admin.register(Pembayaran)
 class PembayaranAdmin(admin.ModelAdmin):
+    form = PembayaranForm
     exclude = ["uid"]
     search_fields = [
         "nomor_transaksi",
         "nama_pembayaran",
+    ]
+    list_display = [
+        "tanggal",
+        "nomor_transaksi",
+        "nama_pembayaran",
+        "total_biaya",
+        "sumber_dana",
     ]
     fieldsets = [
         (
@@ -112,6 +182,25 @@ class ProdukAdmin(admin.ModelAdmin):
         ),
     ]
 
+    list_display = [
+        "id",
+        "nama",
+        "brand",
+        "kemasan",
+        "unit_per_kemasan",
+        "supplier",
+        "get_total_varian",
+    ]
+
+    list_filter = ["supplier"]
+
+    change_form_template = "admin/produk/change_form.html"
+
+    def get_total_varian(self, obj):
+        return obj.varianproduk_set.count()
+
+    get_total_varian.short_description = "Total Varian"
+
 
 @admin.register(Transaksi)
 class TransaksiAdmin(admin.ModelAdmin):
@@ -123,7 +212,7 @@ class TransaksiAdmin(admin.ModelAdmin):
         "metode_pembayaran",
         "status",
     ]
-    exclude = ["uid", "kurs"]
+    exclude = ["uid"]
     inlines = [ItemTransaksiInline]
     readonly_fields = [
         "created_on",
@@ -155,30 +244,36 @@ class TransaksiAdmin(admin.ModelAdmin):
 @admin.register(Lokasi)
 class LokasiAdmin(admin.ModelAdmin):
     exclude = ["uid"]
+    list_display = ["nama_toko", "alamat_lengkap", "nomor_telepon"]
 
 
-app_models = apps.get_app_config("home").get_models()
-for model in app_models:
-    try:
+@admin.register(MetodePembayaran)
+class MetodePembayaranAdmin(admin.ModelAdmin):
+    exclude = ["uid"]
 
-        # Special processing for UserProfile
-        if "UserProfile" == model.__name__:
 
-            # The model is registered only if has specific data
-            # 1 -> ID
-            # 2 -> User (one-to-one) relation
-            if len(model._meta.fields) > 2:
-                admin.site.register(model)
+@admin.register(SumberDana)
+class SumberDanaAdmin(admin.ModelAdmin):
+    exclude = ["uid"]
 
-        # Register to Admin
-        else:
-            if model.__name__ not in [
-                "Pembelian",
-                "PembelianObat",
-                "VarianProduk",
-                "ItemTransaksi",
-            ]:
-                admin.site.register(model)
 
-    except Exception:
-        pass
+@admin.register(Supplier)
+class SupplierAdmin(admin.ModelAdmin):
+    exclude = ["uid"]
+    list_display = ["nama", "nama_perusahaan", "nomor_kontak"]
+
+
+@admin.register(Storage)
+class StorageAdmin(admin.ModelAdmin):
+    exclude = ["uid"]
+
+
+@admin.register(Unit)
+class UnitAdmin(admin.ModelAdmin):
+    exclude = ["uid"]
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    exclude = ["uid"]
+    list_display = ["user", "role"]

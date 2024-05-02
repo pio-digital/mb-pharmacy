@@ -5,9 +5,12 @@ from home.consts import STATUS_CHOICES
 from home.models import (
     ItemTransaksi,
     MetodePembayaran,
+    Pembayaran,
     Pembelian,
     PembelianObat,
+    Produk,
     Transaksi,
+    VarianProduk,
 )
 
 
@@ -36,7 +39,6 @@ class TransaksiCreateForm(forms.ModelForm):
         exclude = (
             "uid",
             "profile",
-            "kurs",
             "lokasi",
         )
 
@@ -47,7 +49,6 @@ class ItemTransaksiForm(forms.ModelForm):
         exclude = (
             "uid",
             "transaksi",
-            "kurs",
         )
         widgets = {"obat": autocomplete.ModelSelect2(url="produk-autocomplete")}
 
@@ -61,14 +62,72 @@ ItemTransaksiFormSet = forms.inlineformset_factory(
 
 
 class PembelianObatForm(forms.ModelForm):
+    obat = forms.ModelChoiceField(
+        queryset=Produk.objects.all(), label="Produk", required=False
+    )
+
     class Meta:
         model = PembelianObat
         fields = "__all__"
-        widgets = {"obat": autocomplete.ModelSelect2(url="produk-autocomplete")}
+        widgets = {
+            "obat": autocomplete.ModelSelect2(url="produk-autocomplete"),
+            "nama_obat": forms.HiddenInput(),
+            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
+        }
 
 
 class PembelianForm(forms.ModelForm):
     class Meta:
         model = Pembelian
         fields = "__all__"
-        widgets = {"nomor_pre_order": forms.TextInput}
+        widgets = {
+            "nomor_pre_order": forms.TextInput(attrs={"readonly": "true"}),
+            "diskon": forms.NumberInput(
+                attrs={
+                    "x-model": "diskon",
+                    "x-on:change.debounce": "updateDiskon($event)",
+                    "x-on:keydown.debounce": "updateDiskon($event)",
+                }
+            ),
+            "pajak": forms.NumberInput(
+                attrs={
+                    "x-model": "pajak",
+                    "x-on:change.debounce": "updatePajak($event)",
+                    "x-on:keydown.debounce": "updatePajak($event)",
+                }
+            ),
+            "total": forms.NumberInput(attrs={"x-model": "total", "readonly": "true"}),
+            "nominal_pajak": forms.NumberInput(
+                attrs={"x-model": "nominal_pajak", "readonly": "true"}
+            ),
+            "nominal_diskon": forms.NumberInput(
+                attrs={"x-model": "nominal_diskon", "readonly": "true"}
+            ),
+            "tanggal_faktur": forms.DateInput(attrs={"type": "date"}),
+        }
+
+    def save(self, commit: bool = True):
+        f = super().save(commit=False)
+        f.save()
+
+
+class VarianProdukForm(forms.ModelForm):
+    class Meta:
+        model = VarianProduk
+        fields = "__all__"
+        widgets = {
+            "persentase_margin": forms.NumberInput(
+                attrs={"onchange": "updateHargaJual(this)"}
+            ),
+            "harga_jual": forms.NumberInput(attrs={"onchange": "updateMargin(this)"}),
+            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
+        }
+
+
+class PembayaranForm(forms.ModelForm):
+    class Meta:
+        model = Pembayaran
+        fields = "__all__"
+        widgets = {
+            "tanggal": forms.DateInput(attrs={"type": "date"}),
+        }

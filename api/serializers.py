@@ -6,14 +6,19 @@ try:
         ItemTransaksi,
         Lokasi,
         MetodePembayaran,
+        Pembayaran,
+        Pembelian,
+        PembelianObat,
         Produk,
+        Storage,
         SumberDana,
         Supplier,
         Transaksi,
         Unit,
         VarianProduk,
     )
-except Exception:
+
+except:
     pass
 
 
@@ -22,7 +27,7 @@ class UnitSerializer(serializers.ModelSerializer):
 
         try:
             model = Unit
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
@@ -32,7 +37,7 @@ class SupplierSerializer(serializers.ModelSerializer):
 
         try:
             model = Supplier
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
@@ -42,7 +47,7 @@ class ProdukSerializer(serializers.ModelSerializer):
 
         try:
             model = Produk
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
@@ -52,7 +57,7 @@ class LokasiSerializer(serializers.ModelSerializer):
 
         try:
             model = Lokasi
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
@@ -62,7 +67,7 @@ class MetodePembayaranSerializer(serializers.ModelSerializer):
 
         try:
             model = MetodePembayaran
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
@@ -72,7 +77,7 @@ class TransaksiSerializer(serializers.ModelSerializer):
 
         try:
             model = Transaksi
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
@@ -82,7 +87,7 @@ class ItemTransaksiSerializer(serializers.ModelSerializer):
 
         try:
             model = ItemTransaksi
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
@@ -92,18 +97,59 @@ class SumberDanaSerializer(serializers.ModelSerializer):
 
         try:
             model = SumberDana
-        except Exception:
+        except:
             pass
         fields = "__all__"
 
 
 class VarianProdukSerializer(serializers.ModelSerializer):
     produk = ProdukSerializer()
+    unit = UnitSerializer()
 
     class Meta:
 
         try:
             model = VarianProduk
-        except Exception:
+        except:
+            pass
+        fields = "__all__"
+
+
+class PembelianSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        try:
+            model = Pembelian
+        except:
+            pass
+        fields = "__all__"
+
+
+class PembelianObatSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        try:
+            model = PembelianObat
+        except:
+            pass
+        fields = "__all__"
+
+
+class PembayaranSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        try:
+            model = Pembayaran
+        except:
+            pass
+        fields = "__all__"
+
+
+class StorageSerializer(serializers.ModelSerializer):
+    class Meta:
+
+        try:
+            model = Storage
+        except:
             pass
         fields = "__all__"

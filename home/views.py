@@ -15,7 +15,14 @@ from helpers.util import format_currency
 from home.consts import CURRENCY_IDR, SUCCESS
 from home.filters import ItemTransaksiFilter
 from home.forms import ItemTransaksiFormSet, TransaksiCreateForm
-from home.models import ItemTransaksi, Produk, Supplier, Transaksi, VarianProduk
+from home.models import (
+    ItemTransaksi,
+    Pembelian,
+    Produk,
+    Supplier,
+    Transaksi,
+    VarianProduk,
+)
 
 
 class HomeView(LoginRequiredMixin, View):
@@ -139,6 +146,9 @@ class ReportView(LoginRequiredMixin, FilterView):
             .aggregate(total=Coalesce(Sum("total_biaya"), 0))
             .get("total", 0),
             CURRENCY_IDR,
+        )
+        context["hutang"] = Pembelian.objects.filter(sumber_dana_id=3).order_by(
+            "-tanggal_faktur"
         )
 
         return context

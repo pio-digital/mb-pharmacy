@@ -1,0 +1,574 @@
+{% extends "layouts/base.html" %}
+{% load i18n admin_urls static admin_modify %}
+{% block extrahead %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    {{ media }}
+{% endblock %}
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/forms.css" %}">
+{% endblock %}
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">{{ opts.verbose_name_plural|capfirst }}</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#"><i class="feather icon-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:">{{ opts.app_config.verbose_name }}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:">{{ opts.verbose_name_plural|capfirst }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endif %}
+{% block content %}
+    <div class="py-4 ms-4">
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">
+                    {% if add %}
+                        {% blocktrans with name=opts.verbose_name %}Add {{ name }}{% endblocktrans %}
+                    {% else %}
+                        {{ original|truncatewords:"18" }}
+                        {{ original.pajak }}
+                    {% endif %}
+                </h1>
+            </div>
+            <div>
+                {% block object-tools %}
+                    {% if change %}
+                        {% if not is_popup %}
+                            {% block object-tools-items %}
+                                {% change_form_object_tools %}
+                            {% endblock %}
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div class="row" x-data="pembelian">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xs-12 col-lg-12">{{ form.obat }}</div>
+                    <form x-ref="formPembelian"
+                          {% if has_file_field %}enctype="multipart/form-data"{% endif %}
+                          action="{{ form_url }}"
+                          method="post"
+                          id="{{ opts.model_name }}_form"
+                          novalidate>
+                        {% csrf_token %}
+                        <div class="{{ direction.panel }}">
+                            {% block form_top %}{% endblock %}
+                        </div>
+                        <div>
+                            {% block field_sets %}
+                                {% for fieldset in adminform %}
+                                    {% if forloop.counter > 1 %}<hr>{% endif %}
+                                    {% include "admin/pembelian/includes/fieldset.html" %}
+                                {% endfor %}
+                            {% endblock %}
+                            {% block after_field_sets %}{% endblock %}
+                            {% comment %} {% block inline_field_sets %}
+                                {% for inline_admin_formset in inline_admin_formsets %}
+                                    {% include inline_admin_formset.opts.template %}
+                                {% endfor %}
+                            {% endblock %} {% endcomment %}
+                            <section class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Produk</h3>
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0 rounded">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Produk</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Satuan</th>
+                                                    <th>Harga</th>
+                                                    <th>Diskon</th>
+                                                    <th>Nominal Diskon</th>
+                                                    <th>Bonus</th>
+                                                    <th>Nominal Bonus</th>
+                                                    <th>Tanggal Kedaluwarsa</th>
+                                                    <th>Hapus</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template x-for="(item, index) in produk">
+                                                    <tr>
+                                                        <td class="align-middle">
+                                                            <select name="obat[]" x-model="item.obat" class="form-control form-select">
+                                                                <option value="" selected>------</option>
+                                                                <template x-for="option in obat" :key="option.id">
+                                                                    <option 
+                                                                        :value="option.id" 
+                                                                        :selected="option.id === item.obat"
+                                                                        x-model="option.id"
+                                                                        x-text="option.nama">
+                                                                    </option>
+                                                                </template>
+                                                            </select>
+                                                        </td>
+                                                        
+                                                        <td class="align-middle">
+                                                            <input x-model="item.jumlah"
+                                                                   @keydown.debounce="changeJumlah($event, item.jumlah, index)"
+                                                                   @change.debounce="changeJumlah($event, item.jumlah, index)"
+                                                                   min="1"
+                                                                   type="number"
+                                                                   name="jumlah[]"
+                                                                   class="form-control">
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <select name="satuan[]"
+                                                                    x-model="item.satuan"
+                                                                    @change="changeSatuan($event, item.satuan, index)"
+                                                                    class="form-control form-select">
+                                                                <option value="" selected>------</option>
+                                                                <template x-for="option in satuan" :key="option.id">
+                                                                    <option :value="option.id" x-text="option.nama" :selected="option.id === item.satuan"></option>
+                                                                </template>
+                                                            </select>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <input x-model="item.harga"
+                                                                   @keydown.debounce="changeHarga($event, item, index)"
+                                                                   @change.debounce="changeHarga($event, item, index)"
+                                                                   min="1"
+                                                                   type="number"
+                                                                   name="harga[]"
+                                                                   class="form-control">
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <input x-model="item.diskon"
+                                                                   @keydown.debounce="changeDiskon($event, item, index)"
+                                                                   @change.debounce="changeDiskon($event, item, index)"
+                                                                   min="1"
+                                                                   type="number"
+                                                                   name="diskon[]"
+                                                                   class="form-control">
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <input x-model="item.nominal_diskon"
+                                                                   @keydown.debounce="changeNominalDiskon($event, item.nominal_diskon, index)"
+                                                                   @change.debounce="changeNominalDiskon($event, item.nominal_diskon, index)"
+                                                                   readonly
+                                                                   type="number"
+                                                                   name="nominal_diskon[]"
+                                                                   class="form-control">
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <input x-model="item.bonus"
+                                                                   @keydown.debounce="changeBonus($event, item.bonus, index)"
+                                                                   @change.debounce="changeBonus($event, item.bonus, index)"
+                                                                   min="1"
+                                                                   type="number"
+                                                                   name="bonus[]"
+                                                                   class="form-control">
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <select name="satuan[]"
+                                                                    x-model="item.bonus_satuan"
+                                                                    @change="changeBonusSatuan($event, item.bonus_satuan, index)"
+                                                                    class="form-control form-select">
+                                                                <option value="" selected>------</option>
+                                                                <template x-for="option in satuan" :key="option.id">
+                                                                    <option :value="option.id" x-text="option.nama" :selected="option.id === item.bonus_satuan"></option>
+                                                                </template>
+                                                            </select>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <input x-model="item.tanggal_kedaluwarsa"
+                                                                   @keydown.debounce="changeTanggalKedaluwarsa($event, item.tanggal_kedaluwarsa, index)"
+                                                                   @change.debounce="changeTanggalKedaluwarsa($event, item.tanggal_kedaluwarsa, index)"
+                                                                   type="date"
+                                                                   name="tanggal_kedaluwarsa[]"
+                                                                   class="form-control">
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <button type="button"
+                                                                    class="btn btn-danger"
+                                                                    x-on:click="deleteProduct(index, item)">
+                                                                <i class="fa fa-trash"></i> Delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <button type="button" class="btn btn-link" x-on:click="addProduk()">
+                                        <i class="fa fa-plus"></i>
+                                        Add another Produk
+                                    </button>
+                                </div>
+                            </section>
+                        {% block after_related_objects %}
+                        {% endblock after_related_objects %}
+                        {% block submit_buttons_bottom %}
+                            {% submit_row %}
+                        {% endblock submit_buttons_bottom %}
+                        {% block admin_change_form_document_ready %}
+                            <script type="text/javascript" id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}" {% if adminform and add %}data-model-name="{{ opts.model_name }}"{% endif %}>
+                            </script>
+                        {% endblock admin_change_form_document_ready %}
+                        {% prepopulated_fields_js %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block extra_js %}
+    <script>
+        function generateRandStr(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let counter = 0;
+            while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+            counter += 1;
+            }
+            return result;
+        }
+    </script>
+    <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('pembelian', () => ({
+            diskon: 0, 
+            pajak: 0, 
+            total: 0, 
+            nominal_pajak: 0,
+            nominal_diskon: 0,
+            currentProduct: null,
+
+            produk: [],
+            sumTotal: [],
+
+            obat: [],
+            satuan: [],
+
+            init() {
+                this.obat = fetchObat()
+                this.satuan = fetchSatuan()
+                const currentPath = window.location.pathname
+
+                if (!currentPath.includes('add')) {
+                    this.fetchProduk()
+
+                    this.pajak = '{{original.pajak}}'
+                    this.nominal_pajak = '{{original.nominal_pajak}}'
+                    this.diskon = '{{original.diskon}}'
+                    this.nominal_diskon = '{{original.nominal_diskon}}'
+                    this.total = '{{original.total}}'
+                }                  
+            },
+
+            async fetchProduk() {
+                try {
+                    let url = '/api/obat/?pembelian_id={{original.id}}';
+
+                    const response = await fetch(url, { 
+                    method: "GET",
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    });
+
+                    if (!response.ok) {
+                    throw new Eroor(response.message)
+                    }
+
+                    const responseJSON = await response.json()
+                    const result = responseJSON.data
+
+                    const overide = result.map(item => {
+                        return {
+                            id: item.id,
+                            obat: item.obat,
+                            jumlah: item.jumlah,	
+                            satuan: item.satuan,
+                            harga: item.harga, 	
+                            diskon: item.diskon, 	
+                            nominal_diskon: item.diskon,	
+                            bonus: item.bonus,
+                            bonus_satuan: item.bonus_satuan, 	
+                            tanggal_kedaluwarsa: item.tanggal_kedaluwarsa
+                        }
+                    })
+
+                    this.produk = overide
+                    return result
+                } catch (error) {
+                    console.log(error)
+                }      
+            },
+
+            changeJumlah(event, data, position) {
+              const value = event.target.value
+
+              this.produk[position].jumlah = value
+            },
+
+            changeSatuan(event, data, position) {
+              const value = event.target.value
+              
+              this.produk[position].satuan = value
+            },
+
+            changeHarga(event, data, position) {
+                const value = event.target.value
+
+                const produkCurrent = this.produk[position]
+                
+                produkCurrent.harga = Number(value)
+              
+                const findExist = this.sumTotal.find(item => item.id === data.id)
+
+                if (produkCurrent.diskon) {
+                    produkCurrent.nominal_diskon = this.handleCalculationNominal(produkCurrent.harga, produkCurrent.diskon)
+                }
+
+                if (findExist) {
+                    const findIndexExist = this.sumTotal.findIndex(item => item.id === data.id)
+
+                    this.sumTotal[findIndexExist].value = produkCurrent.harga
+                    this.sumTotal[findIndexExist].totalProduk = produkCurrent.harga - produkCurrent.nominal_diskon
+                } else {
+                    console.log({produkCurrent, value: produkCurrent.harga})
+                    this.sumTotal.push({
+                        id: data.id,
+                        value: produkCurrent.harga,
+                        totalProduk: produkCurrent.harga
+                    })
+                }
+
+                if (this.diskon) {
+                    this.nominal_diskon = this.handleCalculationNominal(this.total, this.diskon)
+                }
+
+                if (this.pajak) {
+                    this.nominal_pajak = this.handleCalculationNominal(this.total, this.pajak)
+                }
+
+                this.handleCalculateTotal()
+            },
+
+            handleCalculateTotal() {
+                const totalSum = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
+
+                this.total = ((totalSum + this.nominal_pajak) - this.nominal_diskon)
+            },
+
+            changeDiskon(event, data, position) {
+              const value = event.target.value
+              
+              this.produk[position].diskon = value
+              
+              const result = this.handleCalculationNominal(this.produk[position].harga, this.produk[position].diskon)
+              this.produk[position].nominal_diskon = result
+
+              const findExist = this.sumTotal.find(item => item.id === data.id)
+              
+              if (findExist) {
+                const findIndexExist = this.sumTotal.findIndex(item => item.id === data.id)
+
+                this.sumTotal[findIndexExist].totalProduk = this.produk[position].harga - result
+              }
+              
+              this.handleCalculateTotal()
+            },
+
+            changeNominalDiskon(event, data, position) {
+                /**
+              const result = this.handleCalculationNominal(this.produk[position].harga, this.produk[position].diskon)
+
+              this.produk[position].nominal_diskon = result
+              **/
+            },
+
+            changeBonus(event, data, position) {
+              const value = event.target.value
+              
+              this.produk[position].bonus = value
+            },
+
+            changeBonusSatuan(event, data, position) {
+              const value = event.target.value
+              
+              this.produk[position].bonus_satuan = value
+            },
+
+            changeTanggalKedaluwarsa(event, data, position) {
+                const value = event.target.value
+              
+                this.produk[position].tanggal_kedaluwarsa = value
+            },
+
+            updateDiskon(e) {
+                const rowId = e.target.id;
+                const element = document.getElementById(`${rowId}`);
+
+                const value = e.target.value
+
+                this.diskon = Number(value)
+
+                const currentTotal = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
+
+                this.nominal_diskon = this.handleCalculationNominal(currentTotal, this.diskon)
+
+                this.handleCalculateTotal()
+            },
+
+            updatePajak(e) {
+                const rowId = e.target.id;
+                const element = document.getElementById(`${rowId}`);
+
+                const value = e.target.value
+
+                this.pajak = Number(value)
+
+                const currentTotal = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
+                
+                this.nominal_pajak = this.handleCalculationNominal(currentTotal, this.pajak)
+
+                this.handleCalculateTotal()
+            },
+
+            handleCalculationNominal(total, value) {
+                return (total * value) / 100
+            },
+
+            addProduk(event) {
+                const data = {
+                    id: generateRandStr(5),
+                    obat: '',
+                    jumlah: 1,	
+                    satuan: '',
+                    harga: 0, 	
+                    diskon: 0, 	
+                    nominal_diskon: 0,	
+                    bonus: 0,
+                    bonus_satuan: 0, 	
+                    tanggal_kedaluwarsa: ''
+                }
+
+                this.produk.push(data)
+            },
+
+            deleteProduct(position, data) {
+                const findExist = this.sumTotal.find(item => item.id === data.id)
+
+                if (findExist) {
+                    const findExistIndex = this.sumTotal.findIndex(item => item.id === data.id)
+                    this.sumTotal.splice(findExistIndex, 1);
+
+                    this.handleCalculateTotal()
+                }
+
+                this.produk.splice(position, 1);
+
+                if (this.diskon) {
+                    this.nominal_diskon = this.handleCalculationNominal(this.total, this.diskon)
+                }
+
+                if (this.pajak) {
+                    this.nominal_pajak = this.handleCalculationNominal(this.total, this.pajak)
+                }
+
+                this.handleCalculateTotal()
+            }
+        }))
+    })
+
+    async function fetchObat() {
+      try {
+        let url = '/api/produk/';
+
+        const response = await fetch(url, { 
+          method: "GET",
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Eroor(response.message)
+        }
+
+        const responseJSON = await response.json()
+        const result = responseJSON.data
+
+        return result
+      } catch (error) {
+        console.log(error)
+      }      
+    }
+
+    async function fetchSatuan() {
+      try {
+        let url = '/api/unit/';
+
+        const response = await fetch(url, { 
+          method: "GET",
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Eroor(response.message)
+        }
+
+        const responseJSON = await response.json()
+        const result = responseJSON.data
+
+        return result
+      } catch (error) {
+        console.log(error)
+      }      
+    }
+
+    /**
+    async function fetchProduk() {
+      try {
+        let url = '/api/obat/?pembelian_id={{original.id}}';
+
+        const response = await fetch(url, { 
+          method: "GET",
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Eroor(response.message)
+        }
+
+        const responseJSON = await response.json()
+        const result = responseJSON.data
+
+        console.log(result)
+        return result
+      } catch (error) {
+        console.log(error)
+      }      
+    }
+    **/
+    </script>
+{% endblock extra_js %}

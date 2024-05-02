@@ -93,7 +93,7 @@
             <div class="item-product" x-on:click="handleResultClick(item)">
               <div class="item-product-text">
                 <p x-text="item.produk ? item.produk.brand : '-'" class="item-brand"></p>
-                <h6 x-text="item.produk ? item.produk.nama : '-'" class="item-name"></h6>
+                <h6 x-text="item.produk ? `${item.produk.nama}: ${item.unit.nama} - ${item.kuantitas}` : '-'" class="item-name"></h6>
               </div>
             </div>
           </template>
