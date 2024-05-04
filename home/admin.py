@@ -1,4 +1,6 @@
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 from home.forms import (
     ItemTransaksiForm,
@@ -23,6 +25,26 @@ from home.models import (
     UserProfile,
     VarianProduk,
 )
+
+
+# Resources
+class TransaksiResource(resources.ModelResource):
+
+    class Meta:
+        model = Transaksi
+
+
+class PembayaranResource(resources.ModelResource):
+
+    class Meta:
+        model = Pembayaran
+
+
+class PembelianResource(resources.ModelResource):
+
+    class Meta:
+        model = Pembelian
+
 
 # Register your models here.
 
@@ -54,7 +76,7 @@ class ItemTransaksiInline(admin.TabularInline):
 
 
 @admin.register(Pembelian)
-class PembelianAdmin(admin.ModelAdmin):
+class PembelianAdmin(ImportExportModelAdmin):
     form = PembelianForm
     search_fields = [
         "nomor_pre_order",
@@ -63,6 +85,8 @@ class PembelianAdmin(admin.ModelAdmin):
     ]
     exclude = ["uid"]
     inlines = [PembelianObatInline]
+
+    resource_classes = [PembelianResource]
 
     list_display = [
         "tanggal_faktur",
@@ -113,9 +137,11 @@ class PembelianAdmin(admin.ModelAdmin):
 
 
 @admin.register(Pembayaran)
-class PembayaranAdmin(admin.ModelAdmin):
+class PembayaranAdmin(ImportExportModelAdmin):
     form = PembayaranForm
     exclude = ["uid"]
+
+    resourse_classes = [PembayaranResource]
     search_fields = [
         "nomor_transaksi",
         "nama_pembayaran",
@@ -205,7 +231,9 @@ class ProdukAdmin(admin.ModelAdmin):
 
 
 @admin.register(Transaksi)
-class TransaksiAdmin(admin.ModelAdmin):
+class TransaksiAdmin(ImportExportModelAdmin):
+    resourse_classes = [TransaksiResource]
+
     list_filter = ["lokasi", "metode_pembayaran", "status", "created_on"]
     list_display = [
         "profile",
