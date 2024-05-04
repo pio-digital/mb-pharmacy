@@ -307,3 +307,22 @@ class UnitAdmin(admin.ModelAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
     exclude = ["uid"]
     list_display = ["user", "role"]
+
+
+@admin.register(VarianProduk)
+class VarianProduk(admin.ModelAdmin):
+    search_fields = [
+        "produk__nama",
+        "barcode",
+        "sku",
+    ]
+    list_display = [
+        "produk",
+        "barcode",
+        "sku",
+        "tanggal_kedaluwarsa",
+        "unit",
+        "kuantitas",
+        "storage",
+    ]
+    list_filter = ["produk", "tanggal_kedaluwarsa", "unit", "storage"]
