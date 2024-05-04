@@ -127,7 +127,12 @@ class VarianProdukForm(forms.ModelForm):
             "persentase_margin": forms.NumberInput(
                 attrs={"onchange": "updateHargaJual(this)"}
             ),
-            "harga_jual": forms.NumberInput(attrs={"onchange": "updateMargin(this)"}),
+            "nominal_margin": forms.NumberInput(
+                attrs={"onchange": "updateNominal(this)"}
+            ),
+            "harga_jual": forms.NumberInput(
+                attrs={"onchange": "updatePersentaseMargin(this)"}
+            ),
             "tanggal_kedaluwarsa": forms.DateInput(
                 attrs={"type": "date", "class": "form-control"}
             ),
