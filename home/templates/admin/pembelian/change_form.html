@@ -228,7 +228,15 @@
                         {% block after_related_objects %}
                         {% endblock after_related_objects %}
                         {% block submit_buttons_bottom %}
-                            {% submit_row %}
+                        <div class="card submit_btn">
+                            <div class="card-body">
+                                {% block submit-row %}
+                                    <button type="submit" name="_save" class="btn btn-sm btn-primary">{% trans 'Save' %}</button>
+                                    <button type="submit" name="_continue" class="btn btn-sm btn-warning">{% trans 'Save and continue editing' %}</button>
+                                    <button type="submit" name="_addanother" class="btn btn-sm btn-info">{% trans 'Save and add another' %}</button>
+                                {% endblock %}
+                            </div>
+                        </div>
                         {% endblock submit_buttons_bottom %}
                         {% block admin_change_form_document_ready %}
                             <script type="text/javascript" id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}" {% if adminform and add %}data-model-name="{{ opts.model_name }}"{% endif %}>
