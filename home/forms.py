@@ -72,7 +72,19 @@ class PembelianObatForm(forms.ModelForm):
         widgets = {
             "obat": autocomplete.ModelSelect2(url="produk-autocomplete"),
             "nama_obat": forms.HiddenInput(),
-            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
+            "tanggal_kedaluwarsa": forms.DateInput(
+                attrs={"type": "date", "class": "form-control"}
+            ),
+            "harga": forms.TextInput(
+                attrs={
+                    "@change.debounce": "changeHarga($event)",
+                    # "x-mask:dynamic": "$money($input, '.', ',')"
+                }
+            ),
+            "diskon": forms.TextInput(
+                attrs={"@change.debounce": "changeDiskon($event)"}
+            ),
+            "nominal_diskon": forms.TextInput(attrs={"readonly": "true"})
         }
 
 
@@ -93,22 +105,28 @@ class PembelianForm(forms.ModelForm):
                 attrs={
                     "x-model": "pajak",
                     "x-on:change.debounce": "updatePajak($event)",
-                    "x-on:keydown.debounce": "updatePajak($event)",
                 }
             ),
-            "total": forms.NumberInput(attrs={"x-model": "total", "readonly": "true"}),
+            "total": forms.NumberInput(
+                attrs={
+                    "x-model": "total",
+                    "readonly": "true",
+                    "x-money.en-US.USD": "total"
+                }
+            ),
             "nominal_pajak": forms.NumberInput(
-                attrs={"x-model": "nominal_pajak", "readonly": "true"}
+                attrs={
+                    "x-model": "nominal_pajak",
+                    "readonly": "true"
+                }
             ),
             "nominal_diskon": forms.NumberInput(
                 attrs={"x-model": "nominal_diskon", "readonly": "true"}
             ),
-            "tanggal_faktur": forms.DateInput(attrs={"type": "date"}),
+            "tanggal_faktur": forms.DateInput(
+                attrs={"type": "date", "class": "form-control"}
+            ),
         }
-
-    def save(self, commit: bool = True):
-        f = super().save(commit=False)
-        f.save()
 
 
 class VarianProdukForm(forms.ModelForm):
@@ -119,8 +137,15 @@ class VarianProdukForm(forms.ModelForm):
             "persentase_margin": forms.NumberInput(
                 attrs={"onchange": "updateHargaJual(this)"}
             ),
-            "harga_jual": forms.NumberInput(attrs={"onchange": "updateMargin(this)"}),
-            "tanggal_kedaluwarsa": forms.DateInput(attrs={"type": "date"}),
+            "nominal_margin": forms.NumberInput(
+                attrs={"onchange": "updateNominal(this)"}
+            ),
+            "harga_jual": forms.NumberInput(
+                attrs={"onchange": "updatePersentaseMargin(this)"}
+            ),
+            "tanggal_kedaluwarsa": forms.DateInput(
+                attrs={"type": "date", "class": "form-control"}
+            ),
         }
 
 
@@ -129,5 +154,5 @@ class PembayaranForm(forms.ModelForm):
         model = Pembayaran
         fields = "__all__"
         widgets = {
-            "tanggal": forms.DateInput(attrs={"type": "date"}),
+            "tanggal": forms.DateInput(attrs={"type": "date", "class": "form-control"}),
         }

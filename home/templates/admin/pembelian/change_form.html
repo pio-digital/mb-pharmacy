@@ -83,12 +83,12 @@
                                 {% endfor %}
                             {% endblock %}
                             {% block after_field_sets %}{% endblock %}
-                            {% comment %} {% block inline_field_sets %}
+                            {% block inline_field_sets %}
                                 {% for inline_admin_formset in inline_admin_formsets %}
                                     {% include inline_admin_formset.opts.template %}
                                 {% endfor %}
-                            {% endblock %} {% endcomment %}
-                            <section class="card">
+                            {% endblock %}
+                            {% comment %} <section class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">Produk</h3>
                                     <div class="table-responsive">
@@ -111,13 +111,17 @@
                                                 <template x-for="(item, index) in produk">
                                                     <tr>
                                                         <td class="align-middle">
-                                                            <select name="obat[]" x-model="item.obat" class="form-control form-select">
-                                                                <option value="" selected>------</option>
+                                                            <select 
+                                                                :name="'pembelianobat_set-' + index + '-obat'" 
+                                                                :id="'id_pembelianobat_set-' + index + '-obat'" 
+                                                                x-model="item.obat" 
+                                                                class="form-control form-select"
+                                                                @change="changeObat($event, item, index)"
+                                                            >
+                                                                <option value="">------</option>
                                                                 <template x-for="option in obat" :key="option.id">
                                                                     <option 
                                                                         :value="option.id" 
-                                                                        :selected="option.id === item.obat"
-                                                                        x-model="option.id"
                                                                         x-text="option.nama">
                                                                     </option>
                                                                 </template>
@@ -130,15 +134,17 @@
                                                                    @change.debounce="changeJumlah($event, item.jumlah, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="jumlah[]"
+                                                                   :name="'pembelianobat_set-' + index + '-jumlah'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-jumlah'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
-                                                            <select name="satuan[]"
+                                                            <select :name="'pembelianobat_set-' + index + '-satuan'"  
+                                                                    :id="'id_pembelianobat_set-' + index + '-satuan'"
                                                                     x-model="item.satuan"
                                                                     @change="changeSatuan($event, item.satuan, index)"
                                                                     class="form-control form-select">
-                                                                <option value="" selected>------</option>
+                                                                <option value="">------</option>
                                                                 <template x-for="option in satuan" :key="option.id">
                                                                     <option :value="option.id" x-text="option.nama" :selected="option.id === item.satuan"></option>
                                                                 </template>
@@ -150,7 +156,8 @@
                                                                    @change.debounce="changeHarga($event, item, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="harga[]"
+                                                                   :name="'pembelianobat_set-' + index + '-harga'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-harga'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
@@ -159,7 +166,8 @@
                                                                    @change.debounce="changeDiskon($event, item, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="diskon[]"
+                                                                   :name="'pembelianobat_set-' + index + '-diskon'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-diskon'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
@@ -168,7 +176,8 @@
                                                                    @change.debounce="changeNominalDiskon($event, item.nominal_diskon, index)"
                                                                    readonly
                                                                    type="number"
-                                                                   name="nominal_diskon[]"
+                                                                   :name="'pembelianobat_set-' + index + '-nominal_diskon'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-nominal_diskon'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
@@ -177,15 +186,17 @@
                                                                    @change.debounce="changeBonus($event, item.bonus, index)"
                                                                    min="1"
                                                                    type="number"
-                                                                   name="bonus[]"
+                                                                   :name="'pembelianobat_set-' + index + '-bonus'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-bonus'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
-                                                            <select name="satuan[]"
+                                                            <select :name="'pembelianobat_set-' + index + '-bonus_satuan'"
+                                                                    :id="'id_pembelianobat_set-' + index + '-bonus_satuan'"
                                                                     x-model="item.bonus_satuan"
                                                                     @change="changeBonusSatuan($event, item.bonus_satuan, index)"
                                                                     class="form-control form-select">
-                                                                <option value="" selected>------</option>
+                                                                <option value="">------</option>
                                                                 <template x-for="option in satuan" :key="option.id">
                                                                     <option :value="option.id" x-text="option.nama" :selected="option.id === item.bonus_satuan"></option>
                                                                 </template>
@@ -196,7 +207,8 @@
                                                                    @keydown.debounce="changeTanggalKedaluwarsa($event, item.tanggal_kedaluwarsa, index)"
                                                                    @change.debounce="changeTanggalKedaluwarsa($event, item.tanggal_kedaluwarsa, index)"
                                                                    type="date"
-                                                                   name="tanggal_kedaluwarsa[]"
+                                                                   :name="'pembelianobat_set-' + index + '-tanggal_kedaluwarsa'" 
+                                                                   :id="'id_pembelianobat_set-' + index + '-tanggal_kedaluwarsa'"
                                                                    class="form-control">
                                                         </td>
                                                         <td class="align-middle">
@@ -216,11 +228,17 @@
                                         Add another Produk
                                     </button>
                                 </div>
-                            </section>
+                            </section> {% endcomment %}
                         {% block after_related_objects %}
                         {% endblock after_related_objects %}
                         {% block submit_buttons_bottom %}
-                            {% submit_row %}
+                        <div class="card submit_btn">
+                            <div class="card-body">
+                                {% block submit-row %}
+                                    <button type="submit" name="_save" class="btn btn-sm btn-primary">{% trans 'Save' %}</button>
+                                {% endblock %}
+                            </div>
+                        </div>
                         {% endblock submit_buttons_bottom %}
                         {% block admin_change_form_document_ready %}
                             <script type="text/javascript" id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}" {% if adminform and add %}data-model-name="{{ opts.model_name }}"{% endif %}>
@@ -236,6 +254,8 @@
 {% endblock content %}
 {% block extra_js %}
     <script>
+        localStorage.removeItem('product-pembelian');
+
         function generateRandStr(length) {
             let result = '';
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -246,8 +266,13 @@
             }
             return result;
         }
+
+        function convert(money) {
+            return Math.ceil(Number(money.replace(/[^0-9.-]+/g,"")))
+        }
     </script>
     <script>
+    $('.delete').hide();
     document.addEventListener('alpine:init', () => {
         Alpine.data('pembelian', () => ({
             diskon: 0, 
@@ -257,13 +282,9 @@
             nominal_diskon: 0,
             currentProduct: null,
 
-            produk: [],
-            sumTotal: [],
+            product: Alpine.$persist([]).as('product-pembelian'),
 
-            obat: [],
-            satuan: [],
-
-            init() {
+            init() {                
                 this.obat = fetchObat()
                 this.satuan = fetchSatuan()
                 const currentPath = window.location.pathname
@@ -305,11 +326,19 @@
                             satuan: item.satuan,
                             harga: item.harga, 	
                             diskon: item.diskon, 	
-                            nominal_diskon: item.diskon,	
+                            nominal_diskon: item.nominal_disko,	
                             bonus: item.bonus,
                             bonus_satuan: item.bonus_satuan, 	
                             tanggal_kedaluwarsa: item.tanggal_kedaluwarsa
                         }
+                    })
+
+                    result.forEach(item => {
+                        this.sumTotal.push({
+                            id: item.id,
+                            value: item.harga,
+                            totalProduk: item.harga - item.nominal_disko
+                        })
                     })
 
                     this.produk = overide
@@ -317,6 +346,12 @@
                 } catch (error) {
                     console.log(error)
                 }      
+            },
+
+            /**
+            changeObat(event) {
+                const value = event.target.value
+                console.log(value)
             },
 
             changeJumlah(event, data, position) {
@@ -330,78 +365,116 @@
               
               this.produk[position].satuan = value
             },
+            **/
 
-            changeHarga(event, data, position) {
+            changeHarga(event) {
                 const value = event.target.value
+                const idElement = event.target.id
 
-                const produkCurrent = this.produk[position]
-                
-                produkCurrent.harga = Number(value)
-              
-                const findExist = this.sumTotal.find(item => item.id === data.id)
+                const parseValue = convert(value)
 
-                if (produkCurrent.diskon) {
-                    produkCurrent.nominal_diskon = this.handleCalculationNominal(produkCurrent.harga, produkCurrent.diskon)
-                }
+                const idElementSplit = idElement.split("-")
 
-                if (findExist) {
-                    const findIndexExist = this.sumTotal.findIndex(item => item.id === data.id)
+                const finalId = `${idElementSplit[0]}-${idElementSplit[1]}`
 
-                    this.sumTotal[findIndexExist].value = produkCurrent.harga
-                    this.sumTotal[findIndexExist].totalProduk = produkCurrent.harga - produkCurrent.nominal_diskon
+                const findExistProduct = this.product.find(item => item.id === finalId)
+
+                if (!findExistProduct) {
+                    const data = {
+                        id: finalId,
+                        harga: parseValue,
+                        diskon: 0,
+                        nominal_diskon: 0,
+                        subTotal: parseValue
+                    }
+
+                    this.product.push(data)
                 } else {
-                    console.log({produkCurrent, value: produkCurrent.harga})
-                    this.sumTotal.push({
-                        id: data.id,
-                        value: produkCurrent.harga,
-                        totalProduk: produkCurrent.harga
-                    })
+                    const findIndex = this.product.findIndex(item => item.id === finalId)
+
+                    const currentProduct = this.product[findIndex]
+
+                    currentProduct.harga = parseValue
+                    
+                    if (currentProduct.diskon) {
+                        currentProduct.nominal_diskon = Math.ceil(this.handleCalculationNominal(currentProduct.harga, currentProduct.diskon))
+                        document.getElementById(`${finalId}-nominal_diskon`).value = currentProduct.nominal_diskon;
+                    }
+
+                    currentProduct.subTotal = Math.ceil(currentProduct.harga - currentProduct.nominal_diskon)
                 }
 
                 if (this.diskon) {
-                    this.nominal_diskon = this.handleCalculationNominal(this.total, this.diskon)
+                    this.nominal_diskon = Math.ceil(this.handleCalculationNominal(this.total, this.diskon))
                 }
 
                 if (this.pajak) {
-                    this.nominal_pajak = this.handleCalculationNominal(this.total, this.pajak)
+                    this.nominal_pajak = Math.ceil(this.handleCalculationNominal(this.total, this.pajak))
                 }
 
                 this.handleCalculateTotal()
             },
 
             handleCalculateTotal() {
-                const totalSum = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
+                const sumSubTotal = this.product.reduce((accumulator, currentValue) => accumulator + currentValue.subTotal, 0)
 
-                this.total = ((totalSum + this.nominal_pajak) - this.nominal_diskon)
+                this.total = Math.ceil(((sumSubTotal + this.nominal_pajak) - this.nominal_diskon))
             },
 
-            changeDiskon(event, data, position) {
-              const value = event.target.value
-              
-              this.produk[position].diskon = value
-              
-              const result = this.handleCalculationNominal(this.produk[position].harga, this.produk[position].diskon)
-              this.produk[position].nominal_diskon = result
+            changeDiskon(event) {
+                const value = event.target.value
+                const idElement = event.target.id
+                
+                const idElementSplit = idElement.split("-")
 
-              const findExist = this.sumTotal.find(item => item.id === data.id)
+                const finalId = `${idElementSplit[0]}-${idElementSplit[1]}`
               
-              if (findExist) {
-                const findIndexExist = this.sumTotal.findIndex(item => item.id === data.id)
+                const findExistProduct = this.product.find(item => item.id === finalId)
 
-                this.sumTotal[findIndexExist].totalProduk = this.produk[position].harga - result
-              }
-              
-              this.handleCalculateTotal()
+                if (!findExistProduct) {
+                    const data = {
+                        id: finalId,
+                        harga: 0,
+                        diskon: Number(value),
+                        nominal_diskon: 0,
+                        subTotal: 0
+                    }
+
+                    this.product.push(data)
+                } else {
+                    const findIndex = this.product.findIndex(item => item.id === finalId)
+
+                    const currentProduct = this.product[findIndex]
+
+                    currentProduct.diskon = Number(value)
+                    
+                    const resultDiskonNominal = Math.ceil(this.handleCalculationNominal(currentProduct.harga, currentProduct.diskon))
+
+                    currentProduct.nominal_diskon = resultDiskonNominal
+
+                    currentProduct.subTotal = Math.ceil(currentProduct.harga - currentProduct.nominal_diskon)
+
+                    document.getElementById(`${finalId}-nominal_diskon`).value = currentProduct.nominal_diskon;
+                }
+
+                if (this.diskon) {
+                    this.nominal_diskon = Math.ceil(this.handleCalculationNominal(this.total, this.diskon))
+                }
+
+                if (this.pajak) {
+                    this.nominal_pajak = Math.ceil(this.handleCalculationNominal(this.total, this.pajak))
+                }
+
+                this.handleCalculateTotal()
             },
-
+            
+            /**
             changeNominalDiskon(event, data, position) {
-                /**
               const result = this.handleCalculationNominal(this.produk[position].harga, this.produk[position].diskon)
 
               this.produk[position].nominal_diskon = result
-              **/
             },
-
+            
             changeBonus(event, data, position) {
               const value = event.target.value
               
@@ -413,39 +486,35 @@
               
               this.produk[position].bonus_satuan = value
             },
-
+            
             changeTanggalKedaluwarsa(event, data, position) {
                 const value = event.target.value
               
                 this.produk[position].tanggal_kedaluwarsa = value
-            },
+            },**/
 
-            updateDiskon(e) {
-                const rowId = e.target.id;
-                const element = document.getElementById(`${rowId}`);
-
-                const value = e.target.value
+            updateDiskon(event) {
+                const value = event.target.value
+                const idElement = event.target.id
 
                 this.diskon = Number(value)
 
-                const currentTotal = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
+                const currentSubTotal = this.product.reduce((accumulator, currentValue) => accumulator + currentValue.subTotal, 0)
 
-                this.nominal_diskon = this.handleCalculationNominal(currentTotal, this.diskon)
+                this.nominal_diskon = Math.ceil(this.handleCalculationNominal(currentSubTotal, this.diskon))
 
                 this.handleCalculateTotal()
             },
 
-            updatePajak(e) {
-                const rowId = e.target.id;
-                const element = document.getElementById(`${rowId}`);
-
-                const value = e.target.value
+            updatePajak(event) {
+                const value = event.target.value
+                const idElement = event.target.id
 
                 this.pajak = Number(value)
 
-                const currentTotal = this.sumTotal.reduce((accumulator, currentValue) => accumulator + currentValue.totalProduk, 0)
-                
-                this.nominal_pajak = this.handleCalculationNominal(currentTotal, this.pajak)
+                const currentSubTotal = this.product.reduce((accumulator, currentValue) => accumulator + currentValue.subTotal, 0)
+
+                this.nominal_pajak = Math.ceil(this.handleCalculationNominal(currentSubTotal, this.pajak))
 
                 this.handleCalculateTotal()
             },
@@ -454,24 +523,28 @@
                 return (total * value) / 100
             },
 
+            /**
             addProduk(event) {
                 const data = {
                     id: generateRandStr(5),
-                    obat: '',
+                    obat: null,
                     jumlah: 1,	
-                    satuan: '',
+                    satuan: null,
                     harga: 0, 	
                     diskon: 0, 	
                     nominal_diskon: 0,	
                     bonus: 0,
-                    bonus_satuan: 0, 	
+                    bonus_satuan: null, 	
                     tanggal_kedaluwarsa: ''
                 }
 
                 this.produk.push(data)
             },
+            **/
 
-            deleteProduct(position, data) {
+            deleteProduct(position) {
+                console.log(position)
+                /**
                 const findExist = this.sumTotal.find(item => item.id === data.id)
 
                 if (findExist) {
@@ -484,14 +557,15 @@
                 this.produk.splice(position, 1);
 
                 if (this.diskon) {
-                    this.nominal_diskon = this.handleCalculationNominal(this.total, this.diskon)
+                    this.nominal_diskon = Math.ceil(this.handleCalculationNominal(this.total, this.diskon))
                 }
 
                 if (this.pajak) {
-                    this.nominal_pajak = this.handleCalculationNominal(this.total, this.pajak)
+                    this.nominal_pajak = Math.ceil(this.handleCalculationNominal(this.total, this.pajak))
                 }
 
                 this.handleCalculateTotal()
+                **/
             }
         }))
     })
@@ -543,32 +617,5 @@
         console.log(error)
       }      
     }
-
-    /**
-    async function fetchProduk() {
-      try {
-        let url = '/api/obat/?pembelian_id={{original.id}}';
-
-        const response = await fetch(url, { 
-          method: "GET",
-          headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Eroor(response.message)
-        }
-
-        const responseJSON = await response.json()
-        const result = responseJSON.data
-
-        console.log(result)
-        return result
-      } catch (error) {
-        console.log(error)
-      }      
-    }
-    **/
     </script>
 {% endblock extra_js %}

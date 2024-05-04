@@ -104,8 +104,16 @@
                                         {% endfor %}
                                     {% endfor %}
                                 {% endfor %}
+                                <td class="align-middle">
+                                    <button type="button"
+                                            class="btn btn-danger"
+                                            x-on:click="deleteProduct({{ forloop.counter0 }})">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </button>
+                                </td>
                                 {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission %}
                                     <td class="delete" >
+                                        <button>delete</button>
                                         {% if inline_admin_form.original %}
                                         {% comment %} <button x-on:click="alert('Hello World!')"> {% endcomment %}
                                             {{ inline_admin_form.deletion_field.field }}
