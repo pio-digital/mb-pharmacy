@@ -75,6 +75,7 @@ class PembelianAdmin(admin.ModelAdmin):
         "sumber_dana",
         "get_total_produk",
     ]
+    list_filter = ["supplier", "sumber_dana", "tanggal_faktur"]
 
     fieldsets = [
         (
@@ -126,6 +127,7 @@ class PembayaranAdmin(admin.ModelAdmin):
         "total_biaya",
         "sumber_dana",
     ]
+    list_filter = ["sumber_dana", "tanggal"]
     fieldsets = [
         (
             None,
@@ -204,7 +206,7 @@ class ProdukAdmin(admin.ModelAdmin):
 
 @admin.register(Transaksi)
 class TransaksiAdmin(admin.ModelAdmin):
-    list_filter = ["lokasi", "metode_pembayaran", "status"]
+    list_filter = ["lokasi", "metode_pembayaran", "status", "created_on"]
     list_display = [
         "profile",
         "created_on",
