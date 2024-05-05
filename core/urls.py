@@ -9,6 +9,7 @@ except Exception:
     pass
 
 urlpatterns = [
+    path("admin/", HomeView.as_view(), name="index"),
     path("admin/", admin.site.urls),
     path("", HomeView.as_view(), name="index"),
     path("", include("admin_datta.urls")),
