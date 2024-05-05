@@ -326,9 +326,9 @@
                     const overide = result.map((item, index) => {
                         return {
                             id: `id_pembelianobat_set-${index}`,
-                            harga: item.harga,
-                            diskon: item.diskon,
-                            nominal_diskon: item.nominal_diskon,
+                            harga: item.harga ?? 0,
+                            diskon: item.diskon ?? 0,
+                            nominal_diskon: item.nominal_diskon ?? 0,
                             subTotal: Math.ceil(item.harga - item.nominal_diskon)
                         }
                     })
