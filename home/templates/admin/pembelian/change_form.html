@@ -235,7 +235,7 @@
                         <div class="card submit_btn">
                             <div class="card-body">
                                 {% block submit-row %}
-                                    <button type="submit" name="_save" class="btn btn-sm btn-primary">{% trans 'Save' %}</button>
+                                    <button @click="clearLocalStorage()" type="submit" name="_save" class="btn btn-sm btn-primary">{% trans 'Save' %}</button>
                                 {% endblock %}
                             </div>
                         </div>
@@ -254,7 +254,12 @@
 {% endblock content %}
 {% block extra_js %}
     <script>
-        localStorage.removeItem('product-pembelian');
+        function clearLocalStorage() {
+            localStorage.removeItem('product-pembelian');
+        }
+    </script>
+    <script>
+        clearLocalStorage()
 
         function generateRandStr(length) {
             let result = '';
@@ -467,31 +472,6 @@
 
                 this.handleCalculateTotal()
             },
-            
-            /**
-            changeNominalDiskon(event, data, position) {
-              const result = this.handleCalculationNominal(this.produk[position].harga, this.produk[position].diskon)
-
-              this.produk[position].nominal_diskon = result
-            },
-            
-            changeBonus(event, data, position) {
-              const value = event.target.value
-              
-              this.produk[position].bonus = value
-            },
-
-            changeBonusSatuan(event, data, position) {
-              const value = event.target.value
-              
-              this.produk[position].bonus_satuan = value
-            },
-            
-            changeTanggalKedaluwarsa(event, data, position) {
-                const value = event.target.value
-              
-                this.produk[position].tanggal_kedaluwarsa = value
-            },**/
 
             updateDiskon(event) {
                 const value = event.target.value
@@ -523,38 +503,21 @@
                 return (total * value) / 100
             },
 
-            /**
-            addProduk(event) {
-                const data = {
-                    id: generateRandStr(5),
-                    obat: null,
-                    jumlah: 1,	
-                    satuan: null,
-                    harga: 0, 	
-                    diskon: 0, 	
-                    nominal_diskon: 0,	
-                    bonus: 0,
-                    bonus_satuan: null, 	
-                    tanggal_kedaluwarsa: ''
-                }
+            deleteProduct(event) {
+                const idElement = event.id
 
-                this.produk.push(data)
-            },
-            **/
+                const rowIdElement = `id_${idElement}`
 
-            deleteProduct(position) {
-                console.log(position)
-                /**
-                const findExist = this.sumTotal.find(item => item.id === data.id)
+                const findExistProduct = this.product.find(item => item.id === rowIdElement)
 
-                if (findExist) {
-                    const findExistIndex = this.sumTotal.findIndex(item => item.id === data.id)
-                    this.sumTotal.splice(findExistIndex, 1);
-
+                if (!findExistProduct) {
+                    console.log("Produk Kosong")
+                } else {
+                    const findIndex = this.product.findIndex(item => item.id === rowIdElement)
+                    this.product.splice(findIndex, 1)
+                    
                     this.handleCalculateTotal()
                 }
-
-                this.produk.splice(position, 1);
 
                 if (this.diskon) {
                     this.nominal_diskon = Math.ceil(this.handleCalculationNominal(this.total, this.diskon))
@@ -565,7 +528,9 @@
                 }
 
                 this.handleCalculateTotal()
-                **/
+
+                // delete element by id
+                document.getElementById(idElement).remove();
             }
         }))
     })

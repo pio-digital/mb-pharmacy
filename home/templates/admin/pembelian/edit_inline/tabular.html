@@ -104,10 +104,12 @@
                                         {% endfor %}
                                     {% endfor %}
                                 {% endfor %}
-                                <td class="align-middle">
-                                    <button type="button"
-                                            class="btn btn-danger"
-                                            x-on:click="deleteProduct({{ forloop.counter0 }})">
+                                <td>
+                                    <button
+                                        id="{{ inline_admin_formset.formset.prefix }}-{{ forloop.counter0 }}"
+                                        type="button"
+                                        class="btn btn-danger"
+                                        x-on:click="deleteProduct($event.target)">
                                         <i class="fa fa-trash"></i> Delete
                                     </button>
                                 </td>
