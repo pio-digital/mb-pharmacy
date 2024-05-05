@@ -317,36 +317,23 @@
                     });
 
                     if (!response.ok) {
-                    throw new Eroor(response.message)
+                        throw new Eroor(response.message)
                     }
 
                     const responseJSON = await response.json()
                     const result = responseJSON.data
 
-                    const overide = result.map(item => {
+                    const overide = result.map((item, index) => {
                         return {
-                            id: item.id,
-                            obat: item.obat,
-                            jumlah: item.jumlah,	
-                            satuan: item.satuan,
-                            harga: item.harga, 	
-                            diskon: item.diskon, 	
-                            nominal_diskon: item.nominal_disko,	
-                            bonus: item.bonus,
-                            bonus_satuan: item.bonus_satuan, 	
-                            tanggal_kedaluwarsa: item.tanggal_kedaluwarsa
+                            id: `id_pembelianobat_set-${index}`,
+                            harga: item.harga,
+                            diskon: item.diskon,
+                            nominal_diskon: item.nominal_diskon,
+                            subTotal: Math.ceil(item.harga - item.nominal_diskon)
                         }
                     })
 
-                    result.forEach(item => {
-                        this.sumTotal.push({
-                            id: item.id,
-                            value: item.harga,
-                            totalProduk: item.harga - item.nominal_disko
-                        })
-                    })
-
-                    this.produk = overide
+                    this.product = overide
                     return result
                 } catch (error) {
                     console.log(error)
