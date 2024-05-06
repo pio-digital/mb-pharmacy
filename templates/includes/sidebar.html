@@ -39,10 +39,10 @@
                     {% for model in app.models %}
                       {% if model.url %}
                         <li class="nav-item {% if 'bootstrap-tables' in segment or model.url in request.path|urlencode %} active {% endif %}">
-                          <a class="nav-link" href="{{ model.url }}">{{ model.label }}</a>
+                          <a class="nav-link" href="{{ model.url }}">{% if model.label == "Varian" %}Stok Produk{% else %}{{ model.label }}{% endif %}</a>
                         </li>
                       {% else %}
-                        <li class="nav-item">{{ model.label }}</li>
+                        <li class="nav-item">{% if model.label == "Varian" %}Stok Produk{% else %}{{ model.label }}{% endif %}</li>
                       {% endif %}
                     {% endfor %}
                   </ul>
