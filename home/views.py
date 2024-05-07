@@ -12,7 +12,13 @@ from django.views.generic import CreateView
 from django_filters.views import FilterView
 
 from helpers.util import format_currency
-from home.consts import CURRENCY_IDR, SUCCESS
+from home.consts import (
+    CURRENCY_IDR,
+    METODE_PEMBAYARAN_BANK_TRANSFER_ID,
+    METODE_PEMBAYARAN_TUNAI_ID,
+    SUCCESS,
+    VOID,
+)
 from home.filters import ItemTransaksiFilter
 from home.forms import ItemTransaksiFormSet, TransaksiCreateForm
 from home.models import (
@@ -35,7 +41,7 @@ class HomeView(LoginRequiredMixin, View):
         context = {
             "cash": format_currency(
                 Transaksi.objects.filter(
-                    metode_pembayaran_id=1,
+                    metode_pembayaran_id=METODE_PEMBAYARAN_TUNAI_ID,
                     status=SUCCESS,
                     created_on__date=date.today(),
                 )
@@ -129,22 +135,47 @@ class ReportView(LoginRequiredMixin, FilterView):
         context["labels"] = ", ".join([x["nama"] for x in transaksi])
         context["data"] = [x["amount"] for x in transaksi]
 
-        context["cash"] = format_currency(
+        # Drop some money
+        success_cash_trx = (
             Transaksi.objects.filter(
-                metode_pembayaran_id=1,
+                metode_pembayaran_id=METODE_PEMBAYARAN_TUNAI_ID,
                 status=SUCCESS,
             )
             .aggregate(total=Coalesce(Sum("total_biaya"), 0))
-            .get("total", 0),
+            .get("total", 0)
+        )
+        success_account_trx = (
+            Transaksi.objects.filter(
+                metode_pembayaran_id=METODE_PEMBAYARAN_BANK_TRANSFER_ID,
+                status=SUCCESS,
+            )
+            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+            .get("total", 0)
+        )
+
+        void_cash_trx = (
+            Transaksi.objects.filter(
+                metode_pembayaran_id=METODE_PEMBAYARAN_TUNAI_ID,
+                status=VOID,
+            )
+            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+            .get("total", 0)
+        )
+        void_account_trx = (
+            Transaksi.objects.filter(
+                metode_pembayaran_id=METODE_PEMBAYARAN_BANK_TRANSFER_ID,
+                status=VOID,
+            )
+            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
+            .get("total", 0)
+        )
+
+        context["cash"] = format_currency(
+            success_cash_trx - void_cash_trx,
             CURRENCY_IDR,
         )
         context["rekening"] = format_currency(
-            Transaksi.objects.filter(
-                metode_pembayaran_id=2,
-                status=SUCCESS,
-            )
-            .aggregate(total=Coalesce(Sum("total_biaya"), 0))
-            .get("total", 0),
+            success_account_trx - void_account_trx,
             CURRENCY_IDR,
         )
         context["hutang"] = Pembelian.objects.filter(sumber_dana_id=3).order_by(
