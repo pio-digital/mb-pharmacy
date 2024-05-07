@@ -60,3 +60,7 @@ CALCULATION_FIELDS = [
     "persentase_margin",
     "nominal_margin",
 ]
+
+
+METODE_PEMBAYARAN_TUNAI_ID = 1
+METODE_PEMBAYARAN_BANK_TRANSFER_ID = 2
