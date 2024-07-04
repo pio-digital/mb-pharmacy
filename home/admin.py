@@ -5,6 +5,7 @@ from import_export.admin import ImportExportModelAdmin
 from home.forms import (
     ItemTransaksiForm,
     PembayaranForm,
+    PembelianExportForm,
     PembelianForm,
     PembelianObatForm,
     VarianProdukForm,
@@ -44,6 +45,13 @@ class PembelianResource(resources.ModelResource):
 
     class Meta:
         model = Pembelian
+
+    def __init__(self, form_fields=None):
+        super().__init__()
+        self.form_fields = form_fields
+
+    def get_export_fields(self):
+        return [self.fields[f] for f in self.form_fields]
 
 
 # Register your models here.
@@ -111,7 +119,7 @@ class PembelianAdmin(ImportExportModelAdmin):
         (
             None,
             {
-                "fields": [("supplier", "sumber_dana", "total")],
+                "fields": [("supplier", "sumber_dana", "total", "tanggal_jatuh_tempo")],
             },
         ),
         (
@@ -129,6 +137,22 @@ class PembelianAdmin(ImportExportModelAdmin):
     ]
 
     change_form_template = "admin/pembelian/change_form.html"
+
+    def get_export_resource_kwargs(self, request, *args, **kwargs):
+        formats = self.get_export_formats()
+        form = PembelianExportForm(formats, request.POST or None)
+        # get list of fields from form (hard-coded to 'author' for example purposes)
+        form_fields = (
+            "uid",
+            "created_on",
+            "updated_on",
+            "nomor_pre_order",
+            "nomor_faktur",
+            "tanggal_faktur",
+            "tanggal_jatuh_tempo",
+            "supplier",
+        )
+        return {"form_fields": form_fields}
 
     def get_total_produk(self, obj):
         return obj.pembelianobat_set.count()
@@ -199,7 +223,7 @@ class ProdukAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": [("kemasan", "unit_per_kemasan")],
+                "fields": [("unit", "unit_per_kemasan", "pieces_per_kemasan")],
             },
         ),
         (
@@ -214,7 +238,7 @@ class ProdukAdmin(admin.ModelAdmin):
         "id",
         "nama",
         "brand",
-        "kemasan",
+        "unit",
         "unit_per_kemasan",
         "supplier",
         "get_total_varian",
@@ -280,11 +304,13 @@ class LokasiAdmin(admin.ModelAdmin):
 @admin.register(MetodePembayaran)
 class MetodePembayaranAdmin(admin.ModelAdmin):
     exclude = ["uid"]
+    list_display = ["nama", "sumber_dana"]
 
 
 @admin.register(SumberDana)
 class SumberDanaAdmin(admin.ModelAdmin):
     exclude = ["uid"]
+    list_display = ["nama", "saldo"]
 
 
 @admin.register(Supplier)

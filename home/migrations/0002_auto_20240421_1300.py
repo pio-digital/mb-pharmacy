@@ -5,23 +5,23 @@ from django.db import migrations
 
 def create_initial_data(apps, schema_editor):
     SumberDana = apps.get_model("home", "SumberDana")
-    for i, n in enumerate(["Cash on Hand", "Rekening A"]):
-        SumberDana.objects.create(id=i + 1, nama=n)
+    for i, n in enumerate(["Cash on Hand", "Rekening A", "Hutang"]):
+        SumberDana.objects.create(nama=n)
 
     Lokasi = apps.get_model("home", "Lokasi")
     Lokasi.objects.create(id=1, nama_toko="Mitra Berkah Sukabumi")
 
     MetodePembayaran = apps.get_model("home", "MetodePembayaran")
     for i, n in enumerate(["Tunai", "Bank Transfer"]):
-        MetodePembayaran.objects.create(id=i + 1, nama=n)
+        MetodePembayaran.objects.create(nama=n)
 
     Unit = apps.get_model("home", "Unit")
-    for i, n in enumerate(["Box", "Strip", "Botol", "Pcs"]):
-        Unit.objects.create(id=i + 1, nama=n)
+    for i, n in enumerate(["Box", "Strip (Blister)", "Botol", "Pcs"]):
+        Unit.objects.create(nama=n)
 
     Storage = apps.get_model("home", "Storage")
     for i, n in enumerate(["Rak Atas", "Rak Bawah", "Kulkas"]):
-        Storage.objects.create(id=i + 1, nama=n)
+        Storage.objects.create(nama=n)
 
 
 class Migration(migrations.Migration):

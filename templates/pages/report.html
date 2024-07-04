@@ -50,6 +50,7 @@
         </div>
         <div class="card-block px-0 py-3">
           <div class="table-responsive">
+            {% if list_hutang %}
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -59,7 +60,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for p in hutang %}
+                {% for p in list_hutang %}
                 <tr class="unread">
                   <td>
                     <h6 class="mb-1">{{ p.supplier }}</h6>
@@ -75,6 +76,9 @@
                 {% endfor %}
               </tbody>
             </table>
+            {% else %}
+            <h5 style="color: darkgray; text-align: center;">Tidak ada hutang.</h5>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -109,6 +113,7 @@
           </form>
           <canvas id="myChart" aria-label="Hello ARIA World" role="img">
           </canvas>
+          <h5 style="text-align: center;">Total {{ total_pemasukkan }}</h5>
         </div>
       </div>
     </div>
@@ -133,7 +138,6 @@
       datasets: [{
         label: 'Total Pembelian',
         data: JSON.parse(`{{ data }}`),
-        // data: [52000, 17500],
         borderWidth: 1
       }]
     },

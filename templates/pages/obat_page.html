@@ -1,0 +1,56 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12 col-md-12">
+        <div class="card Recent-Users">
+          <div class="card-header">
+            <h5>{{ title }}</h5>
+          </div>
+          <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Produk</th>
+                    <th>Unit</th>
+                    {% if is_expired %}
+                    <th>Tanggal Kedaluwarsa</th>
+                    {% else %}
+                    <th>Kuantitas</th>
+                    {% endif %}
+                    <th>Rak</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for p in produk %}
+                  <tr class="unread">
+                    <td>
+                      <h6 class="mb-1">{{ p.produk }}</h6>
+                      <p class="m-0">{% if p.barcode %} {{ p.barcode }} {% else %} {{ p.sku}} {% endif %}</p>
+                    </td>
+                    <td>
+                        <h6 class="text-muted">{{ p.unit }}</h6>
+                    </td>
+                    {% if is_expired %}
+                        <td>
+                            <h6 class="text-muted">{{ p.tanggal_kedaluwarsa }}</h6>
+                        </td>
+                    {% else %}
+                        <td>
+                            <h6 class="text-muted">{{ p.kuantitas }}</h6>
+                        </td>
+                    {% endif %}
+                    <td>
+                      <h6 class="text-muted">{% if p.storage %} {{ p.storage }} {% else %} - {% endif %}</h6>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
