@@ -1,0 +1,25 @@
+.pcoded-navbar, .navbar-brand, .pcoded-header {
+    background: #007bff;
+}
+
+.pcoded-navbar a, 
+.pcoded-navbar .pcoded-inner-navbar li.active > a, .pcoded-navbar .pcoded-inner-navbar li:focus > a, .pcoded-navbar .pcoded-inner-navbar li:hover > a,
+.pcoded-header .input-group .input-group-text, .pcoded-header a, .pcoded-header dropdown-toggle,
+.pcoded-header label {
+    color: white;
+}
+
+.pcoded-navbar .pcoded-inner-navbar > li.active > a, .pcoded-navbar .pcoded-inner-navbar > li.pcoded-trigger > a {
+    background: #2a5aae;
+}
+
+.pcoded-navbar .pcoded-submenu {
+    background: #2c4779;
+    padding: 15px 0;
+}
+
+.pcoded-navbar .pcoded-inner-navbar > li.active:after, .pcoded-navbar .pcoded-inner-navbar > li.pcoded-trigger:after,
+.pcoded-navbar .pcoded-inner-navbar li .pcoded-submenu > li.active > a:before, .pcoded-navbar .pcoded-inner-navbar li .pcoded-submenu > li:focus > a:before, .pcoded-navbar .pcoded-inner-navbar li .pcoded-submenu > li:hover > a:before,
+.pcoded-navbar .mobile-menu span:after, .pcoded-navbar .mobile-menu span:before {
+    background-color: white;
+}

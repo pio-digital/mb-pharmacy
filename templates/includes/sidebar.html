@@ -56,6 +56,12 @@
         <li data-username="POS Page" class="nav-item {% if 'pos_page' in segment %}active{% endif %}"><a href="{% url 'pos_page' %}" class="nav-link"><span
               class="pcoded-micon"><i class="feather icon-grid"></i></span><span class="pcoded-mtext">POS</span></a>
         </li>
+        <li data-username="Obat Kedaluwarsa Page" class="nav-item {% if 'obat_kedaluwarsa_page' in segment %}active{% endif %}"><a href="{% url 'obat_kedaluwarsa_page' %}" class="nav-link"><span
+              class="pcoded-micon"><i class="fa fa-pills"></i></span><span class="pcoded-mtext">Obat Kedaluwarsa</span></a>
+        </li>
+        <li data-username="Obat Habis Page" class="nav-item {% if 'obat_habis_page' in segment %}active{% endif %}"><a href="{% url 'obat_habis_page' %}" class="nav-link"><span
+              class="pcoded-micon"><i class="fa fa-tablets"></i></span><span class="pcoded-mtext">Obat Habis</span></a>
+        </li>
         {% if request.user.is_superuser %}
         <li data-username="reporting" class="nav-item {% if 'sales_report_page' in segment %}active{% endif %}"><a href="{% url 'sales_report_page' %}" class="nav-link"><span
           class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Laporan Penjualan</span></a>

@@ -38,13 +38,24 @@ class HomeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         today = date.today()
         two_month = today + timedelta(days=60)
+
+        all_transaksi = Transaksi.objects.filter(
+            metode_pembayaran_id__in=[
+                METODE_PEMBAYARAN_TUNAI_ID,
+                METODE_PEMBAYARAN_BANK_TRANSFER_ID,
+            ],
+            status=SUCCESS,
+            created_on__date=date.today(),
+        )
         context = {
+            "all_transaksi": format_currency(
+                all_transaksi.aggregate(total=Coalesce(Sum("total_biaya"), 0)).get(
+                    "total", 0
+                ),
+                CURRENCY_IDR,
+            ),
             "cash": format_currency(
-                Transaksi.objects.filter(
-                    metode_pembayaran_id=METODE_PEMBAYARAN_TUNAI_ID,
-                    status=SUCCESS,
-                    created_on__date=date.today(),
-                )
+                all_transaksi.filter(metode_pembayaran_id=METODE_PEMBAYARAN_TUNAI_ID)
                 .aggregate(total=Coalesce(Sum("total_biaya"), 0))
                 .get("total", 0),
                 CURRENCY_IDR,
@@ -54,12 +65,15 @@ class HomeView(LoginRequiredMixin, View):
             "best_selling": ItemTransaksi.objects.values("item__produk__nama")
             .annotate(sold=Sum("item"))
             .order_by("-sold")[:5],
-            "empties": VarianProduk.objects.filter(kuantitas__lte=10).order_by(
-                "-kuantitas"
-            ),
-            "expireds": VarianProduk.objects.filter(
+            "total_empties": VarianProduk.objects.filter(kuantitas__lte=10)
+            .order_by("-kuantitas")
+            .count(),
+            "total_expireds": VarianProduk.objects.filter(
                 tanggal_kedaluwarsa__range=(today, two_month)
-            ).order_by("-tanggal_kedaluwarsa"),
+            )
+            .order_by("produk", "-tanggal_kedaluwarsa")
+            .distinct("produk")
+            .count(),
         }
         return render(request, "pages/index.html", context)
 
@@ -134,6 +148,10 @@ class ReportView(LoginRequiredMixin, FilterView):
 
         context["labels"] = ", ".join([x["nama"] for x in transaksi])
         context["data"] = [x["amount"] for x in transaksi]
+        context["total_pemasukkan"] = format_currency(
+            transaksi.aggregate(total=Coalesce(Sum("harga"), 0)).get("total", 0),
+            CURRENCY_IDR,
+        )
 
         # Drop some money
         success_cash_trx = (
@@ -178,8 +196,59 @@ class ReportView(LoginRequiredMixin, FilterView):
             success_account_trx - void_account_trx,
             CURRENCY_IDR,
         )
-        context["hutang"] = Pembelian.objects.filter(sumber_dana_id=3).order_by(
-            "-tanggal_faktur"
+
+        order_hutang = Pembelian.objects.filter(sumber_dana_id=3)
+        context["hutang"] = format_currency(
+            order_hutang.aggregate(total=Coalesce(Sum("total"), 0)).get("total", 0),
+            CURRENCY_IDR,
+        )
+        context["list_hutang"] = order_hutang.order_by("-tanggal_faktur")
+
+        return context
+
+
+class ObatKedaluwarsaView(LoginRequiredMixin, FilterView):
+    login_url = "login"
+    redirect_field_name = "home"
+    model = VarianProduk
+    template_name = "pages/obat_page.html"
+    context_object_name = "produk"
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["segment"] = "obat_kedaluwarsa_page"
+        context["title"] = "Obat Kedaluwarsa"
+        context["is_expired"] = True
+
+        today = date.today()
+        two_month = today + timedelta(days=60)
+
+        context["produk"] = (
+            VarianProduk.objects.filter(tanggal_kedaluwarsa__range=(today, two_month))
+            .order_by("produk", "-tanggal_kedaluwarsa")
+            .distinct("produk")
+        )
+
+        return context
+
+
+class ObatHabisView(LoginRequiredMixin, FilterView):
+    login_url = "login"
+    redirect_field_name = "home"
+    model = VarianProduk
+    template_name = "pages/obat_page.html"
+    context_object_name = "produk"
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["segment"] = "obat_habis_page"
+        context["title"] = "Obat Habis"
+        context["is_expired"] = False
+
+        context["produk"] = VarianProduk.objects.filter(kuantitas__lte=10).order_by(
+            "produk", "-kuantitas"
         )
 
         return context

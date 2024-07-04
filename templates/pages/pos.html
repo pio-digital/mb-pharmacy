@@ -92,7 +92,8 @@
           <template x-for="item in searchResult" :key="item.id">
             <div class="item-product" x-on:click="handleResultClick(item)">
               <div class="item-product-text">
-                <p x-text="item.produk ? item.produk.brand : '-'" class="item-brand"></p>
+                <p x-text="item.produk ? `${item.produk.brand} | Tgl. Kedaluwarsa: ${item.tanggal_kedaluwarsa}` : '-'" class="item-brand"></p>
+                <p x-text="item.barcode ? item.barcode : item.sku" class="item-brand"></p>
                 <h6 x-text="item.produk ? `${item.produk.nama}: ${item.unit.nama} - ${item.kuantitas}` : '-'" class="item-name"></h6>
               </div>
             </div>
@@ -426,13 +427,28 @@
         })
 
         if (!response.ok) {
-          throw new Eroor(response.message)
+          Toastify({
+            text: "Transaksi gagal!",
+            className: "error",
+            style: {
+              background: "#eb6057",
+            }
+          }).showToast();
+          throw new Error(response.message)
         }
 
         this.productPerst = []
         this.totalPrice = 0
         this.paymentChange = 0
         this.paymentTotal = 0
+
+        Toastify({
+          text: "Transaksi berhasil!",
+          className: "info",
+          style: {
+            background: "#60c66a",
+          }
+        }).showToast();
 
         console.log(response)
       } catch (error) {

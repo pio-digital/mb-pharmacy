@@ -1,5 +1,6 @@
 from dal import autocomplete
 from django import forms
+from import_export.forms import ExportForm
 
 from home.consts import STATUS_CHOICES
 from home.models import (
@@ -84,7 +85,7 @@ class PembelianObatForm(forms.ModelForm):
             "diskon": forms.TextInput(
                 attrs={"@change.debounce": "changeDiskon($event)"}
             ),
-            "nominal_diskon": forms.TextInput(attrs={"readonly": "true"})
+            "nominal_diskon": forms.TextInput(attrs={"readonly": "true"}),
         }
 
 
@@ -111,14 +112,11 @@ class PembelianForm(forms.ModelForm):
                 attrs={
                     "x-model": "total",
                     "readonly": "true",
-                    "x-money.en-US.USD": "total"
+                    "x-money.en-US.USD": "total",
                 }
             ),
             "nominal_pajak": forms.NumberInput(
-                attrs={
-                    "x-model": "nominal_pajak",
-                    "readonly": "true"
-                }
+                attrs={"x-model": "nominal_pajak", "readonly": "true"}
             ),
             "nominal_diskon": forms.NumberInput(
                 attrs={"x-model": "nominal_diskon", "readonly": "true"}
@@ -126,7 +124,14 @@ class PembelianForm(forms.ModelForm):
             "tanggal_faktur": forms.DateInput(
                 attrs={"type": "date", "class": "form-control"}
             ),
+            "tanggal_jatuh_tempo": forms.DateInput(
+                attrs={"type": "date", "class": "form-control"}
+            ),
         }
+
+
+class PembelianExportForm(ExportForm):
+    pass
 
 
 class VarianProdukForm(forms.ModelForm):
@@ -146,6 +151,13 @@ class VarianProdukForm(forms.ModelForm):
             "tanggal_kedaluwarsa": forms.DateInput(
                 attrs={"type": "date", "class": "form-control"}
             ),
+        }
+        labels = {
+            "persentase_margin": "Margin (%)",
+            "nominal_margin": "Margin (Rp)",
+            "tanggal_kedaluwarsa": "Tgl. kedaluwarsa",
+            "kuantitas": "Qty",
+            "sku": "SKU",
         }
 
 

@@ -19,6 +19,9 @@ from home.consts import (
     STATUS_CHOICES,
     SUCCESS,
     TRANSACTION_TYPE_CHOICES,
+    UNIT_BOX,
+    UNIT_PCS,
+    UNIT_STRIP,
     VOID,
 )
 
@@ -106,8 +109,9 @@ class Produk(BaseModel):
     )
     nama = models.CharField(max_length=50, null=True, blank=True)
     brand = models.CharField(max_length=50, null=True, blank=True)
-    kemasan = models.CharField(max_length=32, null=True, blank=True)
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
     unit_per_kemasan = models.PositiveIntegerField()
+    pieces_per_kemasan = models.PositiveIntegerField(default=0)
     deskripsi = models.TextField(blank=True, null=True)
 
     # __Produk_FIELDS__END
@@ -131,7 +135,7 @@ class VarianProduk(BaseModel):
     )
     tanggal_kedaluwarsa = models.DateField()
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
-    kuantitas = models.PositiveIntegerField()
+    kuantitas = models.FloatField(default=0)
     harga_beli = models.PositiveIntegerField()
     harga_jual = models.PositiveIntegerField()
     persentase_margin = models.FloatField(default=0)
@@ -171,6 +175,12 @@ class MetodePembayaran(BaseModel):
 
     # __Metodepembayaran_FIELDS__
     nama = models.CharField(max_length=255, null=True, blank=True)
+    sumber_dana = models.ForeignKey(
+        "home.SumberDana",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
 
     # __Metodepembayaran_FIELDS__END
 
@@ -251,6 +261,7 @@ class SumberDana(BaseModel):
 
     # __SumberDana_FIELDS__
     nama = models.CharField(max_length=255, null=True, blank=True)
+    saldo = models.IntegerField(default=0)
 
     # __SumberDana_FIELDS__END
 
@@ -266,6 +277,7 @@ class Pembelian(BaseModel):
     nomor_pre_order = models.TextField(blank=True, null=True)
     nomor_faktur = models.CharField(max_length=255, blank=True, null=True)
     tanggal_faktur = models.DateField()
+    tanggal_jatuh_tempo = models.DateField(blank=True, null=True)
     supplier = models.ForeignKey(
         Supplier, on_delete=models.SET_NULL, blank=True, null=True
     )
@@ -350,14 +362,38 @@ class Storage(BaseModel):
 @receiver(post_save, sender=ItemTransaksi)
 def update_stock(sender, instance, created, **kwargs):
     varian_produk = instance.item
+    sumber_dana = instance.transaksi.metode_pembayaran.sumber_dana
+
+    produk = instance.item.produk
+    varianproduk_set = produk.varianproduk_set.exclude(id=varian_produk.id)
 
     if instance.transaksi.status == SUCCESS:
         varian_produk.kuantitas -= instance.kuantitas
 
+        # Send money to respective account
+        sumber_dana.saldo += instance.transaksi.total_biaya
+
     if instance.transaksi.status == VOID:
         varian_produk.kuantitas += instance.kuantitas
 
+        # Send money to respective account
+        sumber_dana.saldo -= instance.transaksi.total_biaya
+
+    # Set base unit kuantitas = 5
+    # box = 3, blister = 15, pcs = 150
+    # A: blister - 1 = 14, pcs = 145,
+    # for vp in varianproduk_set:
+    #     if vp.unit == produk.unit:
+    #         if vp.unit.nama == UNIT_STRIP:
+    #             kuantitas_to_update *= vp.produk.unit_per_kemasan
+    #         elif vp.unit.nama == UNIT_PCS:
+    #             kuantitas_to_update *= (
+    #                 vp.produk.unit_per_kemasan * vp.produk.pieces_per_kemasan
+    #             )
+    #         vp.kuantitas = varian_produk.kuantitas / produk.unit_per_kemasan
+
     varian_produk.save()
+    sumber_dana.save()
 
 
 @receiver(post_save, sender=Pembelian)
@@ -365,3 +401,31 @@ def set_nomor_pre_order(sender, instance, created, **kwargs):
     if created:
         instance.nomor_pre_order = generate_nomor_pre_order(instance.pk)
         instance.save()
+
+        instance.sumber_dana.saldo -= instance.total
+        instance.sumber_dana.save()
+
+
+@receiver(post_save, sender=PembelianObat)
+def update_or_create_stock(sender, instance, created, **kwargs):
+    produk = instance.obat
+    varians = produk.varianproduk_set.all()
+    order_kuantitas = instance.jumlah + instance.bonus
+
+    for varian in varians:
+        kuantitas_to_create = order_kuantitas
+        if varian.unit.nama == UNIT_STRIP:
+            kuantitas_to_create *= varian.produk.unit_per_kemasan
+        elif varian.unit.nama == UNIT_PCS:
+            kuantitas_to_create *= (
+                varian.produk.unit_per_kemasan * varian.produk.pieces_per_kemasan
+            )
+
+        VarianProduk.objects.create(
+            produk=varian.produk,
+            unit=varian.unit,
+            kuantitas=kuantitas_to_create,
+            harga_beli=0,
+            harga_jual=0,
+            tanggal_kedaluwarsa=instance.tanggal_kedaluwarsa,
+        )
