@@ -143,6 +143,13 @@ class VarianProduk(BaseModel):
     storage = models.ForeignKey(
         "home.Storage", on_delete=models.SET_NULL, blank=True, null=True
     )
+    # Set order if added from "Pembelian"
+    order = models.ForeignKey(
+        "home.Pembelian",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
 
     # __Varianproduk_FIELDS__END
 
@@ -364,9 +371,6 @@ def update_stock(sender, instance, created, **kwargs):
     varian_produk = instance.item
     sumber_dana = instance.transaksi.metode_pembayaran.sumber_dana
 
-    produk = instance.item.produk
-    varianproduk_set = produk.varianproduk_set.exclude(id=varian_produk.id)
-
     if instance.transaksi.status == SUCCESS:
         varian_produk.kuantitas -= instance.kuantitas
 
@@ -379,18 +383,40 @@ def update_stock(sender, instance, created, **kwargs):
         # Send money to respective account
         sumber_dana.saldo -= instance.transaksi.total_biaya
 
-    # Set base unit kuantitas = 5
-    # box = 3, blister = 15, pcs = 150
-    # A: blister - 1 = 14, pcs = 145,
-    # for vp in varianproduk_set:
-    #     if vp.unit == produk.unit:
-    #         if vp.unit.nama == UNIT_STRIP:
-    #             kuantitas_to_update *= vp.produk.unit_per_kemasan
-    #         elif vp.unit.nama == UNIT_PCS:
-    #             kuantitas_to_update *= (
-    #                 vp.produk.unit_per_kemasan * vp.produk.pieces_per_kemasan
-    #             )
-    #         vp.kuantitas = varian_produk.kuantitas / produk.unit_per_kemasan
+    # Update relatives stock
+    produk = instance.item.produk
+    varianproduk_set = produk.varianproduk_set.filter(sku=varian_produk.sku).exclude(
+        id=varian_produk.id
+    )
+
+    for varian in varianproduk_set:
+        kuantitas_to_update = varian_produk.kuantitas
+        if varian_produk.unit.nama == UNIT_BOX:
+            if varian.unit.nama == UNIT_STRIP:
+                kuantitas_to_update *= varian.produk.unit_per_kemasan
+            if varian.unit.nama == UNIT_PCS:
+                total_pcs = (
+                    varian.produk.unit_per_kemasan * varian.produk.pieces_per_kemasan
+                )
+                kuantitas_to_update *= total_pcs
+
+        if varian_produk.unit.nama == UNIT_STRIP:
+            if varian.unit.nama == UNIT_BOX:
+                kuantitas_to_update /= varian.produk.unit_per_kemasan
+            if varian.unit.nama == UNIT_PCS:
+                kuantitas_to_update *= varian.produk.pieces_per_kemasan
+
+        if varian_produk.unit.nama == UNIT_PCS:
+            if varian.unit.nama == UNIT_BOX:
+                total_pcs = (
+                    varian.produk.unit_per_kemasan * varian.produk.pieces_per_kemasan
+                )
+                kuantitas_to_update /= total_pcs
+            if varian.unit.nama == UNIT_STRIP:
+                kuantitas_to_update /= varian.produk.pieces_per_kemasan
+
+        varian.kuantitas = kuantitas_to_update
+        varian.save()
 
     varian_produk.save()
     sumber_dana.save()
@@ -428,4 +454,5 @@ def update_or_create_stock(sender, instance, created, **kwargs):
             harga_beli=0,
             harga_jual=0,
             tanggal_kedaluwarsa=instance.tanggal_kedaluwarsa,
+            order=instance.pembelian,
         )
