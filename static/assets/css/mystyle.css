@@ -5,7 +5,7 @@
 .pcoded-navbar a, 
 .pcoded-navbar .pcoded-inner-navbar li.active > a, .pcoded-navbar .pcoded-inner-navbar li:focus > a, .pcoded-navbar .pcoded-inner-navbar li:hover > a,
 .pcoded-header .input-group .input-group-text, .pcoded-header a, .pcoded-header dropdown-toggle,
-.pcoded-header label {
+.pcoded-header label, .pcoded-menu-caption label {
     color: white;
 }
 

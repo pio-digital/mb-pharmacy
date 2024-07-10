@@ -25,14 +25,18 @@
         {% admin_get_menu as app_list %}
         {% if app_list %}
           {% for app in app_list %}
-            {% if app.has_perms and not app.pinned %}
+            {% if app.has_perms and not app.pinned and app.app_label != 'authtoken' %}
               <li 
                 data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
                 class="nav-item pcoded-hasmenu"
               >
                 <a href="javascript:" class="nav-link ">
                   <span class="pcoded-micon"><i class=" {% if app.icon %}{{ app.icon }} {% else %} feather icon-box {% endif %}"></i></span>
+                  {% if app.app_label == 'auth' %}
+                    <span class="pcoded-mtext">Data Akun</span>
+                  {% else %}
                   <span class="pcoded-mtext">{{ app.label|slice:10 }}{% if app.label|length > 10 %}..{% endif %}</span>
+                  {% endif %}
                 </a>
                 {% if app.models %}
                   <ul class="pcoded-submenu">
