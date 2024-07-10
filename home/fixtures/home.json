@@ -1,0 +1,3166 @@
+[
+  {
+      "model": "admin.logentry",
+      "pk": 1,
+      "fields": {
+          "action_time": "2024-05-23T14:21:04.760Z",
+          "user": 1,
+          "content_type": 16,
+          "object_id": "1",
+          "object_repr": "hello - admin",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 2,
+      "fields": {
+          "action_time": "2024-06-03T09:22:27.194Z",
+          "user": 1,
+          "content_type": 7,
+          "object_id": "1",
+          "object_repr": "Mitra Berkah Sukabumi",
+          "action_flag": 2,
+          "change_message": "[{\"changed\": {\"fields\": [\"Alamat lengkap\", \"Nomor telepon\"]}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 3,
+      "fields": {
+          "action_time": "2024-06-03T09:23:43.778Z",
+          "user": 1,
+          "content_type": 19,
+          "object_id": "1",
+          "object_repr": "Token Listrik",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 4,
+      "fields": {
+          "action_time": "2024-06-03T09:26:07.592Z",
+          "user": 1,
+          "content_type": 13,
+          "object_id": "1",
+          "object_repr": "ARISTIANTO",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 5,
+      "fields": {
+          "action_time": "2024-06-03T09:32:10.503Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "1",
+          "object_repr": "FLUTAMOL 100 CAPLET (P) @72",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"ASLM08PVNB0V FLUTAMOL 100 CAPLET (P) @72: Pcs\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"ASLM08PVNB0V FLUTAMOL 100 CAPLET (P) @72: Strip\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"ASLM08PVNB0V FLUTAMOL 100 CAPLET (P) @72: Box\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 6,
+      "fields": {
+          "action_time": "2024-06-03T09:35:58.698Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "2",
+          "object_repr": "INTUNAL 100 CAPLET (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"5JVTUOOZQVXV INTUNAL 100 CAPLET (P): Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"5JVTUOOZQVXV INTUNAL 100 CAPLET (P): Pcs\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 7,
+      "fields": {
+          "action_time": "2024-06-03T09:37:47.081Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "3",
+          "object_repr": "INTUNAL 100 CAPLET",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"TVQI8TPIFPHA INTUNAL 100 CAPLET: Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"TVQI8TPIFPHA INTUNAL 100 CAPLET: Pcs\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 8,
+      "fields": {
+          "action_time": "2024-06-03T09:39:01.416Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "3",
+          "object_repr": "INTUNAL 100 CAPLET",
+          "action_flag": 3,
+          "change_message": ""
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 9,
+      "fields": {
+          "action_time": "2024-06-03T09:39:32.825Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "5",
+          "object_repr": "caplet",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 10,
+      "fields": {
+          "action_time": "2024-06-06T06:47:42.461Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "2",
+          "object_repr": "INTUNAL 100 CAPLET (P)",
+          "action_flag": 2,
+          "change_message": "[]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 11,
+      "fields": {
+          "action_time": "2024-06-06T06:52:33.999Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "4",
+          "object_repr": "FLUTROP TABLET (P) @100",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"L4SQTHKC9NCR FLUTROP TABLET (P) @100: Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"L4SQTHKC9NCR FLUTROP TABLET (P) @100: caplet\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 12,
+      "fields": {
+          "action_time": "2024-06-06T06:58:36.653Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "5",
+          "object_repr": "INTUNAL FORTE 25x4 TAB (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"KAHU4Y4JEFSI INTUNAL FORTE 25x4 TAB (P): Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"KAHU4Y4JEFSI INTUNAL FORTE 25x4 TAB (P): Strip\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"KAHU4Y4JEFSI INTUNAL FORTE 25x4 TAB (P): Pcs\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 13,
+      "fields": {
+          "action_time": "2024-06-06T16:49:42.158Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "6",
+          "object_repr": "TUZALOS CAPLET (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"P2P30T4IXYY1 TUZALOS CAPLET (P): Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"P2P30T4IXYY1 TUZALOS CAPLET (P): caplet\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 14,
+      "fields": {
+          "action_time": "2024-06-06T16:55:44.299Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "7",
+          "object_repr": "ULTRAFLU 100 TABLET (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"QV9ENY9H2B6P ULTRAFLU 100 TABLET (P): Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"QV9ENY9H2B6P ULTRAFLU 100 TABLET (P): caplet\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"QV9ENY9H2B6P ULTRAFLU 100 TABLET (P): Strip\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 15,
+      "fields": {
+          "action_time": "2024-06-06T16:56:20.132Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "6",
+          "object_repr": "TABLET",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 16,
+      "fields": {
+          "action_time": "2024-06-11T12:25:11.420Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "8",
+          "object_repr": "ANAKONIDIN OBH SYR 30 ML (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"6E0ULX2ZOXWG ANAKONIDIN OBH SYR 30 ML (P): Botol\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 17,
+      "fields": {
+          "action_time": "2024-06-11T12:26:03.386Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "9",
+          "object_repr": "ANAKONIDIN OBH SYR 60 ML (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"LN3G2NMCT29L ANAKONIDIN OBH SYR 60 ML (P): Botol\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 18,
+      "fields": {
+          "action_time": "2024-06-11T12:28:45.152Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "10",
+          "object_repr": "ANAKONIDIN SYRUP 30 ML (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"LBYUJ4LC1Z9Q ANAKONIDIN SYRUP 30 ML (P): Botol\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 19,
+      "fields": {
+          "action_time": "2024-06-11T12:29:55.419Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "11",
+          "object_repr": "ANAKONIDIN SYRUP 60 ML (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"LITQ21K5OFLF ANAKONIDIN SYRUP 60 ML (P): Botol\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 20,
+      "fields": {
+          "action_time": "2024-06-11T12:34:59.203Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "12",
+          "object_repr": "FLUTAMOL SYRUP 60 ML (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"0C7VZL3G0G84 FLUTAMOL SYRUP 60 ML (P): Botol\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 21,
+      "fields": {
+          "action_time": "2024-06-11T12:36:22.672Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "13",
+          "object_repr": "INTUNAL SYRUP 60 ML (P)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"ENQ4FUUZRC27 INTUNAL SYRUP 60 ML (P): Botol\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 22,
+      "fields": {
+          "action_time": "2024-06-11T12:51:46.762Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "14",
+          "object_repr": "STREPSILS COOL 12X8",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"6GNQMSQQBHEH STREPSILS COOL 12X8: Box\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 23,
+      "fields": {
+          "action_time": "2024-06-11T12:53:01.575Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "15",
+          "object_repr": "STREPSILS HONEY LEMON 12X8-S",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"CRESN6SKZAXL STREPSILS HONEY LEMON 12X8-S: Box\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 24,
+      "fields": {
+          "action_time": "2024-06-11T12:56:54.563Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "16",
+          "object_repr": "ESTER C HOLISTICARE 4 X 12",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"PUG9ZAVMCKIK ESTER C HOLISTICARE 4 X 12: Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"PUG9ZAVMCKIK ESTER C HOLISTICARE 4 X 12: Strip\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 25,
+      "fields": {
+          "action_time": "2024-06-11T12:56:55.225Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "17",
+          "object_repr": "ESTER C HOLISTICARE 4 X 12",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"PUG9ZAVMCKIK ESTER C HOLISTICARE 4 X 12: Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"PUG9ZAVMCKIK ESTER C HOLISTICARE 4 X 12: Strip\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 26,
+      "fields": {
+          "action_time": "2024-06-11T12:57:16.099Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "17",
+          "object_repr": "ESTER C HOLISTICARE 4 X 12",
+          "action_flag": 3,
+          "change_message": ""
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 27,
+      "fields": {
+          "action_time": "2024-06-11T12:59:56.445Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "18",
+          "object_repr": "FOLAXIN 400 MCG KAPLET",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"LDXPZU41WLGX FOLAXIN 400 MCG KAPLET: Box\"}}, {\"added\": {\"name\": \"Varian\", \"object\": \"LDXPZU41WLGX FOLAXIN 400 MCG KAPLET: Strip\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 28,
+      "fields": {
+          "action_time": "2024-06-11T13:02:23.161Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "7",
+          "object_repr": "FLS",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 29,
+      "fields": {
+          "action_time": "2024-06-11T13:03:31.798Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "19",
+          "object_repr": "FITKOM 21 TAB HI-C ORANGE",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"93YRYQ47JUPD FITKOM 21 TAB HI-C ORANGE: FLS\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 30,
+      "fields": {
+          "action_time": "2024-06-11T13:04:00.941Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "8",
+          "object_repr": "Tube",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 31,
+      "fields": {
+          "action_time": "2024-06-11T13:04:08.594Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "5",
+          "object_repr": "Kaplet",
+          "action_flag": 2,
+          "change_message": "[{\"changed\": {\"fields\": [\"Nama\"]}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 32,
+      "fields": {
+          "action_time": "2024-06-11T13:05:31.043Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "20",
+          "object_repr": "ESPERSON CREAM 5 GR",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"AFT3OIA90S0D ESPERSON CREAM 5 GR: Tube\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 33,
+      "fields": {
+          "action_time": "2024-06-11T13:06:05.668Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "9",
+          "object_repr": "Pot",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 34,
+      "fields": {
+          "action_time": "2024-06-11T13:08:03.621Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "21",
+          "object_repr": "BALSEM LANG 40 GR @144",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"D33XZTBP7Z1G BALSEM LANG 40 GR @144: Pot\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 35,
+      "fields": {
+          "action_time": "2024-06-11T13:09:29.245Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "22",
+          "object_repr": "GELIGA 20 GRAM @240",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"4ANFN5VJH9DG GELIGA 20 GRAM @240: Pot\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 36,
+      "fields": {
+          "action_time": "2024-06-14T04:13:44.001Z",
+          "user": 1,
+          "content_type": 13,
+          "object_id": "1",
+          "object_repr": "ARISTIANTO",
+          "action_flag": 2,
+          "change_message": "[]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 37,
+      "fields": {
+          "action_time": "2024-06-14T04:21:53.978Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "10",
+          "object_repr": "BOX",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 38,
+      "fields": {
+          "action_time": "2024-06-14T04:22:23.628Z",
+          "user": 1,
+          "content_type": 14,
+          "object_id": "11",
+          "object_repr": "BOX",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 39,
+      "fields": {
+          "action_time": "2024-06-14T04:31:59.212Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "23",
+          "object_repr": "STREPSILS MENT & VANT 12X8 (STRONG)",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"MYHQGPSUQQFQ STREPSILS MENT & VANT 12X8 (STRONG): Box\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 40,
+      "fields": {
+          "action_time": "2024-06-14T06:25:29.353Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "24",
+          "object_repr": "STREPSILS ORIGINAL 12X8",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"XWCUHAISITLG STREPSILS ORIGINAL 12X8: Box\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 41,
+      "fields": {
+          "action_time": "2024-06-14T06:28:44.237Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "25",
+          "object_repr": "STREPSILS VIT 12X8-S",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"9GWSZNMX2TKK STREPSILS VIT 12X8-S: Box\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 42,
+      "fields": {
+          "action_time": "2024-06-14T06:40:35.919Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "26",
+          "object_repr": "ESTER C HOLISTICARE 30 TAB",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"W6JWFX2PQYUD ESTER C HOLISTICARE 30 TAB: FLS\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 43,
+      "fields": {
+          "action_time": "2024-06-19T12:36:15.668Z",
+          "user": 1,
+          "content_type": 4,
+          "object_id": "2",
+          "object_repr": "cashier_a",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 44,
+      "fields": {
+          "action_time": "2024-06-19T12:36:35.623Z",
+          "user": 1,
+          "content_type": 16,
+          "object_id": "2",
+          "object_repr": "cashier_a - cashier",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 45,
+      "fields": {
+          "action_time": "2024-06-19T12:43:19.082Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "16",
+          "object_repr": "ESTER C HOLISTICARE 4 X 12",
+          "action_flag": 2,
+          "change_message": "[{\"added\": {\"name\": \"Varian\", \"object\": \"640T15CXWF9D ESTER C HOLISTICARE 4 X 12: Pcs\"}}, {\"changed\": {\"name\": \"Varian\", \"object\": \"PUG9ZAVMCKIK ESTER C HOLISTICARE 4 X 12: Box\", \"fields\": [\"Harga jual\", \"Persentase margin\", \"Nominal margin\"]}}, {\"changed\": {\"name\": \"Varian\", \"object\": \"PUG9ZAVMCKIK ESTER C HOLISTICARE 4 X 12: Strip\", \"fields\": [\"Harga jual\", \"Persentase margin\", \"Nominal margin\"]}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 46,
+      "fields": {
+          "action_time": "2024-06-19T12:53:23.649Z",
+          "user": 1,
+          "content_type": 12,
+          "object_id": "3",
+          "object_repr": "Hutang",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 47,
+      "fields": {
+          "action_time": "2024-06-19T12:55:21.229Z",
+          "user": 1,
+          "content_type": 9,
+          "object_id": "1",
+          "object_repr": "PO20240619.1",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Produk\", \"object\": \"ESTER C HOLISTICARE 4 X 12: 100\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 48,
+      "fields": {
+          "action_time": "2024-06-19T13:18:32.083Z",
+          "user": 1,
+          "content_type": 10,
+          "object_id": "27",
+          "object_repr": "Salonpas",
+          "action_flag": 1,
+          "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"Varian\", \"object\": \"I93O29NYQJMO Salonpas: Box\"}}]"
+      }
+  },
+  {
+      "model": "admin.logentry",
+      "pk": 49,
+      "fields": {
+          "action_time": "2024-06-19T13:38:14.284Z",
+          "user": 1,
+          "content_type": 9,
+          "object_id": "1",
+          "object_repr": "PO20240619.1",
+          "action_flag": 2,
+          "change_message": "[{\"changed\": {\"fields\": [\"Sumber dana\"]}}]"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 1,
+      "fields": {
+          "name": "Can add log entry",
+          "content_type": 1,
+          "codename": "add_logentry"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 2,
+      "fields": {
+          "name": "Can change log entry",
+          "content_type": 1,
+          "codename": "change_logentry"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 3,
+      "fields": {
+          "name": "Can delete log entry",
+          "content_type": 1,
+          "codename": "delete_logentry"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 4,
+      "fields": {
+          "name": "Can view log entry",
+          "content_type": 1,
+          "codename": "view_logentry"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 5,
+      "fields": {
+          "name": "Can add permission",
+          "content_type": 2,
+          "codename": "add_permission"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 6,
+      "fields": {
+          "name": "Can change permission",
+          "content_type": 2,
+          "codename": "change_permission"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 7,
+      "fields": {
+          "name": "Can delete permission",
+          "content_type": 2,
+          "codename": "delete_permission"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 8,
+      "fields": {
+          "name": "Can view permission",
+          "content_type": 2,
+          "codename": "view_permission"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 9,
+      "fields": {
+          "name": "Can add group",
+          "content_type": 3,
+          "codename": "add_group"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 10,
+      "fields": {
+          "name": "Can change group",
+          "content_type": 3,
+          "codename": "change_group"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 11,
+      "fields": {
+          "name": "Can delete group",
+          "content_type": 3,
+          "codename": "delete_group"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 12,
+      "fields": {
+          "name": "Can view group",
+          "content_type": 3,
+          "codename": "view_group"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 13,
+      "fields": {
+          "name": "Can add user",
+          "content_type": 4,
+          "codename": "add_user"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 14,
+      "fields": {
+          "name": "Can change user",
+          "content_type": 4,
+          "codename": "change_user"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 15,
+      "fields": {
+          "name": "Can delete user",
+          "content_type": 4,
+          "codename": "delete_user"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 16,
+      "fields": {
+          "name": "Can view user",
+          "content_type": 4,
+          "codename": "view_user"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 17,
+      "fields": {
+          "name": "Can add content type",
+          "content_type": 5,
+          "codename": "add_contenttype"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 18,
+      "fields": {
+          "name": "Can change content type",
+          "content_type": 5,
+          "codename": "change_contenttype"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 19,
+      "fields": {
+          "name": "Can delete content type",
+          "content_type": 5,
+          "codename": "delete_contenttype"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 20,
+      "fields": {
+          "name": "Can view content type",
+          "content_type": 5,
+          "codename": "view_contenttype"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 21,
+      "fields": {
+          "name": "Can add session",
+          "content_type": 6,
+          "codename": "add_session"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 22,
+      "fields": {
+          "name": "Can change session",
+          "content_type": 6,
+          "codename": "change_session"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 23,
+      "fields": {
+          "name": "Can delete session",
+          "content_type": 6,
+          "codename": "delete_session"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 24,
+      "fields": {
+          "name": "Can view session",
+          "content_type": 6,
+          "codename": "view_session"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 25,
+      "fields": {
+          "name": "Can add Lokasi",
+          "content_type": 7,
+          "codename": "add_lokasi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 26,
+      "fields": {
+          "name": "Can change Lokasi",
+          "content_type": 7,
+          "codename": "change_lokasi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 27,
+      "fields": {
+          "name": "Can delete Lokasi",
+          "content_type": 7,
+          "codename": "delete_lokasi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 28,
+      "fields": {
+          "name": "Can view Lokasi",
+          "content_type": 7,
+          "codename": "view_lokasi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 29,
+      "fields": {
+          "name": "Can add Metode Pembayaran",
+          "content_type": 8,
+          "codename": "add_metodepembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 30,
+      "fields": {
+          "name": "Can change Metode Pembayaran",
+          "content_type": 8,
+          "codename": "change_metodepembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 31,
+      "fields": {
+          "name": "Can delete Metode Pembayaran",
+          "content_type": 8,
+          "codename": "delete_metodepembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 32,
+      "fields": {
+          "name": "Can view Metode Pembayaran",
+          "content_type": 8,
+          "codename": "view_metodepembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 33,
+      "fields": {
+          "name": "Can add Order",
+          "content_type": 9,
+          "codename": "add_pembelian"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 34,
+      "fields": {
+          "name": "Can change Order",
+          "content_type": 9,
+          "codename": "change_pembelian"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 35,
+      "fields": {
+          "name": "Can delete Order",
+          "content_type": 9,
+          "codename": "delete_pembelian"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 36,
+      "fields": {
+          "name": "Can view Order",
+          "content_type": 9,
+          "codename": "view_pembelian"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 37,
+      "fields": {
+          "name": "Can add Produk",
+          "content_type": 10,
+          "codename": "add_produk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 38,
+      "fields": {
+          "name": "Can change Produk",
+          "content_type": 10,
+          "codename": "change_produk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 39,
+      "fields": {
+          "name": "Can delete Produk",
+          "content_type": 10,
+          "codename": "delete_produk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 40,
+      "fields": {
+          "name": "Can view Produk",
+          "content_type": 10,
+          "codename": "view_produk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 41,
+      "fields": {
+          "name": "Can add Tempat Penyimpanan",
+          "content_type": 11,
+          "codename": "add_storage"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 42,
+      "fields": {
+          "name": "Can change Tempat Penyimpanan",
+          "content_type": 11,
+          "codename": "change_storage"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 43,
+      "fields": {
+          "name": "Can delete Tempat Penyimpanan",
+          "content_type": 11,
+          "codename": "delete_storage"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 44,
+      "fields": {
+          "name": "Can view Tempat Penyimpanan",
+          "content_type": 11,
+          "codename": "view_storage"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 45,
+      "fields": {
+          "name": "Can add Sumber Dana",
+          "content_type": 12,
+          "codename": "add_sumberdana"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 46,
+      "fields": {
+          "name": "Can change Sumber Dana",
+          "content_type": 12,
+          "codename": "change_sumberdana"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 47,
+      "fields": {
+          "name": "Can delete Sumber Dana",
+          "content_type": 12,
+          "codename": "delete_sumberdana"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 48,
+      "fields": {
+          "name": "Can view Sumber Dana",
+          "content_type": 12,
+          "codename": "view_sumberdana"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 49,
+      "fields": {
+          "name": "Can add Supplier",
+          "content_type": 13,
+          "codename": "add_supplier"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 50,
+      "fields": {
+          "name": "Can change Supplier",
+          "content_type": 13,
+          "codename": "change_supplier"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 51,
+      "fields": {
+          "name": "Can delete Supplier",
+          "content_type": 13,
+          "codename": "delete_supplier"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 52,
+      "fields": {
+          "name": "Can view Supplier",
+          "content_type": 13,
+          "codename": "view_supplier"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 53,
+      "fields": {
+          "name": "Can add Unit",
+          "content_type": 14,
+          "codename": "add_unit"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 54,
+      "fields": {
+          "name": "Can change Unit",
+          "content_type": 14,
+          "codename": "change_unit"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 55,
+      "fields": {
+          "name": "Can delete Unit",
+          "content_type": 14,
+          "codename": "delete_unit"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 56,
+      "fields": {
+          "name": "Can view Unit",
+          "content_type": 14,
+          "codename": "view_unit"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 57,
+      "fields": {
+          "name": "Can add Varian",
+          "content_type": 15,
+          "codename": "add_varianproduk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 58,
+      "fields": {
+          "name": "Can change Varian",
+          "content_type": 15,
+          "codename": "change_varianproduk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 59,
+      "fields": {
+          "name": "Can delete Varian",
+          "content_type": 15,
+          "codename": "delete_varianproduk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 60,
+      "fields": {
+          "name": "Can view Varian",
+          "content_type": 15,
+          "codename": "view_varianproduk"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 61,
+      "fields": {
+          "name": "Can add User Profile",
+          "content_type": 16,
+          "codename": "add_userprofile"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 62,
+      "fields": {
+          "name": "Can change User Profile",
+          "content_type": 16,
+          "codename": "change_userprofile"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 63,
+      "fields": {
+          "name": "Can delete User Profile",
+          "content_type": 16,
+          "codename": "delete_userprofile"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 64,
+      "fields": {
+          "name": "Can view User Profile",
+          "content_type": 16,
+          "codename": "view_userprofile"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 65,
+      "fields": {
+          "name": "Can add Transaksi",
+          "content_type": 17,
+          "codename": "add_transaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 66,
+      "fields": {
+          "name": "Can change Transaksi",
+          "content_type": 17,
+          "codename": "change_transaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 67,
+      "fields": {
+          "name": "Can delete Transaksi",
+          "content_type": 17,
+          "codename": "delete_transaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 68,
+      "fields": {
+          "name": "Can view Transaksi",
+          "content_type": 17,
+          "codename": "view_transaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 69,
+      "fields": {
+          "name": "Can add Produk",
+          "content_type": 18,
+          "codename": "add_pembelianobat"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 70,
+      "fields": {
+          "name": "Can change Produk",
+          "content_type": 18,
+          "codename": "change_pembelianobat"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 71,
+      "fields": {
+          "name": "Can delete Produk",
+          "content_type": 18,
+          "codename": "delete_pembelianobat"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 72,
+      "fields": {
+          "name": "Can view Produk",
+          "content_type": 18,
+          "codename": "view_pembelianobat"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 73,
+      "fields": {
+          "name": "Can add Operasional",
+          "content_type": 19,
+          "codename": "add_pembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 74,
+      "fields": {
+          "name": "Can change Operasional",
+          "content_type": 19,
+          "codename": "change_pembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 75,
+      "fields": {
+          "name": "Can delete Operasional",
+          "content_type": 19,
+          "codename": "delete_pembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 76,
+      "fields": {
+          "name": "Can view Operasional",
+          "content_type": 19,
+          "codename": "view_pembayaran"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 77,
+      "fields": {
+          "name": "Can add Item",
+          "content_type": 20,
+          "codename": "add_itemtransaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 78,
+      "fields": {
+          "name": "Can change Item",
+          "content_type": 20,
+          "codename": "change_itemtransaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 79,
+      "fields": {
+          "name": "Can delete Item",
+          "content_type": 20,
+          "codename": "delete_itemtransaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 80,
+      "fields": {
+          "name": "Can view Item",
+          "content_type": 20,
+          "codename": "view_itemtransaksi"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 81,
+      "fields": {
+          "name": "Can add Token",
+          "content_type": 21,
+          "codename": "add_token"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 82,
+      "fields": {
+          "name": "Can change Token",
+          "content_type": 21,
+          "codename": "change_token"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 83,
+      "fields": {
+          "name": "Can delete Token",
+          "content_type": 21,
+          "codename": "delete_token"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 84,
+      "fields": {
+          "name": "Can view Token",
+          "content_type": 21,
+          "codename": "view_token"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 85,
+      "fields": {
+          "name": "Can add Token",
+          "content_type": 22,
+          "codename": "add_tokenproxy"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 86,
+      "fields": {
+          "name": "Can change Token",
+          "content_type": 22,
+          "codename": "change_tokenproxy"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 87,
+      "fields": {
+          "name": "Can delete Token",
+          "content_type": 22,
+          "codename": "delete_tokenproxy"
+      }
+  },
+  {
+      "model": "auth.permission",
+      "pk": 88,
+      "fields": {
+          "name": "Can view Token",
+          "content_type": 22,
+          "codename": "view_tokenproxy"
+      }
+  },
+  {
+      "model": "auth.user",
+      "pk": 1,
+      "fields": {
+          "password": "pbkdf2_sha256$600000$ap43vC2QOg4kc0CgcVj25y$fjC8kVd244+B2wDdlQ/32tJfHd9qGXFh8X4at/4I7bk=",
+          "last_login": "2024-07-03T13:19:39.402Z",
+          "is_superuser": true,
+          "username": "hello",
+          "first_name": "",
+          "last_name": "",
+          "email": "moelder@skiff.com",
+          "is_staff": true,
+          "is_active": true,
+          "date_joined": "2024-05-23T13:27:16.193Z",
+          "groups": [],
+          "user_permissions": []
+      }
+  },
+  {
+      "model": "auth.user",
+      "pk": 2,
+      "fields": {
+          "password": "pbkdf2_sha256$600000$IhQXj4NHNtpbihz7WHByfU$nFNePj1pENV5cbI7zRdEeJfopLo21F9FWaR3Uz0exvQ=",
+          "last_login": null,
+          "is_superuser": false,
+          "username": "cashier_a",
+          "first_name": "",
+          "last_name": "",
+          "email": "",
+          "is_staff": false,
+          "is_active": true,
+          "date_joined": "2024-06-19T12:36:15.167Z",
+          "groups": [],
+          "user_permissions": []
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 1,
+      "fields": {
+          "app_label": "admin",
+          "model": "logentry"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 2,
+      "fields": {
+          "app_label": "auth",
+          "model": "permission"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 3,
+      "fields": {
+          "app_label": "auth",
+          "model": "group"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 4,
+      "fields": {
+          "app_label": "auth",
+          "model": "user"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 5,
+      "fields": {
+          "app_label": "contenttypes",
+          "model": "contenttype"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 6,
+      "fields": {
+          "app_label": "sessions",
+          "model": "session"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 7,
+      "fields": {
+          "app_label": "home",
+          "model": "lokasi"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 8,
+      "fields": {
+          "app_label": "home",
+          "model": "metodepembayaran"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 9,
+      "fields": {
+          "app_label": "home",
+          "model": "pembelian"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 10,
+      "fields": {
+          "app_label": "home",
+          "model": "produk"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 11,
+      "fields": {
+          "app_label": "home",
+          "model": "storage"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 12,
+      "fields": {
+          "app_label": "home",
+          "model": "sumberdana"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 13,
+      "fields": {
+          "app_label": "home",
+          "model": "supplier"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 14,
+      "fields": {
+          "app_label": "home",
+          "model": "unit"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 15,
+      "fields": {
+          "app_label": "home",
+          "model": "varianproduk"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 16,
+      "fields": {
+          "app_label": "home",
+          "model": "userprofile"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 17,
+      "fields": {
+          "app_label": "home",
+          "model": "transaksi"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 18,
+      "fields": {
+          "app_label": "home",
+          "model": "pembelianobat"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 19,
+      "fields": {
+          "app_label": "home",
+          "model": "pembayaran"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 20,
+      "fields": {
+          "app_label": "home",
+          "model": "itemtransaksi"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 21,
+      "fields": {
+          "app_label": "authtoken",
+          "model": "token"
+      }
+  },
+  {
+      "model": "contenttypes.contenttype",
+      "pk": 22,
+      "fields": {
+          "app_label": "authtoken",
+          "model": "tokenproxy"
+      }
+  },
+  {
+      "model": "sessions.session",
+      "pk": "3xv0jtvuhi2z6teo9s55vcz41sg1r7c9",
+      "fields": {
+          "session_data": ".eJxVjEEOwiAQRe_C2hCgMIhL9z0DGZhBqoYmpV0Z765NutDtf-_9l4i4rTVunZc4kbgILU6_W8L84LYDumO7zTLPbV2mJHdFHrTLcSZ-Xg_376Bir99aeRzAeFsGDwEdB4AAubiciRI4NGSLY520ZSykzmhUAOMUl5w8FxLvD-NgOJw:1sE3sF:hsIADKUo1zYns8HpWV9vYU1K94d57PgJ8EGsAOoEA3E",
+          "expire_date": "2024-06-17T09:21:03.668Z"
+      }
+  },
+  {
+      "model": "sessions.session",
+      "pk": "5t5mcioairagbju4q1js353tac7c0zy5",
+      "fields": {
+          "session_data": ".eJxVjEEOwiAQRe_C2hCgMIhL9z0DGZhBqoYmpV0Z765NutDtf-_9l4i4rTVunZc4kbgILU6_W8L84LYDumO7zTLPbV2mJHdFHrTLcSZ-Xg_376Bir99aeRzAeFsGDwEdB4AAubiciRI4NGSLY520ZSykzmhUAOMUl5w8FxLvD-NgOJw:1sA9JK:oicz9F8oDWU7oTmko07aclupb9X6dZdu-EsAY8hf9Uo",
+          "expire_date": "2024-06-06T14:20:50.359Z"
+      }
+  },
+  {
+      "model": "sessions.session",
+      "pk": "6qxlh597l1vnl2y18okbw4cy1rp7hel5",
+      "fields": {
+          "session_data": ".eJxVjEEOwiAQRe_C2hCgMIhL9z0DGZhBqoYmpV0Z765NutDtf-_9l4i4rTVunZc4kbgILU6_W8L84LYDumO7zTLPbV2mJHdFHrTLcSZ-Xg_376Bir99aeRzAeFsGDwEdB4AAubiciRI4NGSLY520ZSykzmhUAOMUl5w8FxLvD-NgOJw:1sGvL3:-PDXewxx_t-p5EqGaUs4dLXwsSb9A9NI8SRkE_GU3gc",
+          "expire_date": "2024-06-25T06:50:37.722Z"
+      }
+  },
+  {
+      "model": "sessions.session",
+      "pk": "b003hjy49go22wx9491v7sgwbvvrudij",
+      "fields": {
+          "session_data": ".eJxVjEEOwiAQRe_C2hCgMIhL9z0DGZhBqoYmpV0Z765NutDtf-_9l4i4rTVunZc4kbgILU6_W8L84LYDumO7zTLPbV2mJHdFHrTLcSZ-Xg_376Bir99aeRzAeFsGDwEdB4AAubiciRI4NGSLY520ZSykzmhUAOMUl5w8FxLvD-NgOJw:1sHJPl:_VfGHdyKOxepNGzU7_FbQZ2oisEhwMGY2Hpag7QoOaI",
+          "expire_date": "2024-06-26T08:33:05.988Z"
+      }
+  },
+  {
+      "model": "sessions.session",
+      "pk": "cnada5ah9oipvea1kk1gr3aa298s9b7w",
+      "fields": {
+          "session_data": ".eJxVjEEOwiAQRe_C2hCgMIhL9z0DGZhBqoYmpV0Z765NutDtf-_9l4i4rTVunZc4kbgILU6_W8L84LYDumO7zTLPbV2mJHdFHrTLcSZ-Xg_376Bir99aeRzAeFsGDwEdB4AAubiciRI4NGSLY520ZSykzmhUAOMUl5w8FxLvD-NgOJw:1sOztb:edra_bhEYrHbqtbw3s4kkbTHWnQe2HzM4WOPJS_rxeo",
+          "expire_date": "2024-07-17T13:19:39.408Z"
+      }
+  },
+  {
+      "model": "home.userprofile",
+      "pk": 1,
+      "fields": {
+          "uid": "664f50d0d740330006fa77cb",
+          "created_on": "2024-05-23T14:21:04.759Z",
+          "updated_on": "2024-05-23T14:21:04.759Z",
+          "user": 1,
+          "role": "admin"
+      }
+  },
+  {
+      "model": "home.userprofile",
+      "pk": 2,
+      "fields": {
+          "uid": "6672d0d3d740330006fa797f",
+          "created_on": "2024-06-19T12:36:35.622Z",
+          "updated_on": "2024-06-19T12:36:35.622Z",
+          "user": 2,
+          "role": "cashier"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 1,
+      "fields": {
+          "uid": "664f4359421ad00007c72994",
+          "created_on": "2024-05-23T13:23:37.941Z",
+          "updated_on": "2024-05-23T13:23:37.941Z",
+          "nama": "Box"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 2,
+      "fields": {
+          "uid": "664f4359421ad00007c72995",
+          "created_on": "2024-05-23T13:23:37.942Z",
+          "updated_on": "2024-05-23T13:23:37.942Z",
+          "nama": "Strip"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 3,
+      "fields": {
+          "uid": "664f4359421ad00007c72996",
+          "created_on": "2024-05-23T13:23:37.942Z",
+          "updated_on": "2024-05-23T13:23:37.942Z",
+          "nama": "Botol"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 4,
+      "fields": {
+          "uid": "664f4359421ad00007c72997",
+          "created_on": "2024-05-23T13:23:37.942Z",
+          "updated_on": "2024-05-23T13:23:37.942Z",
+          "nama": "Pcs"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 5,
+      "fields": {
+          "uid": "665d8f54d740330006fa7817",
+          "created_on": "2024-06-03T09:39:32.824Z",
+          "updated_on": "2024-06-11T13:04:08.593Z",
+          "nama": "Kaplet"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 6,
+      "fields": {
+          "uid": "6661ea34d740330006fa786f",
+          "created_on": "2024-06-06T16:56:20.131Z",
+          "updated_on": "2024-06-06T16:56:20.131Z",
+          "nama": "TABLET"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 7,
+      "fields": {
+          "uid": "66684adfd740330006fa78f3",
+          "created_on": "2024-06-11T13:02:23.160Z",
+          "updated_on": "2024-06-11T13:02:23.160Z",
+          "nama": "FLS"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 8,
+      "fields": {
+          "uid": "66684b40d740330006fa78fe",
+          "created_on": "2024-06-11T13:04:00.941Z",
+          "updated_on": "2024-06-11T13:04:00.941Z",
+          "nama": "Tube"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 9,
+      "fields": {
+          "uid": "66684bbdd740330006fa7910",
+          "created_on": "2024-06-11T13:06:05.667Z",
+          "updated_on": "2024-06-11T13:06:05.667Z",
+          "nama": "Pot"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 10,
+      "fields": {
+          "uid": "666bc561d740330006fa794e",
+          "created_on": "2024-06-14T04:21:53.977Z",
+          "updated_on": "2024-06-14T04:21:53.977Z",
+          "nama": "BOX"
+      }
+  },
+  {
+      "model": "home.unit",
+      "pk": 11,
+      "fields": {
+          "uid": "666bc57fd740330006fa794f",
+          "created_on": "2024-06-14T04:22:23.628Z",
+          "updated_on": "2024-06-14T04:22:23.628Z",
+          "nama": "BOX"
+      }
+  },
+  {
+      "model": "home.supplier",
+      "pk": 1,
+      "fields": {
+          "uid": "665d8c2fd740330006fa77d6",
+          "created_on": "2024-06-03T09:26:07.591Z",
+          "updated_on": "2024-06-14T04:13:43.998Z",
+          "nama": "ARISTIANTO",
+          "nama_perusahaan": "PT. KUDAMAS JAYA MAKMUR SENTOSA",
+          "nomor_kontak": null
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 1,
+      "fields": {
+          "uid": "665d8d9ad740330006fa77e5",
+          "created_on": "2024-06-03T09:32:10.500Z",
+          "updated_on": "2024-06-03T09:32:10.500Z",
+          "supplier": 1,
+          "nama": "FLUTAMOL 100 CAPLET (P) @72",
+          "brand": "FLUTAMOL",
+          "unit": 5,
+          "unit_per_kemasan": 72,
+          "deskripsi": "FLUTAMOL UNTUK BATUK"
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 2,
+      "fields": {
+          "uid": "665d8e7ed740330006fa77f0",
+          "created_on": "2024-06-03T09:35:58.696Z",
+          "updated_on": "2024-06-06T06:47:42.460Z",
+          "supplier": 1,
+          "nama": "INTUNAL 100 CAPLET (P)",
+          "brand": "INTUNAL",
+          "unit": 5,
+          "unit_per_kemasan": 100,
+          "deskripsi": "INTUNAL UNTUK PILEK"
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 4,
+      "fields": {
+          "uid": "66615cb1d740330006fa7840",
+          "created_on": "2024-06-06T06:52:33.996Z",
+          "updated_on": "2024-06-06T06:52:33.996Z",
+          "supplier": 1,
+          "nama": "FLUTROP TABLET (P) @100",
+          "brand": "FLUTROP",
+          "unit": 6,
+          "unit_per_kemasan": 100,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 5,
+      "fields": {
+          "uid": "66615e1cd740330006fa784a",
+          "created_on": "2024-06-06T06:58:36.650Z",
+          "updated_on": "2024-06-06T06:58:36.650Z",
+          "supplier": 1,
+          "nama": "INTUNAL FORTE 25x4 TAB (P)",
+          "brand": "INTUNAL",
+          "unit": 6,
+          "unit_per_kemasan": 25,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 6,
+      "fields": {
+          "uid": "6661e8a6d740330006fa7855",
+          "created_on": "2024-06-06T16:49:42.156Z",
+          "updated_on": "2024-06-06T16:49:42.156Z",
+          "supplier": 1,
+          "nama": "TUZALOS CAPLET (P)",
+          "brand": "TUZALOS",
+          "unit": 5,
+          "unit_per_kemasan": 4,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 7,
+      "fields": {
+          "uid": "6661ea10d740330006fa7866",
+          "created_on": "2024-06-06T16:55:44.297Z",
+          "updated_on": "2024-06-06T16:55:44.297Z",
+          "supplier": 1,
+          "nama": "ULTRAFLU 100 TABLET (P)",
+          "brand": "ULTRAFLU",
+          "unit": 6,
+          "unit_per_kemasan": 100,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 8,
+      "fields": {
+          "uid": "66684227d740330006fa788f",
+          "created_on": "2024-06-11T12:25:11.417Z",
+          "updated_on": "2024-06-11T12:25:11.417Z",
+          "supplier": 1,
+          "nama": "ANAKONIDIN OBH SYR 30 ML (P)",
+          "brand": "ANAKONIDIN",
+          "unit": 3,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 9,
+      "fields": {
+          "uid": "6668425bd740330006fa7898",
+          "created_on": "2024-06-11T12:26:03.385Z",
+          "updated_on": "2024-06-11T12:26:03.385Z",
+          "supplier": 1,
+          "nama": "ANAKONIDIN OBH SYR 60 ML (P)",
+          "brand": "ANAKONIDIN",
+          "unit": 3,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 10,
+      "fields": {
+          "uid": "666842fdd740330006fa78a1",
+          "created_on": "2024-06-11T12:28:45.150Z",
+          "updated_on": "2024-06-11T12:28:45.150Z",
+          "supplier": 1,
+          "nama": "ANAKONIDIN SYRUP 30 ML (P)",
+          "brand": "ANAKONIDIN",
+          "unit": 3,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 11,
+      "fields": {
+          "uid": "66684343d740330006fa78aa",
+          "created_on": "2024-06-11T12:29:55.417Z",
+          "updated_on": "2024-06-11T12:29:55.417Z",
+          "supplier": 1,
+          "nama": "ANAKONIDIN SYRUP 60 ML (P)",
+          "brand": "ANAKONIDIN",
+          "unit": 3,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 12,
+      "fields": {
+          "uid": "66684473d740330006fa78b3",
+          "created_on": "2024-06-11T12:34:59.201Z",
+          "updated_on": "2024-06-11T12:34:59.201Z",
+          "supplier": 1,
+          "nama": "FLUTAMOL SYRUP 60 ML (P)",
+          "brand": "FLUTAMOL",
+          "unit": 3,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 13,
+      "fields": {
+          "uid": "666844c6d740330006fa78bc",
+          "created_on": "2024-06-11T12:36:22.668Z",
+          "updated_on": "2024-06-11T12:36:22.668Z",
+          "supplier": 1,
+          "nama": "INTUNAL SYRUP 60 ML (P)",
+          "brand": "INTUNAL",
+          "unit": 3,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 14,
+      "fields": {
+          "uid": "66684862d740330006fa78c5",
+          "created_on": "2024-06-11T12:51:46.760Z",
+          "updated_on": "2024-06-11T12:51:46.760Z",
+          "supplier": 1,
+          "nama": "STREPSILS COOL 12X8",
+          "brand": "STREPSILS",
+          "unit": 1,
+          "unit_per_kemasan": 12,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 15,
+      "fields": {
+          "uid": "666848add740330006fa78ce",
+          "created_on": "2024-06-11T12:53:01.573Z",
+          "updated_on": "2024-06-11T12:53:01.573Z",
+          "supplier": 1,
+          "nama": "STREPSILS HONEY LEMON 12X8-S",
+          "brand": "STREPSILS",
+          "unit": 1,
+          "unit_per_kemasan": 12,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 16,
+      "fields": {
+          "uid": "66684996d740330006fa78d7",
+          "created_on": "2024-06-11T12:56:54.561Z",
+          "updated_on": "2024-06-19T12:43:19.076Z",
+          "supplier": 1,
+          "nama": "ESTER C HOLISTICARE 4 X 12",
+          "brand": "ESTER C",
+          "unit": 1,
+          "unit_per_kemasan": 12,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 18,
+      "fields": {
+          "uid": "66684a4cd740330006fa78e8",
+          "created_on": "2024-06-11T12:59:56.443Z",
+          "updated_on": "2024-06-11T12:59:56.443Z",
+          "supplier": 1,
+          "nama": "FOLAXIN 400 MCG KAPLET",
+          "brand": "FOLAXIN",
+          "unit": 1,
+          "unit_per_kemasan": 10,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 19,
+      "fields": {
+          "uid": "66684b23d740330006fa78fb",
+          "created_on": "2024-06-11T13:03:31.797Z",
+          "updated_on": "2024-06-11T13:03:31.797Z",
+          "supplier": 1,
+          "nama": "FITKOM 21 TAB HI-C ORANGE",
+          "brand": "FITKOM",
+          "unit": 7,
+          "unit_per_kemasan": 21,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 20,
+      "fields": {
+          "uid": "66684b9bd740330006fa7906",
+          "created_on": "2024-06-11T13:05:31.041Z",
+          "updated_on": "2024-06-11T13:05:31.042Z",
+          "supplier": 1,
+          "nama": "ESPERSON CREAM 5 GR",
+          "brand": "ESPERSON",
+          "unit": 8,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 21,
+      "fields": {
+          "uid": "66684c33d740330006fa7918",
+          "created_on": "2024-06-11T13:08:03.619Z",
+          "updated_on": "2024-06-11T13:08:03.619Z",
+          "supplier": 1,
+          "nama": "BALSEM LANG 40 GR @144",
+          "brand": "CAP LANG",
+          "unit": 9,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 22,
+      "fields": {
+          "uid": "66684c89d740330006fa7921",
+          "created_on": "2024-06-11T13:09:29.243Z",
+          "updated_on": "2024-06-11T13:09:29.243Z",
+          "supplier": 1,
+          "nama": "GELIGA 20 GRAM @240",
+          "brand": "GELIGA",
+          "unit": 9,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 23,
+      "fields": {
+          "uid": "666bc7bfd740330006fa7956",
+          "created_on": "2024-06-14T04:31:59.209Z",
+          "updated_on": "2024-06-14T04:31:59.209Z",
+          "supplier": 1,
+          "nama": "STREPSILS MENT & VANT 12X8 (STRONG)",
+          "brand": "STREPSILS",
+          "unit": 1,
+          "unit_per_kemasan": 12,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 24,
+      "fields": {
+          "uid": "666be259d740330006fa7963",
+          "created_on": "2024-06-14T06:25:29.351Z",
+          "updated_on": "2024-06-14T06:25:29.351Z",
+          "supplier": 1,
+          "nama": "STREPSILS ORIGINAL 12X8",
+          "brand": "STREPSILS",
+          "unit": 1,
+          "unit_per_kemasan": 10,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 25,
+      "fields": {
+          "uid": "666be31cd740330006fa796c",
+          "created_on": "2024-06-14T06:28:44.235Z",
+          "updated_on": "2024-06-14T06:28:44.235Z",
+          "supplier": 1,
+          "nama": "STREPSILS VIT 12X8-S",
+          "brand": "STREPSILS",
+          "unit": 1,
+          "unit_per_kemasan": 10,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 26,
+      "fields": {
+          "uid": "666be5e3d740330006fa7975",
+          "created_on": "2024-06-14T06:40:35.918Z",
+          "updated_on": "2024-06-14T06:40:35.918Z",
+          "supplier": 1,
+          "nama": "ESTER C HOLISTICARE 30 TAB",
+          "brand": null,
+          "unit": 7,
+          "unit_per_kemasan": 1,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.produk",
+      "pk": 27,
+      "fields": {
+          "uid": "6672daa8d740330006fa79f9",
+          "created_on": "2024-06-19T13:18:32.082Z",
+          "updated_on": "2024-06-19T13:18:32.082Z",
+          "supplier": 1,
+          "nama": "Salonpas",
+          "brand": "Salonpas",
+          "unit": 1,
+          "unit_per_kemasan": 5,
+          "deskripsi": ""
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 1,
+      "fields": {
+          "uid": "665d8d9ad740330006fa77e6",
+          "created_on": "2024-06-03T09:32:10.501Z",
+          "updated_on": "2024-06-03T09:32:10.501Z",
+          "produk": 1,
+          "barcode": null,
+          "sku": "ASLM08PVNB0V",
+          "tanggal_kedaluwarsa": "2025-11-25",
+          "unit": 4,
+          "kuantitas": 72,
+          "harga_beli": 1000,
+          "harga_jual": 1500,
+          "persentase_margin": 50,
+          "nominal_margin": 500,
+          "storage": 1
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 2,
+      "fields": {
+          "uid": "665d8d9ad740330006fa77e7",
+          "created_on": "2024-06-03T09:32:10.502Z",
+          "updated_on": "2024-06-03T09:32:10.502Z",
+          "produk": 1,
+          "barcode": null,
+          "sku": "ASLM08PVNB0V",
+          "tanggal_kedaluwarsa": "2025-11-25",
+          "unit": 2,
+          "kuantitas": 100,
+          "harga_beli": 10000,
+          "harga_jual": 15000,
+          "persentase_margin": 50,
+          "nominal_margin": 5000,
+          "storage": 1
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 3,
+      "fields": {
+          "uid": "665d8d9ad740330006fa77e8",
+          "created_on": "2024-06-03T09:32:10.502Z",
+          "updated_on": "2024-06-03T09:39:57.144Z",
+          "produk": 1,
+          "barcode": null,
+          "sku": "ASLM08PVNB0V",
+          "tanggal_kedaluwarsa": "2025-11-25",
+          "unit": 1,
+          "kuantitas": 0,
+          "harga_beli": 40000,
+          "harga_jual": 50000,
+          "persentase_margin": 25,
+          "nominal_margin": 10000,
+          "storage": 1
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 4,
+      "fields": {
+          "uid": "665d8e7ed740330006fa77f1",
+          "created_on": "2024-06-03T09:35:58.697Z",
+          "updated_on": "2024-06-03T09:35:58.697Z",
+          "produk": 2,
+          "barcode": null,
+          "sku": "5JVTUOOZQVXV",
+          "tanggal_kedaluwarsa": "2025-02-27",
+          "unit": 1,
+          "kuantitas": 1,
+          "harga_beli": 72000,
+          "harga_jual": 85000,
+          "persentase_margin": 18.1,
+          "nominal_margin": 13000,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 5,
+      "fields": {
+          "uid": "665d8e7ed740330006fa77f2",
+          "created_on": "2024-06-03T09:35:58.698Z",
+          "updated_on": "2024-06-03T09:35:58.698Z",
+          "produk": 2,
+          "barcode": null,
+          "sku": "5JVTUOOZQVXV",
+          "tanggal_kedaluwarsa": "2025-02-27",
+          "unit": 4,
+          "kuantitas": 100,
+          "harga_beli": 2000,
+          "harga_jual": 3000,
+          "persentase_margin": 50,
+          "nominal_margin": 1000,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 8,
+      "fields": {
+          "uid": "66615cb1d740330006fa7841",
+          "created_on": "2024-06-06T06:52:33.997Z",
+          "updated_on": "2024-06-06T06:52:33.997Z",
+          "produk": 4,
+          "barcode": null,
+          "sku": "L4SQTHKC9NCR",
+          "tanggal_kedaluwarsa": "2025-09-25",
+          "unit": 1,
+          "kuantitas": 1,
+          "harga_beli": 72000,
+          "harga_jual": 80000,
+          "persentase_margin": 11.1,
+          "nominal_margin": 8000,
+          "storage": 2
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 9,
+      "fields": {
+          "uid": "66615cb1d740330006fa7842",
+          "created_on": "2024-06-06T06:52:33.999Z",
+          "updated_on": "2024-06-06T06:52:33.999Z",
+          "produk": 4,
+          "barcode": null,
+          "sku": "L4SQTHKC9NCR",
+          "tanggal_kedaluwarsa": "2025-09-25",
+          "unit": 5,
+          "kuantitas": 100,
+          "harga_beli": 7200,
+          "harga_jual": 8000,
+          "persentase_margin": 11.1,
+          "nominal_margin": 800,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 10,
+      "fields": {
+          "uid": "66615e1cd740330006fa784b",
+          "created_on": "2024-06-06T06:58:36.651Z",
+          "updated_on": "2024-06-06T06:58:36.651Z",
+          "produk": 5,
+          "barcode": null,
+          "sku": "KAHU4Y4JEFSI",
+          "tanggal_kedaluwarsa": "2025-10-27",
+          "unit": 1,
+          "kuantitas": 1,
+          "harga_beli": 88500,
+          "harga_jual": 90000,
+          "persentase_margin": 1.7,
+          "nominal_margin": 1500,
+          "storage": 2
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 11,
+      "fields": {
+          "uid": "66615e1cd740330006fa784c",
+          "created_on": "2024-06-06T06:58:36.652Z",
+          "updated_on": "2024-06-06T06:58:36.652Z",
+          "produk": 5,
+          "barcode": null,
+          "sku": "KAHU4Y4JEFSI",
+          "tanggal_kedaluwarsa": "2025-10-27",
+          "unit": 2,
+          "kuantitas": 4,
+          "harga_beli": 20000,
+          "harga_jual": 22000,
+          "persentase_margin": 10,
+          "nominal_margin": 2000,
+          "storage": 2
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 12,
+      "fields": {
+          "uid": "66615e1cd740330006fa784d",
+          "created_on": "2024-06-06T06:58:36.652Z",
+          "updated_on": "2024-06-06T06:58:36.652Z",
+          "produk": 5,
+          "barcode": null,
+          "sku": "KAHU4Y4JEFSI",
+          "tanggal_kedaluwarsa": "2025-10-27",
+          "unit": 4,
+          "kuantitas": 25,
+          "harga_beli": 2000,
+          "harga_jual": 3000,
+          "persentase_margin": 50,
+          "nominal_margin": 1000,
+          "storage": 2
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 13,
+      "fields": {
+          "uid": "6661e8a6d740330006fa7856",
+          "created_on": "2024-06-06T16:49:42.157Z",
+          "updated_on": "2024-06-06T16:49:42.157Z",
+          "produk": 6,
+          "barcode": null,
+          "sku": "P2P30T4IXYY1",
+          "tanggal_kedaluwarsa": "2025-12-25",
+          "unit": 1,
+          "kuantitas": 1,
+          "harga_beli": 124700,
+          "harga_jual": 130000,
+          "persentase_margin": 4.3,
+          "nominal_margin": 5300,
+          "storage": 3
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 14,
+      "fields": {
+          "uid": "6661e8a6d740330006fa7857",
+          "created_on": "2024-06-06T16:49:42.157Z",
+          "updated_on": "2024-06-06T16:58:22.678Z",
+          "produk": 6,
+          "barcode": null,
+          "sku": "P2P30T4IXYY1",
+          "tanggal_kedaluwarsa": "2025-12-25",
+          "unit": 5,
+          "kuantitas": 99,
+          "harga_beli": 12400,
+          "harga_jual": 13000,
+          "persentase_margin": 4.8,
+          "nominal_margin": 600,
+          "storage": 3
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 15,
+      "fields": {
+          "uid": "6661ea10d740330006fa7867",
+          "created_on": "2024-06-06T16:55:44.297Z",
+          "updated_on": "2024-06-06T16:55:44.297Z",
+          "produk": 7,
+          "barcode": null,
+          "sku": "QV9ENY9H2B6P",
+          "tanggal_kedaluwarsa": "2025-10-28",
+          "unit": 1,
+          "kuantitas": 1,
+          "harga_beli": 72369,
+          "harga_jual": 80000,
+          "persentase_margin": 10.5,
+          "nominal_margin": 7631,
+          "storage": 2
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 16,
+      "fields": {
+          "uid": "6661ea10d740330006fa7868",
+          "created_on": "2024-06-06T16:55:44.298Z",
+          "updated_on": "2024-06-06T16:57:05.352Z",
+          "produk": 7,
+          "barcode": null,
+          "sku": "QV9ENY9H2B6P",
+          "tanggal_kedaluwarsa": "2025-10-28",
+          "unit": 5,
+          "kuantitas": 99,
+          "harga_beli": 500,
+          "harga_jual": 700,
+          "persentase_margin": 40,
+          "nominal_margin": 200,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 17,
+      "fields": {
+          "uid": "6661ea10d740330006fa7869",
+          "created_on": "2024-06-06T16:55:44.299Z",
+          "updated_on": "2024-06-06T16:55:44.299Z",
+          "produk": 7,
+          "barcode": null,
+          "sku": "QV9ENY9H2B6P",
+          "tanggal_kedaluwarsa": "2025-10-28",
+          "unit": 2,
+          "kuantitas": 25,
+          "harga_beli": 12500,
+          "harga_jual": 14000,
+          "persentase_margin": 12,
+          "nominal_margin": 1500,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 18,
+      "fields": {
+          "uid": "66684227d740330006fa7890",
+          "created_on": "2024-06-11T12:25:11.418Z",
+          "updated_on": "2024-06-11T12:25:11.418Z",
+          "produk": 8,
+          "barcode": null,
+          "sku": "6E0ULX2ZOXWG",
+          "tanggal_kedaluwarsa": "2025-09-01",
+          "unit": 3,
+          "kuantitas": 3,
+          "harga_beli": 7500,
+          "harga_jual": 10000,
+          "persentase_margin": 33.3,
+          "nominal_margin": 2500,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 19,
+      "fields": {
+          "uid": "6668425bd740330006fa7899",
+          "created_on": "2024-06-11T12:26:03.385Z",
+          "updated_on": "2024-06-11T12:26:03.386Z",
+          "produk": 9,
+          "barcode": null,
+          "sku": "LN3G2NMCT29L",
+          "tanggal_kedaluwarsa": "2025-11-01",
+          "unit": 3,
+          "kuantitas": 3,
+          "harga_beli": 12500,
+          "harga_jual": 15000,
+          "persentase_margin": 20,
+          "nominal_margin": 2500,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 20,
+      "fields": {
+          "uid": "666842fdd740330006fa78a2",
+          "created_on": "2024-06-11T12:28:45.151Z",
+          "updated_on": "2024-06-11T12:28:45.151Z",
+          "produk": 10,
+          "barcode": null,
+          "sku": "LBYUJ4LC1Z9Q",
+          "tanggal_kedaluwarsa": "2026-11-01",
+          "unit": 3,
+          "kuantitas": 3,
+          "harga_beli": 7000,
+          "harga_jual": 9000,
+          "persentase_margin": 28.6,
+          "nominal_margin": 2000,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 21,
+      "fields": {
+          "uid": "66684343d740330006fa78ab",
+          "created_on": "2024-06-11T12:29:55.418Z",
+          "updated_on": "2024-06-11T12:29:55.418Z",
+          "produk": 11,
+          "barcode": null,
+          "sku": "LITQ21K5OFLF",
+          "tanggal_kedaluwarsa": "2026-11-01",
+          "unit": 3,
+          "kuantitas": 3,
+          "harga_beli": 11450,
+          "harga_jual": 14000,
+          "persentase_margin": 22.3,
+          "nominal_margin": 2550,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 22,
+      "fields": {
+          "uid": "66684473d740330006fa78b4",
+          "created_on": "2024-06-11T12:34:59.202Z",
+          "updated_on": "2024-06-11T12:34:59.202Z",
+          "produk": 12,
+          "barcode": null,
+          "sku": "0C7VZL3G0G84",
+          "tanggal_kedaluwarsa": "2025-11-01",
+          "unit": 3,
+          "kuantitas": 3,
+          "harga_beli": 6862,
+          "harga_jual": 10000,
+          "persentase_margin": 45.7,
+          "nominal_margin": 3138,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 23,
+      "fields": {
+          "uid": "666844c6d740330006fa78bd",
+          "created_on": "2024-06-11T12:36:22.671Z",
+          "updated_on": "2024-06-11T12:36:22.671Z",
+          "produk": 13,
+          "barcode": null,
+          "sku": "ENQ4FUUZRC27",
+          "tanggal_kedaluwarsa": "2026-09-01",
+          "unit": 3,
+          "kuantitas": 3,
+          "harga_beli": 10595,
+          "harga_jual": 15000,
+          "persentase_margin": 41.6,
+          "nominal_margin": 4405,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 24,
+      "fields": {
+          "uid": "66684862d740330006fa78c6",
+          "created_on": "2024-06-11T12:51:46.761Z",
+          "updated_on": "2024-06-11T12:51:46.761Z",
+          "produk": 14,
+          "barcode": null,
+          "sku": "6GNQMSQQBHEH",
+          "tanggal_kedaluwarsa": "2026-02-01",
+          "unit": 1,
+          "kuantitas": 12,
+          "harga_beli": 15000,
+          "harga_jual": 15000,
+          "persentase_margin": 0,
+          "nominal_margin": 0,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 25,
+      "fields": {
+          "uid": "666848add740330006fa78cf",
+          "created_on": "2024-06-11T12:53:01.574Z",
+          "updated_on": "2024-06-11T12:53:01.574Z",
+          "produk": 15,
+          "barcode": null,
+          "sku": "CRESN6SKZAXL",
+          "tanggal_kedaluwarsa": "2026-11-11",
+          "unit": 1,
+          "kuantitas": 12,
+          "harga_beli": 15000,
+          "harga_jual": 15000,
+          "persentase_margin": 0,
+          "nominal_margin": 0,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 26,
+      "fields": {
+          "uid": "66684996d740330006fa78d8",
+          "created_on": "2024-06-11T12:56:54.562Z",
+          "updated_on": "2024-06-19T12:43:19.077Z",
+          "produk": 16,
+          "barcode": null,
+          "sku": "PUG9ZAVMCKIK",
+          "tanggal_kedaluwarsa": "2026-07-01",
+          "unit": 1,
+          "kuantitas": 3,
+          "harga_beli": 76800,
+          "harga_jual": 93500,
+          "persentase_margin": 21.7,
+          "nominal_margin": 16700,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 27,
+      "fields": {
+          "uid": "66684996d740330006fa78d9",
+          "created_on": "2024-06-11T12:56:54.562Z",
+          "updated_on": "2024-06-19T12:43:19.080Z",
+          "produk": 16,
+          "barcode": null,
+          "sku": "PUG9ZAVMCKIK",
+          "tanggal_kedaluwarsa": "2026-07-01",
+          "unit": 2,
+          "kuantitas": 36,
+          "harga_beli": 6400,
+          "harga_jual": 10000,
+          "persentase_margin": 56.3,
+          "nominal_margin": 3600,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 30,
+      "fields": {
+          "uid": "66684a4cd740330006fa78e9",
+          "created_on": "2024-06-11T12:59:56.444Z",
+          "updated_on": "2024-06-11T12:59:56.444Z",
+          "produk": 18,
+          "barcode": null,
+          "sku": "LDXPZU41WLGX",
+          "tanggal_kedaluwarsa": "2028-04-01",
+          "unit": 1,
+          "kuantitas": 1,
+          "harga_beli": 25430,
+          "harga_jual": 31000,
+          "persentase_margin": 21.9,
+          "nominal_margin": 5570,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 31,
+      "fields": {
+          "uid": "66684a4cd740330006fa78ea",
+          "created_on": "2024-06-11T12:59:56.445Z",
+          "updated_on": "2024-06-11T12:59:56.445Z",
+          "produk": 18,
+          "barcode": null,
+          "sku": "LDXPZU41WLGX",
+          "tanggal_kedaluwarsa": "2028-04-01",
+          "unit": 2,
+          "kuantitas": 10,
+          "harga_beli": 2543,
+          "harga_jual": 3100,
+          "persentase_margin": 21.9,
+          "nominal_margin": 557,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 32,
+      "fields": {
+          "uid": "66684b23d740330006fa78fc",
+          "created_on": "2024-06-11T13:03:31.798Z",
+          "updated_on": "2024-06-11T13:03:31.798Z",
+          "produk": 19,
+          "barcode": null,
+          "sku": "93YRYQ47JUPD",
+          "tanggal_kedaluwarsa": "2026-10-01",
+          "unit": 7,
+          "kuantitas": 3,
+          "harga_beli": 15250,
+          "harga_jual": 19000,
+          "persentase_margin": 24.6,
+          "nominal_margin": 3750,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 33,
+      "fields": {
+          "uid": "66684b9bd740330006fa7907",
+          "created_on": "2024-06-11T13:05:31.042Z",
+          "updated_on": "2024-06-11T13:05:31.042Z",
+          "produk": 20,
+          "barcode": null,
+          "sku": "AFT3OIA90S0D",
+          "tanggal_kedaluwarsa": "2026-08-11",
+          "unit": 8,
+          "kuantitas": 1,
+          "harga_beli": 68074,
+          "harga_jual": 82000,
+          "persentase_margin": 20.5,
+          "nominal_margin": 13926,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 34,
+      "fields": {
+          "uid": "66684c33d740330006fa7919",
+          "created_on": "2024-06-11T13:08:03.620Z",
+          "updated_on": "2024-06-11T13:08:03.620Z",
+          "produk": 21,
+          "barcode": null,
+          "sku": "D33XZTBP7Z1G",
+          "tanggal_kedaluwarsa": "2026-08-11",
+          "unit": 9,
+          "kuantitas": 2,
+          "harga_beli": 15725,
+          "harga_jual": 19000,
+          "persentase_margin": 20.8,
+          "nominal_margin": 3275,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 35,
+      "fields": {
+          "uid": "66684c89d740330006fa7922",
+          "created_on": "2024-06-11T13:09:29.244Z",
+          "updated_on": "2024-06-11T13:09:29.244Z",
+          "produk": 22,
+          "barcode": null,
+          "sku": "4ANFN5VJH9DG",
+          "tanggal_kedaluwarsa": "2028-12-01",
+          "unit": 9,
+          "kuantitas": 3,
+          "harga_beli": 4500,
+          "harga_jual": 6000,
+          "persentase_margin": 33.3,
+          "nominal_margin": 1500,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 36,
+      "fields": {
+          "uid": "666bc7bfd740330006fa7957",
+          "created_on": "2024-06-14T04:31:59.210Z",
+          "updated_on": "2024-06-14T04:31:59.210Z",
+          "produk": 23,
+          "barcode": null,
+          "sku": "MYHQGPSUQQFQ",
+          "tanggal_kedaluwarsa": "2025-12-01",
+          "unit": 1,
+          "kuantitas": 12,
+          "harga_beli": 180584,
+          "harga_jual": 180584,
+          "persentase_margin": 0,
+          "nominal_margin": 0,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 37,
+      "fields": {
+          "uid": "666be259d740330006fa7964",
+          "created_on": "2024-06-14T06:25:29.352Z",
+          "updated_on": "2024-06-14T06:25:29.352Z",
+          "produk": 24,
+          "barcode": null,
+          "sku": "XWCUHAISITLG",
+          "tanggal_kedaluwarsa": "2026-09-01",
+          "unit": 1,
+          "kuantitas": 12,
+          "harga_beli": 180584,
+          "harga_jual": 180584,
+          "persentase_margin": 0,
+          "nominal_margin": 0,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 38,
+      "fields": {
+          "uid": "666be31cd740330006fa796d",
+          "created_on": "2024-06-14T06:28:44.236Z",
+          "updated_on": "2024-06-14T06:28:44.236Z",
+          "produk": 25,
+          "barcode": null,
+          "sku": "9GWSZNMX2TKK",
+          "tanggal_kedaluwarsa": "2026-02-01",
+          "unit": 1,
+          "kuantitas": 12,
+          "harga_beli": 180584,
+          "harga_jual": 180584,
+          "persentase_margin": 0,
+          "nominal_margin": 0,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 39,
+      "fields": {
+          "uid": "666be5e3d740330006fa7976",
+          "created_on": "2024-06-14T06:40:35.919Z",
+          "updated_on": "2024-06-14T06:40:35.919Z",
+          "produk": 26,
+          "barcode": null,
+          "sku": "W6JWFX2PQYUD",
+          "tanggal_kedaluwarsa": "2025-12-01",
+          "unit": 7,
+          "kuantitas": 3,
+          "harga_beli": 46250,
+          "harga_jual": 56000,
+          "persentase_margin": 21.1,
+          "nominal_margin": 9750,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 40,
+      "fields": {
+          "uid": "6672d267d740330006fa7989",
+          "created_on": "2024-06-19T12:43:19.081Z",
+          "updated_on": "2024-06-19T12:46:52.512Z",
+          "produk": 16,
+          "barcode": null,
+          "sku": "640T15CXWF9D",
+          "tanggal_kedaluwarsa": "2026-07-26",
+          "unit": 4,
+          "kuantitas": 355,
+          "harga_beli": 2000,
+          "harga_jual": 3000,
+          "persentase_margin": 50,
+          "nominal_margin": 1000,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.varianproduk",
+      "pk": 41,
+      "fields": {
+          "uid": "6672daa8d740330006fa79fa",
+          "created_on": "2024-06-19T13:18:32.082Z",
+          "updated_on": "2024-06-19T13:18:32.083Z",
+          "produk": 27,
+          "barcode": null,
+          "sku": "I93O29NYQJMO",
+          "tanggal_kedaluwarsa": "2025-09-01",
+          "unit": 1,
+          "kuantitas": 0,
+          "harga_beli": 0,
+          "harga_jual": 0,
+          "persentase_margin": 0,
+          "nominal_margin": 0,
+          "storage": null
+      }
+  },
+  {
+      "model": "home.lokasi",
+      "pk": 1,
+      "fields": {
+          "uid": "664f4359421ad00007c72991",
+          "created_on": "2024-05-23T13:23:37.940Z",
+          "updated_on": "2024-06-03T09:22:27.193Z",
+          "nama_toko": "Mitra Berkah Sukabumi",
+          "alamat_lengkap": "KP. GARDUSAYANG RT/RW 03/02 KEC. CISALAK KOTA SUBANG",
+          "nomor_telepon": "085320488788"
+      }
+  },
+  {
+      "model": "home.metodepembayaran",
+      "pk": 1,
+      "fields": {
+          "uid": "664f4359421ad00007c72992",
+          "created_on": "2024-05-23T13:23:37.941Z",
+          "updated_on": "2024-05-23T13:23:37.941Z",
+          "nama": "Tunai",
+          "sumber_dana": 1
+      }
+  },
+  {
+      "model": "home.metodepembayaran",
+      "pk": 2,
+      "fields": {
+          "uid": "664f4359421ad00007c72993",
+          "created_on": "2024-05-23T13:23:37.941Z",
+          "updated_on": "2024-05-23T13:23:37.941Z",
+          "nama": "Bank Transfer",
+          "sumber_dana": 2
+      }
+  },
+  {
+      "model": "home.transaksi",
+      "pk": 1,
+      "fields": {
+          "uid": "665d8f6dd740330006fa781a",
+          "created_on": "2024-06-03T09:39:57.142Z",
+          "updated_on": "2024-06-03T09:39:57.150Z",
+          "profile": 1,
+          "lokasi": 1,
+          "total_biaya": 50000,
+          "metode_pembayaran": 1,
+          "status": "success"
+      }
+  },
+  {
+      "model": "home.transaksi",
+      "pk": 2,
+      "fields": {
+          "uid": "6661ea61d740330006fa7874",
+          "created_on": "2024-06-06T16:57:05.348Z",
+          "updated_on": "2024-06-06T16:57:05.358Z",
+          "profile": 1,
+          "lokasi": 1,
+          "total_biaya": 700,
+          "metode_pembayaran": 1,
+          "status": "success"
+      }
+  },
+  {
+      "model": "home.transaksi",
+      "pk": 3,
+      "fields": {
+          "uid": "6661eaaed740330006fa787c",
+          "created_on": "2024-06-06T16:58:22.676Z",
+          "updated_on": "2024-06-06T16:58:22.685Z",
+          "profile": 1,
+          "lokasi": 1,
+          "total_biaya": 13000,
+          "metode_pembayaran": 2,
+          "status": "success"
+      }
+  },
+  {
+      "model": "home.transaksi",
+      "pk": 4,
+      "fields": {
+          "uid": "6672d33cd740330006fa7998",
+          "created_on": "2024-06-19T12:46:52.509Z",
+          "updated_on": "2024-06-19T12:46:52.518Z",
+          "profile": 1,
+          "lokasi": 1,
+          "total_biaya": 15000,
+          "metode_pembayaran": 1,
+          "status": "success"
+      }
+  },
+  {
+      "model": "home.itemtransaksi",
+      "pk": 1,
+      "fields": {
+          "uid": "665d8f6dd740330006fa781d",
+          "created_on": "2024-06-03T09:39:57.143Z",
+          "updated_on": "2024-06-03T09:39:57.143Z",
+          "transaksi": 1,
+          "item": 3,
+          "kuantitas": 1,
+          "harga": 50000,
+          "tipe_transaksi": "resep"
+      }
+  },
+  {
+      "model": "home.itemtransaksi",
+      "pk": 2,
+      "fields": {
+          "uid": "6661ea61d740330006fa7877",
+          "created_on": "2024-06-06T16:57:05.350Z",
+          "updated_on": "2024-06-06T16:57:05.350Z",
+          "transaksi": 2,
+          "item": 16,
+          "kuantitas": 1,
+          "harga": 700,
+          "tipe_transaksi": "non-resep"
+      }
+  },
+  {
+      "model": "home.itemtransaksi",
+      "pk": 3,
+      "fields": {
+          "uid": "6661eaaed740330006fa787f",
+          "created_on": "2024-06-06T16:58:22.676Z",
+          "updated_on": "2024-06-06T16:58:22.676Z",
+          "transaksi": 3,
+          "item": 14,
+          "kuantitas": 1,
+          "harga": 13000,
+          "tipe_transaksi": "non-resep"
+      }
+  },
+  {
+      "model": "home.itemtransaksi",
+      "pk": 4,
+      "fields": {
+          "uid": "6672d33cd740330006fa799b",
+          "created_on": "2024-06-19T12:46:52.510Z",
+          "updated_on": "2024-06-19T12:46:52.510Z",
+          "transaksi": 4,
+          "item": 40,
+          "kuantitas": 5,
+          "harga": 15000,
+          "tipe_transaksi": "non-resep"
+      }
+  },
+  {
+      "model": "home.sumberdana",
+      "pk": 1,
+      "fields": {
+          "uid": "664f4359421ad00007c7298f",
+          "created_on": "2024-05-23T13:23:37.938Z",
+          "updated_on": "2024-05-23T13:23:37.939Z",
+          "nama": "Cash on Hand",
+          "saldo": 0
+      }
+  },
+  {
+      "model": "home.sumberdana",
+      "pk": 2,
+      "fields": {
+          "uid": "664f4359421ad00007c72990",
+          "created_on": "2024-05-23T13:23:37.940Z",
+          "updated_on": "2024-05-23T13:23:37.940Z",
+          "nama": "Rekening A",
+          "saldo": 0
+      }
+  },
+  {
+      "model": "home.sumberdana",
+      "pk": 3,
+      "fields": {
+          "uid": "6672d4c3d740330006fa79b8",
+          "created_on": "2024-06-19T12:53:23.649Z",
+          "updated_on": "2024-06-19T12:53:23.649Z",
+          "nama": "Hutang",
+          "saldo": 0
+      }
+  },
+  {
+      "model": "home.pembayaran",
+      "pk": 1,
+      "fields": {
+          "uid": "665d8b9fd740330006fa77cd",
+          "created_on": "2024-06-03T09:23:43.777Z",
+          "updated_on": "2024-06-03T09:23:43.777Z",
+          "tanggal": "2024-06-03",
+          "nama_pembayaran": "Token Listrik",
+          "nomor_transaksi": "-",
+          "total_biaya": 100000,
+          "sumber_dana": 1,
+          "catatan": "Token Listrik Apotek"
+      }
+  },
+  {
+      "model": "home.storage",
+      "pk": 1,
+      "fields": {
+          "uid": "664f4359421ad00007c72998",
+          "created_on": "2024-05-23T13:23:37.943Z",
+          "updated_on": "2024-05-23T13:23:37.943Z",
+          "nama": "Rak Atas"
+      }
+  },
+  {
+      "model": "home.storage",
+      "pk": 2,
+      "fields": {
+          "uid": "664f4359421ad00007c72999",
+          "created_on": "2024-05-23T13:23:37.943Z",
+          "updated_on": "2024-05-23T13:23:37.943Z",
+          "nama": "Rak Bawah"
+      }
+  },
+  {
+      "model": "home.storage",
+      "pk": 3,
+      "fields": {
+          "uid": "664f4359421ad00007c7299a",
+          "created_on": "2024-05-23T13:23:37.943Z",
+          "updated_on": "2024-05-23T13:23:37.943Z",
+          "nama": "Kulkas"
+      }
+  }
+]
