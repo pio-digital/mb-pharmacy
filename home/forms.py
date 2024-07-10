@@ -1,6 +1,5 @@
 from dal import autocomplete
 from django import forms
-from import_export.forms import ExportForm
 
 from home.consts import STATUS_CHOICES
 from home.models import (
