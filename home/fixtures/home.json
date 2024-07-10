@@ -2974,62 +2974,6 @@
       }
   },
   {
-      "model": "home.transaksi",
-      "pk": 1,
-      "fields": {
-          "uid": "665d8f6dd740330006fa781a",
-          "created_on": "2024-06-03T09:39:57.142Z",
-          "updated_on": "2024-06-03T09:39:57.150Z",
-          "profile": 1,
-          "lokasi": 1,
-          "total_biaya": 50000,
-          "metode_pembayaran": 1,
-          "status": "success"
-      }
-  },
-  {
-      "model": "home.transaksi",
-      "pk": 2,
-      "fields": {
-          "uid": "6661ea61d740330006fa7874",
-          "created_on": "2024-06-06T16:57:05.348Z",
-          "updated_on": "2024-06-06T16:57:05.358Z",
-          "profile": 1,
-          "lokasi": 1,
-          "total_biaya": 700,
-          "metode_pembayaran": 1,
-          "status": "success"
-      }
-  },
-  {
-      "model": "home.transaksi",
-      "pk": 3,
-      "fields": {
-          "uid": "6661eaaed740330006fa787c",
-          "created_on": "2024-06-06T16:58:22.676Z",
-          "updated_on": "2024-06-06T16:58:22.685Z",
-          "profile": 1,
-          "lokasi": 1,
-          "total_biaya": 13000,
-          "metode_pembayaran": 2,
-          "status": "success"
-      }
-  },
-  {
-      "model": "home.transaksi",
-      "pk": 4,
-      "fields": {
-          "uid": "6672d33cd740330006fa7998",
-          "created_on": "2024-06-19T12:46:52.509Z",
-          "updated_on": "2024-06-19T12:46:52.518Z",
-          "profile": 1,
-          "lokasi": 1,
-          "total_biaya": 15000,
-          "metode_pembayaran": 1,
-          "status": "success"
-      }
-  },
-  {
       "model": "home.itemtransaksi",
       "pk": 1,
       "fields": {
