@@ -130,10 +130,6 @@ class PembelianForm(forms.ModelForm):
         }
 
 
-class PembelianExportForm(ExportForm):
-    pass
-
-
 class VarianProdukForm(forms.ModelForm):
     class Meta:
         model = VarianProduk

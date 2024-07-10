@@ -2,12 +2,11 @@ from django.contrib import admin
 from import_export import resources
 from import_export.admin import ExportMixin, ImportExportModelAdmin
 from import_export.fields import Field
-from import_export.widgets import ForeignKeyWidget
+from import_export.widgets import ForeignKeyWidget, ManyToManyWidget
 
 from home.forms import (
     ItemTransaksiForm,
     PembayaranForm,
-    PembelianExportForm,
     PembelianForm,
     PembelianObatForm,
     VarianProdukForm,
@@ -45,15 +44,24 @@ class PembayaranResource(resources.ModelResource):
 
 class PembelianResource(resources.ModelResource):
 
+    pembelianobat_set = Field(
+        column_name="produk",
+        attribute="pembelianobat_set",
+        widget=ManyToManyWidget(Produk, field="obat"),
+    )
+
     class Meta:
         model = Pembelian
-
-    def __init__(self, form_fields=None):
-        super().__init__()
-        self.form_fields = form_fields
-
-    def get_export_fields(self):
-        return [self.fields[f] for f in self.form_fields]
+        fields = [
+            "created_on",
+            "updated_on",
+            "nomor_pre_order",
+            "nomor_faktur",
+            "tanggal_faktur",
+            "tanggal_jatuh_tempo",
+            "supplier",
+            "pembelianobat_set",
+        ]
 
 
 class VarianProdukResource(resources.ModelResource):
@@ -178,22 +186,6 @@ class PembelianAdmin(ExportMixin, admin.ModelAdmin):
     ]
 
     change_form_template = "admin/pembelian/change_form.html"
-
-    def get_export_resource_kwargs(self, request, *args, **kwargs):
-        formats = self.get_export_formats()
-        form = PembelianExportForm(formats, request.POST or None)
-        # get list of fields from form (hard-coded to 'author' for example purposes)
-        form_fields = (
-            "uid",
-            "created_on",
-            "updated_on",
-            "nomor_pre_order",
-            "nomor_faktur",
-            "tanggal_faktur",
-            "tanggal_jatuh_tempo",
-            "supplier",
-        )
-        return {"form_fields": form_fields}
 
     def get_total_produk(self, obj):
         return obj.pembelianobat_set.count()
