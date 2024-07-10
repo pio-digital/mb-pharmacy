@@ -1,6 +1,8 @@
 from django.contrib import admin
 from import_export import resources
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ExportMixin, ImportExportModelAdmin
+from import_export.fields import Field
+from import_export.widgets import ForeignKeyWidget
 
 from home.forms import (
     ItemTransaksiForm,
@@ -54,6 +56,45 @@ class PembelianResource(resources.ModelResource):
         return [self.fields[f] for f in self.form_fields]
 
 
+class VarianProdukResource(resources.ModelResource):
+    produk = Field(
+        attribute="produk",
+        column_name="produk",
+        widget=ForeignKeyWidget(Produk, "nama"),
+    )
+
+    unit = Field(
+        attribute="unit",
+        column_name="unit",
+        widget=ForeignKeyWidget(Unit, "nama"),
+    )
+
+    storage = Field(
+        attribute="storage",
+        column_name="storage",
+        widget=ForeignKeyWidget(Storage, "nama"),
+    )
+
+    class Meta:
+        model = VarianProduk
+        fields = [
+            "produk",
+            "barcode",
+            "sku",
+            "tanggal_kedaluwarsa",
+            "unit",
+            "kuantitas",
+            "storage",
+            "harga_beli",
+            "harga_jual",
+            "persentase_margin",
+            "nominal_margin",
+            "uid",
+            "created_on",
+            "updated_on",
+        ]
+
+
 # Register your models here.
 
 
@@ -84,7 +125,7 @@ class ItemTransaksiInline(admin.TabularInline):
 
 
 @admin.register(Pembelian)
-class PembelianAdmin(ImportExportModelAdmin):
+class PembelianAdmin(ExportMixin, admin.ModelAdmin):
     form = PembelianForm
     search_fields = [
         "nomor_pre_order",
@@ -336,7 +377,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 @admin.register(VarianProduk)
-class VarianProduk(admin.ModelAdmin):
+class VarianProduk(ExportMixin, admin.ModelAdmin):
+    resource_classes = [VarianProdukResource]
     search_fields = [
         "produk__nama",
         "barcode",
