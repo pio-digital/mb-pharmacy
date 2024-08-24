@@ -1,0 +1,121 @@
+{% load humanize %}
+{% load tz %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .receipt-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .receipt-header, .receipt-footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .receipt-items table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .receipt-items th, .receipt-items td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: small;
+        }
+        .total {
+            text-align: right;
+            font-weight: bold;
+        }
+        .btn-warning {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #ffc107;
+            color: #000;
+            border: 1px solid #ffc107;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="receipt" class="receipt-container">
+        <div class="receipt-header">
+            <h1>{{ object.lokasi.nama_toko }}</h1>
+            <h5>{{ object.lokasi.alamat_lengkap }}</h5>
+            <p>ID Transaksi: {{ object.uid }}</p>
+            <p>Tanggal: {{ transaksi.created_on|timezone:"Asia/Jakarta" }}</p>
+            <p>Kasir: {{ object.profile.user }}</p>
+        </div>
+
+        <div class="receipt-items">
+            <h2>Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Unit</th>
+                        <th>Kuantitas</th>
+                        <th>Harga</th>
+                        <th>Sub-Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in item_transaksi %}
+                    <tr>
+                        <td>{{ item.item.produk.nama }}</td>
+                        <td>{{ item.item.produk.unit }}</td>
+                        <td>{{ item.kuantitas }}</td>
+                        <td>Rp {{ item.item.harga_jual|intcomma }}</td>
+                        <td>Rp {{ item.harga|intcomma }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="total">
+            <p>Total: Rp {{ object.total_biaya|intcomma }}</p>
+            <p>{{ object.metode_pembayaran }} - {{ object.get_status_display }}</p>
+        </div>
+
+        <div class="receipt-footer">
+            <p>Terima kasih sudah berbelanja</p>
+            <p>Semoga lekas sembuh</p>
+        </div>
+    </div>
+
+    <button onclick="generateReceipt('receipt')" type="button" class="btn-warning">Cetak Struk</button>
+ 
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function generateReceipt(elementId) {
+            let d = document.getElementById(elementId).innerHTML;
+            document.body.innerHTML = d;
+            window.print();
+        }
+    </script>
+</body>
+</html>
