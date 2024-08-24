@@ -105,7 +105,9 @@ class Produk(BaseModel):
     # __Produk_FIELDS__
     supplier = models.ForeignKey(
         Supplier,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
     nama = models.CharField(max_length=50, null=True, blank=True)
     brand = models.CharField(max_length=50, null=True, blank=True)
