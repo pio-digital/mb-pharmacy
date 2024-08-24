@@ -25,6 +25,7 @@ from home.models import (
     ItemTransaksi,
     Pembelian,
     Produk,
+    SumberDana,
     Supplier,
     Transaksi,
     VarianProduk,
@@ -47,6 +48,8 @@ class HomeView(LoginRequiredMixin, View):
             status=SUCCESS,
             created_on__date=date.today(),
         )
+
+        cash_on_hand = SumberDana.objects.get(nama="Cash on Hand")
         context = {
             "all_transaksi": format_currency(
                 all_transaksi.aggregate(total=Coalesce(Sum("total_biaya"), 0)).get(
@@ -55,9 +58,7 @@ class HomeView(LoginRequiredMixin, View):
                 CURRENCY_IDR,
             ),
             "cash": format_currency(
-                all_transaksi.filter(metode_pembayaran_id=METODE_PEMBAYARAN_TUNAI_ID)
-                .aggregate(total=Coalesce(Sum("total_biaya"), 0))
-                .get("total", 0),
+                cash_on_hand.saldo,
                 CURRENCY_IDR,
             ),
             "total_products": Produk.objects.count(),
