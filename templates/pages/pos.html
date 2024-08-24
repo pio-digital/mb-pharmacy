@@ -207,6 +207,7 @@
               </div>
             </div>
           </form>
+          <button class="btn btn-warning btn-block btn-lg" x-on:click="printReceipt">Cetak Struk</button>
         </div>
       </section>
     </section>
@@ -215,6 +216,15 @@
 {% endblock content %}
 {% block extra_js %}
   <script>
+    // Get the current date
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('id-ID', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
     document.addEventListener('alpine:init', () => {
         Alpine.data('datapos', () => ({
             isSearchResult: false,
@@ -348,7 +358,56 @@
               }
 
               this.productPerst[position] = dataMutation
-            }
+            },
+
+            printReceipt() {
+              let receiptContent = `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                  <h2 style="text-align: center;">Apotek Mitra Berkah Sukabumi</h2>
+                  <p style="text-align: center;">Tanggal: ${formattedDate}</p>
+                  <hr>
+                  <div>
+                    <h4>Items:</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                      <thead>
+                        <tr>
+                          <th style="border: 1px solid #000; padding: 8px; text-align: left;">Item</th>
+                          <th style="border: 1px solid #000; padding: 8px; text-align: right;">Kuantitas</th>
+                          <th style="border: 1px solid #000; padding: 8px; text-align: right;">Harga</th>
+                          <th style="border: 1px solid #000; padding: 8px; text-align: right;">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${this.productPerst.map(item => `
+                          <tr>
+                            <td style="border: 1px solid #000; padding: 8px;">${item.produk.nama}</td>
+                            <td style="border: 1px solid #000; padding: 8px; text-align: right;">${item.kuantitas_input}</td>
+                            <td style="border: 1px solid #000; padding: 8px; text-align: right;">${this.handleFormatPrice(item.harga_jual, true)}</td>
+                            <td style="border: 1px solid #000; padding: 8px; text-align: right;">${this.handleFormatPrice(item.harga_akhir, true)}</td>
+                          </tr>
+                        `).join('')}
+                      </tbody>
+                    </table>
+                  </div>
+                  <hr>
+                  <div>
+                    <p>Total: ${this.handleFormatPrice(this.totalPrice, true)}</p>
+                    <p>Bayar: ${this.handleFormatPrice(this.paymentTotal, true)}</p>
+                    <p>Kembalian: ${this.handleFormatPrice(this.paymentChange, true)}</p>
+                  </div>
+                  <hr>
+                  <p style="text-align: center;">Terima kasih sudah berbelanja</p>
+                  <p style="text-align: center;">Semoga lekas sembuh</p>
+                </div>
+              `;
+
+              const printWindow = window.open('', '', 'width=600,height=400');
+              printWindow.document.open();
+              printWindow.document.write(receiptContent);
+              printWindow.document.close();
+              printWindow.focus();
+              printWindow.print();
+            },
         }))
     })
 

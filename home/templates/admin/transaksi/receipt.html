@@ -61,7 +61,7 @@
 <body>
     <div id="receipt" class="receipt-container">
         <div class="receipt-header">
-            <h1>{{ object.lokasi.nama_toko }}</h1>
+            <h1>Apotek {{ object.lokasi.nama_toko }}</h1>
             <h5>{{ object.lokasi.alamat_lengkap }}</h5>
             <p>ID Transaksi: {{ object.uid }}</p>
             <p>Tanggal: {{ transaksi.created_on|timezone:"Asia/Jakarta" }}</p>
