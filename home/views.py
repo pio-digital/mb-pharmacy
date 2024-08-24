@@ -1,7 +1,7 @@
 import json
 from datetime import date, timedelta
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db import transaction
 from django.db.models import CharField, F, Sum, Value
 from django.db.models.functions import Coalesce, Concat
@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
+from django.views.generic.detail import DetailView
 from django_filters.views import FilterView
 
 from helpers.util import format_currency
@@ -251,5 +252,17 @@ class ObatHabisView(LoginRequiredMixin, FilterView):
         context["produk"] = VarianProduk.objects.filter(kuantitas__lte=10).order_by(
             "produk", "-kuantitas"
         )
+
+        return context
+
+
+class ReceiptDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = "transaksi.view_order"
+    template_name = "admin/transaksi/receipt.html"
+    model = Transaksi
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["item_transaksi"] = self.get_object().itemtransaksi_set.all()
 
         return context

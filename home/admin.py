@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.urls import path, reverse
+from django.utils.html import format_html
 from import_export import resources
 from import_export.admin import ExportMixin, ImportExportModelAdmin
 from import_export.fields import Field
@@ -27,6 +29,7 @@ from home.models import (
     UserProfile,
     VarianProduk,
 )
+from home.views import ReceiptDetailView
 
 
 # Resources
@@ -298,6 +301,7 @@ class TransaksiAdmin(ImportExportModelAdmin):
         "total_biaya",
         "metode_pembayaran",
         "status",
+        "struk_pembayaran",
     ]
     exclude = ["uid"]
     inlines = [ItemTransaksiInline]
@@ -326,6 +330,22 @@ class TransaksiAdmin(ImportExportModelAdmin):
             },
         ),
     ]
+
+    change_form_template = "admin/transaksi/change_form.html"
+
+    def get_urls(self):
+        return [
+            path(
+                "<pk>/receipt",
+                self.admin_site.admin_view(ReceiptDetailView.as_view()),
+                name="trx-receipt-detail",
+            ),
+            *super().get_urls(),
+        ]
+
+    def struk_pembayaran(self, obj: Transaksi) -> str:
+        url = reverse("admin:trx-receipt-detail", args=[obj.pk])
+        return format_html(f'<a href="{url}"><i class="fa fa-receipt"></i></a>')
 
 
 @admin.register(Lokasi)
