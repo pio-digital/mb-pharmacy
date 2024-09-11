@@ -65,7 +65,7 @@ class HomeView(LoginRequiredMixin, View):
             "total_products": Produk.objects.count(),
             "total_suppliers": Supplier.objects.count(),
             "best_selling": ItemTransaksi.objects.values("item__produk__nama")
-            .annotate(sold=Sum("item"))
+            .annotate(sold=Sum("kuantitas"))
             .order_by("-sold")[:5],
             "total_empties": VarianProduk.objects.filter(kuantitas__lte=10)
             .order_by("-kuantitas")
