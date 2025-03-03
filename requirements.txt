@@ -1,5 +1,6 @@
 bson
 django==4.2.8
+django-extensions
 django-filter
 django-import-export==3.3.8
 gunicorn==21.2.0
